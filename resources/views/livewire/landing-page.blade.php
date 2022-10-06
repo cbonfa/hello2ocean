@@ -44,7 +44,7 @@
                     type="email" 
                     name="email" 
                     placeholder="email address"
-                    wire:model="email"
+                    wire:model.dever="email"
                 >
                 </x-input>
                 <span class="text-gray-100 text-xs">
@@ -54,8 +54,14 @@
                         : 'We will send you a confirmation e-mail'
                     }}
                 </span>
-                <x-button class="px-5 py-3 mt-5 w-80 bg-blue-500 justify-center"
-                >Get It</x-button>
+                <x-button class="px-5 py-3 mt-5 w-80 bg-blue-500 justify-center">
+                    <span class="animate-spin mr-1" wire:loading wire:targe="subscribe">
+                        &#9696;
+                    </span>
+                    <span wire:loading.remove wire:target="subscribe">
+                        Get It
+                    </span>                    
+                </x-button>
             </form>
         </x-model>
 

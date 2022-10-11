@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\FisherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/subscribers/verify/{subscriber}', [SubscriberController::class, 'verify'])
+Route::get('/fishers/verify/{fisher}', [FisherController::class, 'verify'])
     ->middleware('signed')
-    ->name('subscribers.verify');
+    ->name('fishers.verify');
 
 
 require __DIR__.'/auth.php';

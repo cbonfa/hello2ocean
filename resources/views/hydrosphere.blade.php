@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('hydrosphere') }}
         </h2>
     </x-slot>
 
@@ -14,8 +14,8 @@
                     </p>
                     <ul class="list-disc pl-5">
                         <li class="text-blue-500 hover:underline">
-                            <a href="{{ route('subscribers.all') }}">
-                                Manage Subscriber    
+                            <a href="{{ route('fishers.all') }}">
+                                Manage Fisher    
                             </a>
                             
                         </li>

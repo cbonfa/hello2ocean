@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Subscriber::factory(10)->create();
+        // senha: password
+        User::factory(['name' => 'César Bonfá', 'email' => 'bonfa@inaum.net'])->create();
+        
+        // Fisher::factory(10)->create();
     }
 }

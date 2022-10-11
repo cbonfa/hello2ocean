@@ -1,6 +1,6 @@
 <div class="flex flex-col bg-indigo-900 w-full h-screen"
         x-data="{
-            showSubscribe: @entangle('showSubscribe'),
+            showFisher: @entangle('showFisher'),
             showSuccess: @entangle('showSuccess'),
         }">
         <nav class="flex pt-5 justify-between container mx-auto text-indigo-200">
@@ -9,7 +9,7 @@
             </a>
             <div class="flex justify-end">
                 @auth
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <a href="{{ route('hydrosphere') }}">Hydrosphere</a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
                 @endauth
@@ -25,7 +25,7 @@
                 </p>
                 <x-button 
                     class="py-3 px-8 bg-red-500 hover:bg-red-600"
-                    x-on:click="showSubscribe = true"
+                    x-on:click="showFisher = true"
                 >
                     Subscribe
                 </x-button>
@@ -33,7 +33,7 @@
         </div>
 
         <!-- modal tailwind -->
-        <x-model class="bg-pink-500" trigger="showSubscribe">
+        <x-model class="bg-pink-500" trigger="showFisher">
             <p class="text-white text-5xl font-extrabold text-center"> Let's do it</p>
             <form 
                 class="flex flex-col items-center p-24"

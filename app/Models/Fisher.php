@@ -6,7 +6,7 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-class Subscriber extends Model
+class Fisher extends Model
 {
     use HasFactory, MustVerifyEmail, Notifiable;
 

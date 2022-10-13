@@ -23,7 +23,7 @@ class LanguageTest extends TestCase
           ]), 1);
     }
 
-    public function teste_create_language(){
+    public function test_create_language(){
         $this->assertInstanceOf(Language::class, Language::factory()->create()); 
     }    
 

@@ -17,8 +17,16 @@ class CreateWavesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->unsignedBigInteger('language_id');
+            $table->unsignedBigInteger('language_id')->default(1);
             $table->foreign('language_id')->references('id')->on('languages');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('fisher_id')->nullable();
+            $table->foreign('fisher_id')->references('id')->on('fishers');
+            $table->boolean('blocked')->default(false);
+            $table->text('blocked_reason')->nullable();
+            # $table->string('IP', 128)->nullable();
+            
             $table->timestamps();
         });
     }

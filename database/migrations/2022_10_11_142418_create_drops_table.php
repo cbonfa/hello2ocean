@@ -25,10 +25,16 @@ class CreateDropsTable extends Migration
             $table->foreign('drop_id')->references('id')->on('drops');
             $table->unsignedBigInteger('splash_id');
             $table->foreign('splash_id')->references('id')->on('splashes');
-            $table->unsignedBigInteger('language_id');
+            $table->unsignedBigInteger('language_id')->default(1);
             $table->foreign('language_id')->references('id')->on('languages');
             $table->boolean('blocked')->default(false);
             $table->text('blocked_reason')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('fisher_id')->nullable();
+            $table->foreign('fisher_id')->references('id')->on('fishers');  
+            # $table->string('IP', 128)->nullable();
+               
             $table->timestamps();
         });
     }

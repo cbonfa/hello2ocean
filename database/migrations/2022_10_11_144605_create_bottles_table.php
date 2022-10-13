@@ -24,6 +24,7 @@ class CreateBottlesTable extends Migration
             $table->foreign('drop_id')->references('id')->on('drops');
             $table->integer('answer');
             $table->boolean('ignore')->default(false);
+            # $table->string('IP', 128)->nullable();
                         
             $table->timestamps();
         });

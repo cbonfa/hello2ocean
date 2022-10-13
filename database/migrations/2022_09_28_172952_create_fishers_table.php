@@ -25,6 +25,8 @@ class CreateFishersTable extends Migration
             $table->unsignedBigInteger('language_id')->default(1);
             $table->foreign('language_id')->references('id')->on('languages');
             $table->rememberToken();
+            # $table->string('IP', 128)->nullable();
+            
             $table->timestamps();
         });
     }

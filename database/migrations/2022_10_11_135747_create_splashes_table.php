@@ -24,7 +24,13 @@ class CreateSplashesTable extends Migration
             $table->foreign('language_id')->references('id')->on('languages');
             $table->boolean('blocked')->default(false);
             $table->text('blocked_reason')->nullable();
-            $table->integer('days_to_expire')->nullable();            
+            $table->integer('days_to_expire')->nullable();   
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('fisher_id')->nullable();
+            $table->foreign('fisher_id')->references('id')->on('fishers'); 
+            # $table->string('IP', 128)->nullable();                 
+            
             $table->timestamps();
         });
     }

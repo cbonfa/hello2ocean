@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class WaveFactory extends Factory
+class LanguageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,10 @@ class WaveFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'country' => $this->faker->country(),
+            'country_code' => $this->faker->countryCode(),
+            'locale' => $this->faker->locale(), 
+            'active' => true,
         ];
     }
 }

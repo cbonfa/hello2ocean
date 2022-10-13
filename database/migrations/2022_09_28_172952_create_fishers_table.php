@@ -22,6 +22,8 @@ class CreateFishersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_sign_in_at')->nullable();
             $table->string('password')->nullable();
+            $table->unsignedBigInteger('language_id')->default(1);
+            $table->foreign('language_id')->references('id')->on('languages');
             $table->rememberToken();
             $table->timestamps();
         });

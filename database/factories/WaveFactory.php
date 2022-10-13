@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Language;
 
 class WaveFactory extends Factory
 {
@@ -14,7 +15,9 @@ class WaveFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'language_id' => Language::factory()->create()->id,
         ];
     }
 }

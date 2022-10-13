@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Splash extends Model
 {
     use HasFactory;
+
+    public function wave()
+    {
+        return $this->belongsTo(Wave::class);
+    }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }    
 }

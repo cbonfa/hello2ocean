@@ -15,10 +15,9 @@ class CreateLanguagesTable extends Migration
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
             $table->string('country');
             $table->string('country_code', 6);
-            $table->char('abbreviation', 5)->unique()->index();
+            $table->char('locale', 6)->unique()->index();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

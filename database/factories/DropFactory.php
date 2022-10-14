@@ -22,7 +22,7 @@ class DropFactory extends Factory
             'name' => $this->faker->name(),
             'description' => $this->faker->name(),
             'image' => null,
-            'drop_id' => Drop::factory()->create()->id,
+            'drop_id' => null,
             'splash_id' => Splash::factory()->create()->id,
             'language_id' => Language::factory()->create()->id,
             'blocked' => false,

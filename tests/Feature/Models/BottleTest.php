@@ -10,12 +10,17 @@ class BottleTest extends TestCase
 {
     use DatabaseTransactions;
     
-    public function bottle_database_has_expected_columns()
+    public function test_bottle_database_has_expected_columns()
     {
         $this->assertTrue( 
           Schema::hasColumns('bottles', [
-            'id','name', 'description', 'language_id'
+            'id','fisher_id', 'splash_id', 'drop_id',
+            'answer', 'ignore'
         ]), 1);
+    }
+
+    public function test_create_bottle(){
+        $this->markTestSkipped('must be revisited.');
     }
 
 }

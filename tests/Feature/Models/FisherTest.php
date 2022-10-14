@@ -25,4 +25,8 @@ class FisherTest extends TestCase
         $this->assertInstanceOf(Fisher::class, Fisher::factory()->create()); 
     }
 
+    public function test_return_waves(){
+        $this->markTestIncomplete('Inclomplete: must be revisited');
+    }
+
 }

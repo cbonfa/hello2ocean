@@ -21,7 +21,7 @@ class CreateDropsTable extends Migration
             # $table->integer('category')->default(0) # yes ou no
             $table->string('image')->nullable();
             # referencia a si mesmo, se foi reaproveitada
-            $table->unsignedBigInteger('drop_id');
+            $table->unsignedBigInteger('drop_id')->nullable();
             $table->foreign('drop_id')->references('id')->on('drops');
             $table->unsignedBigInteger('splash_id');
             $table->foreign('splash_id')->references('id')->on('splashes');

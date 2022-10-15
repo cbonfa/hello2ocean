@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Drop;
+use App\Models\Fisher;
+use App\Models\Language;
+use App\Models\Splash;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,18 +26,19 @@ class CreateDropsTable extends Migration
             # $table->integer('category')->default(0) # yes ou no
             $table->string('image')->nullable();
             # referencia a si mesmo, se foi reaproveitada
-            $table->unsignedBigInteger('drop_id')->nullable();
-            $table->foreign('drop_id')->references('id')->on('drops');
-            $table->unsignedBigInteger('splash_id');
-            $table->foreign('splash_id')->references('id')->on('splashes');
-            $table->unsignedBigInteger('language_id')->default(1);
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreignIdFor(Drop::class)->nullable();
+            $table->foreignIdFor(Splash::class);
+            $table->foreignIdFor(Language::class)->default(1);
+
             $table->boolean('blocked')->default(false);
+
+            # O Splash é necessário para entendimento da "pergunta" drops
+            $table->boolean('splash_needed')->nullable();
+
             $table->text('blocked_reason')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('fisher_id')->nullable();
-            $table->foreign('fisher_id')->references('id')->on('fishers');  
+            
+            $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(Fisher::class)->nullable();
             # $table->string('IP', 128)->nullable();
                
             $table->timestamps();

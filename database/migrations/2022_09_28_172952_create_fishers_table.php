@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Language;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,8 +23,7 @@ class CreateFishersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_sign_in_at')->nullable();
             $table->string('password')->nullable();
-            $table->unsignedBigInteger('language_id')->default(1);
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreignIdFor(Language::class)->nullable();
             $table->rememberToken();
             # $table->string('IP', 128)->nullable();
             

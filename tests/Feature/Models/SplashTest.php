@@ -49,41 +49,116 @@ class SplashTest extends TestCase
     public function test_mass_create(){
         $splash = Splash::factory()->create();
         $language = Language::factory(['id' => 1])->create();
-        $splash->drops()->createMany([
-            ['name' => 'Você gosta de Dirigir?'],
-            ['name' => 'Você é legal?.'],
-        ]);
-        $splash->refresh();
+
+        $this->create_drops($splash);
+
         $this->assertEquals(2, $splash->drops->count());
     }
 
     public function test_mass_sync(){
         $splash = Splash::factory()->create();
         $language = Language::factory(['id' => 1])->create();
-        $splash->drops()->createMany([
-            ['name' => 'Você gosta de Dirigir?'],
-            ['name' => 'Você é legal?.'],
-        ]);
-        $splash->refresh();
+
+        $this->create_drops($splash);
+
         $drop1 = $splash->drops()->first();
         # $drop2 = $splash->drops()->last();
         
         $splash->drops()->createUpdateOrDelete([ 
-            [ 'id' => $drop1->id, 'name' => 'Birigui'], // update
+            [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update
             [ 'id' => null, 'name' => 'Novo Registo'], // novo registro
             [ 'id' => null, 'name' => 'Novo Registo 2'], // novo registro
         ]); // Delete Você é Legal.
         $splash->refresh();
-        foreach ($splash->drops as $drop)
-        {
-            
-            echo($drop->name . '\\n');
-        }
-
+ 
         $this->assertEquals(3, $splash->drops->count());
 
-        // dd($splash->drops()->count());
+    }
 
+    public function test_mass_sync_updated_drop(){
+        $splash = Splash::factory()->create();
+        $language = Language::factory(['id' => 1])->create();
+
+        $this->create_drops($splash);
+
+        $drop1 = $splash->drops()->first();
+        # $drop2 = $splash->drops()->last();
+        
+        $splash->drops()->createUpdateOrDelete([ 
+            [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update
+            [ 'id' => null, 'name' => 'Novo Registo'], // novo registro
+            [ 'id' => null, 'name' => 'Novo Registo 2'], // novo registro
+        ]); // Delete Você é Legal.
+        $splash->refresh();
+        $edit = false;
+        foreach ($splash->drops as $drop)
+        {
+            if($drop->name == 'EDICAO'){
+                $edit = ($drop->id == $drop1->id);
+            }
+        }
+        $this->assertTrue($edit);
+    }    
+
+    public function test_mass_sync_new_drop(){
+        $splash = Splash::factory()->create();
+        $language = Language::factory(['id' => 1])->create();
+
+        $this->create_drops($splash);    
+
+        $drop1 = $splash->drops()->first();
+        $drop2 = $splash->drops()->latest()->first();
+       
+        $splash->drops()->createUpdateOrDelete([ 
+            [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update
+            [ 'id' => null, 'name' => 'NOVO'], // 
+        ]); 
+        $splash->refresh();
+        $new = false;
+        
+        foreach ($splash->drops as $drop)
+        {
+            if($drop->name == 'NOVO'){
+              $new = ( ($drop->id != $drop1->id) && ($drop->id != $drop2->id) );
+            }
+        }
+        $this->assertTrue($new);
+    }   
+    
+    
+    public function test_mass_sync_deleted_drop(){
+        $splash = Splash::factory()->create();
+        $language = Language::factory(['id' => 1])->create();
+
+        $this->create_drops($splash);
+
+        $drop1 = $splash->drops()->first();
+        $drop2 = $splash->drops()->orderBy('created_at', 'desc')->first();
+
+        echo "{$drop1->id} {$drop1->name} -";
+        echo "{$drop2->id} {$drop2->name} -";
+        
+        $splash->drops()->createUpdateOrDelete([ 
+            [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update
+            [ 'id' => null, 'name' => 'NOVO'], // 
+        ]); 
+        $splash->refresh();
+        $deleted = true;
+        
+        foreach ($splash->drops as $drop)
+        {        
+
+            if ($drop->id == $drop2->id) { $deleted = false; }
+        }
+        $this->assertTrue($deleted);
+    } 
+
+    private function create_drops(&$splash){
+        $splash->drops()->createMany([
+            ['name' => 'Item 1'],
+            ['name' => 'Item 2'],
+        ]);
+        $splash->refresh();
     }
 
 

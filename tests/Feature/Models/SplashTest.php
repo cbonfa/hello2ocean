@@ -68,12 +68,21 @@ class SplashTest extends TestCase
         $drop1 = $splash->drops()->first();
         # $drop2 = $splash->drops()->last();
         
-        $splash->drops()->sync([ 
-            [ 'id' => $drop1->id, 'name' => 'Birigui'],
-            [ 'id' => null, 'name' => 'Birigui'],
-        ]);
-        #$splash->refresh();
-        #dd($splash->drops());
+        $splash->drops()->createUpdateOrDelete([ 
+            [ 'id' => $drop1->id, 'name' => 'Birigui'], // update
+            [ 'id' => null, 'name' => 'Novo Registo'], // novo registro
+            [ 'id' => null, 'name' => 'Novo Registo 2'], // novo registro
+        ]); // Delete Você é Legal.
+        $splash->refresh();
+        foreach ($splash->drops as $drop)
+        {
+            
+            echo($drop->name . '\\n');
+        }
+
+        $this->assertEquals(3, $splash->drops->count());
+
+        // dd($splash->drops()->count());
 
     }
 

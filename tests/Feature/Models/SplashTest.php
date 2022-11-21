@@ -106,8 +106,8 @@ class SplashTest extends TestCase
 
         $this->create_drops($splash);    
 
-        $drop1 = $splash->drops()->first();
-        $drop2 = $splash->drops()->latest()->first();
+        $drop1 = $splash->drops()->orderBy('id')->first();
+        $drop2 = $splash->drops()->orderByDesc('id')->first();
        
         $splash->drops()->createUpdateOrDelete([ 
             [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update
@@ -132,11 +132,11 @@ class SplashTest extends TestCase
 
         $this->create_drops($splash);
 
-        $drop1 = $splash->drops()->first();
-        $drop2 = $splash->drops()->orderBy('created_at', 'desc')->first();
+        $drop1 = $splash->drops()->orderBy('id')->first();
+        $drop2 = $splash->drops()->orderByDesc('id')->first();
 
         echo "{$drop1->id} {$drop1->name} -";
-        echo "{$drop2->id} {$drop2->name} -";
+        echo "{$drop2->id} {$drop2->name}";
         
         $splash->drops()->createUpdateOrDelete([ 
             [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update

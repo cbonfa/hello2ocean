@@ -14,10 +14,14 @@
                     </p>
                     <ul class="list-disc pl-5">
                         <li class="text-blue-500 hover:underline">
-                            <a href="{{ route('fishers.all') }}">
+                            <a href="{{ route('hydrosphere.fishers.all') }}">
                                 Manage Fisher    
+                            </a>                            
+                        </li>
+                        <li class="text-blue-500 hover:underline">                        
+                            <a href="{{ route('hydrosphere.waves.index') }}">
+                                Manage Waves
                             </a>
-                            
                         </li>
                     </ul>
                 </div>

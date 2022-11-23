@@ -9,7 +9,7 @@
             </a>
             <div class="flex justify-end">
                 @auth
-                    <a href="{{ route('hydrosphere') }}">Hydrosphere</a>
+                    <a href="{{ route('hydrosphere.index') }}">Hydrosphere</a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
                 @endauth

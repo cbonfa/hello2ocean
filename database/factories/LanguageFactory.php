@@ -14,6 +14,7 @@ class LanguageFactory extends Factory
     public function definition()
     {
         return [
+            'description' => $this->faker->country(),
             'country' => $this->faker->country(),
             'country_code' => $this->faker->countryCode(),
             'locale' => $this->faker->locale(), 

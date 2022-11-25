@@ -19,7 +19,7 @@ class CreateWavesTable extends Migration
         Schema::create('waves', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->foreignIdFor(Language::class)->default(1);
             $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Fisher::class)->nullable();

@@ -9,6 +9,8 @@ class Wave extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description', 'language_id'];
+
     public function language()
     {
         return $this->belongsTo(Language::class);

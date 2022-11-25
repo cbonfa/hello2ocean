@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wave;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class WaveController extends Controller
 {
+
+    protected $languages;
+
+    public function __construct()
+    {
+        $this->load_variables();
+    }
+
     /**
     * Display a listing of the resource.
     */
@@ -14,7 +23,6 @@ class WaveController extends Controller
     {
         // get all the sharks
         $waves = Wave::all();
-
         // load the view and pass the sharks
         return view('hydrosphere.waves.index')
                 ->with('waves', $waves);
@@ -27,7 +35,7 @@ class WaveController extends Controller
         */
     public function create()
     {
-        return view('hydrosphere.waves.create');
+        return view('hydrosphere.waves.create')->with('languages', $this->languages);;
     }
 
     /**
@@ -35,9 +43,16 @@ class WaveController extends Controller
         *
         * @return Response
         */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => '',
+            'language_id' => 'required',
+        ]);
+        $show = Wave::create($validatedData);
+   
+        return redirect()->route('hydrosphere.waves.index')->with('success', 'Wave is successfully saved');
     }
 
     /**
@@ -59,7 +74,9 @@ class WaveController extends Controller
         */
     public function edit($id)
     {
-        //
+        $wave = wave::findOrFail($id);
+
+        return view('edit', compact('wave'));
     }
 
     /**
@@ -82,5 +99,11 @@ class WaveController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function load_variables()
+    {
+        
+        $this->languages = Language::all();
     }
 }

@@ -22,10 +22,11 @@ class WaveController extends Controller
     public function index()
     {
         // get all the sharks
-        $waves = Wave::all();
+        $waves = Wave::latest()->paginate(50);
         // load the view and pass the sharks
-        return view('hydrosphere.waves.index')
-                ->with('waves', $waves);
+
+        return view('hydrosphere.waves.index',compact('waves'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -35,7 +36,7 @@ class WaveController extends Controller
         */
     public function create()
     {
-        return view('hydrosphere.waves.create')->with('languages', $this->languages);;
+        return view('hydrosphere.waves.create')->with('languages', $this->languages);
     }
 
     /**
@@ -74,9 +75,9 @@ class WaveController extends Controller
         */
     public function edit(Wave $wave)
     {
-        $wave = wave::findOrFail($id);
+        // $wave = wave::findOrFail($id);
 
-        return view('edit', compact('wave'));
+        return view('hydrosphere.waves.edit', compact('wave'))->with('languages', $this->languages);
     }
 
     /**
@@ -85,17 +86,17 @@ class WaveController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function update(Wave $wave)
+    public function update(Request $request, Wave $wave)
     {
-        // $request->validate([
-        //                 'name' => 'required',
-        //                 'email' => 'required',
-        //             ]);
+        $request->validate([
+            'name' => 'required|max:255',
+            'language_id' => 'required',
+        ]);
         //         
-        //             $user->update($request->all());
+        $wave->update($request->all());
         //         
-        //             return redirect()->route('users.index')
-        //                             ->with('success','User updated successfully');
+        return redirect()->route('hydrosphere.waves.show', compact('wave'))
+        ->with('success','Wavez updated successfully');
     }
 
     /**

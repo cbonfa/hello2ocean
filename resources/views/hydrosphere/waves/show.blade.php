@@ -47,6 +47,9 @@
                 <x-button-link class="bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.index')">
                     {{ __('waves_see_all') }}
                 </x-button-link>
+                <x-button-link class="ml-4 bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.edit', compact('wave'))">
+                    {{ __('waves_edit') }}
+                </x-button-link>
             </div>
         </div>
 

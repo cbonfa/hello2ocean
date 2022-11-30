@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('hydrosphere') }}
+            {{ __('all.hydrosphere') }}
         </h2>
     </x-slot>
 
@@ -45,7 +45,7 @@
                         <x-select
                         name="language_id"
                         class="w-full"
-                        includeBlank="{{__('escolha_a_linguagem')}}"
+                        includeBlank="{{__('all.choose_your_language')}}"
                         labelMethod="description"
                         :list="$languages"
                         :selected="old('language_id') ?? $wave->language_id" />                        
@@ -65,7 +65,7 @@
                 {{ Form::close() }}
                 <div class="mt-5">
                     <x-button-link class="bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.index')">
-                        {{ __('waves_see_all') }}
+                        {{ __('waves.see_all') }}
                     </x-button-link>
                 </div>
             </div>

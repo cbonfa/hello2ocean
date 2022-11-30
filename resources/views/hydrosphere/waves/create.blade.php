@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('hydrosphere') }}
+            {{ __('all.hydrosphere') }}
         </h2>
     </x-slot>
 
@@ -21,6 +21,7 @@
                 <h1>Create a Wave</h1> 
 
                 {{ Form::open(array('url' => route  ('hydrosphere.waves.store'))) }}
+                    @csrf
                     <div>
                         <x-label for="name" :value="__('name')" />
                         <x-input id="name" class="block mt-1 w-full"
@@ -42,7 +43,7 @@
                         <x-select
                         name="language_id"
                         class="w-full"
-                        includeBlank="{{__('escolha_a_linguagem')}}"
+                        includeBlank="{{__('all.choose_your_language')}}"
                         labelMethod="description"
                         :list="$languages"
                         :selected="old('language_id')" />                        
@@ -64,7 +65,7 @@
                 {{ Form::close() }}
                 <div class="mt-5">
                     <x-button-link class="bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.index')">
-                        {{ __('waves_see_all') }}
+                        {{ __('waves.see_all') }}
                     </x-button-link>
                 </div>
             </div>

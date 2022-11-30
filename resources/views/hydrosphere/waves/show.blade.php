@@ -45,10 +45,10 @@
             </div>
             <div class="mt-5">
                 <x-button-link class="bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.index')">
-                    {{ __('waves_see_all') }}
+                    {{ __('waves.see_all') }}
                 </x-button-link>
                 <x-button-link class="ml-4 bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.edit', compact('wave'))">
-                    {{ __('waves_edit') }}
+                    {{ __('waves.edit') }}
                 </x-button-link>
             </div>
         </div>

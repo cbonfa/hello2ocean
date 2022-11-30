@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('hydrosphere') }}
+            {{ __('all.hydrosphere') }}
         </h2>
     </x-slot>
     <!-- will be used to show any messages -->
@@ -48,16 +48,17 @@
                                             <td>
                                                 <form action="{{ route('hydrosphere.waves.destroy',$value->id) }}" method="POST">
                                                     <x-button-link :href="route('hydrosphere.waves.show',$value->id)">
-                                                        {{ __('waves_show') }}
+                                                        {{ __('all.show') }}
                                                     </x-button-link>
 
                                                     <x-button-link class="ml-3" :href="route('hydrosphere.waves.edit',$value->id)">
-                                                        {{ __('waves_edit') }}
+                                                        {{ __('all.edit') }}
                                                     </x-button-link>
 
                                                     @csrf
                                                     @method('DELETE')
-                                                    <x-button class="ml-3 bg-blue-500  hover:bg-blue-700">{{ __('waves_delete') }}</x-button>
+                                                    <x-button class="ml-3 bg-blue-500 
+                                                             hover:bg-blue-700">{{ __('all.delete') }}</x-button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -71,7 +72,7 @@
                 </div>
                 <div class="mt-5">
                     <x-button-link class="bg-gray-500 hover:bg-gray-800 w-full flex-auto" :href="route('hydrosphere.waves.create')">
-                        {{ __('waves_create') }}
+                        {{ __('waves.create') }}
                     </x-button-link>
                 </div>
             </div>

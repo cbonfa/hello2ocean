@@ -5,11 +5,6 @@
         </h2>
     </x-slot>
     <!-- will be used to show any messages -->
-    @if(session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -47,20 +42,23 @@
                                                 <td>{{ $value->id }}</td>
                                                 <td>{{ $value->name }}</td>
                                                 <td>{{ $value->description }}</td>
-                                                <td>{{ $value->language_id }}</td>
+                                                <td>{{ $value->language->description }}</td>
 
-                                                <!-- we will also add show, edit, and delete buttons -->
+                                                
                                                 <td>
+                                                    <form action="{{ route('hydrosphere.waves.destroy',$value->id) }}" method="POST">
+                                                        <x-button-link :href="route('hydrosphere.waves.show',$value->id)">
+                                                            {{ __('waves_show') }}
+                                                        </x-button-link>
 
-                                                    <!-- delete the shark (uses the destroy method DESTROY /waves/{id} -->
-                                                    <!-- we will add this later since its a little more complicated than the other two buttons -->
+                                                        <x-button-link class="ml-3" :href="route('hydrosphere.waves.edit',$value->id)">
+                                                            {{ __('waves_edit') }}
+                                                        </x-button-link>
 
-                                                    <!-- show the shark (uses the show method found at GET /waves/{id} -->
-                                                    <a class="btn btn-small btn-success" href="{{ URL::to('hydrosphere/waves/' . $value->id) }}">Show this shark</a>
-
-                                                    <!-- edit this shark (uses the edit method found at GET /waves/{id}/edit -->
-                                                    <a class="btn btn-small btn-info" href="{{ URL::to('hydrosphere/waves/' . $value->id . '/edit') }}">Edit this shark</a>
-
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <x-button class="ml-3 bg-blue-500  hover:bg-blue-700">{{ __('waves_delete') }}</x-button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -45,12 +45,12 @@ class WaveController extends Controller
         */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
-            'description' => '',
             'language_id' => 'required',
         ]);
-        $show = Wave::create($validatedData);
+        // sem o ALL tem que colocar no validate
+        $show = Wave::create($request->all());
    
         return redirect()->route('hydrosphere.waves.index')->with('success', 'Wave is successfully saved');
     }
@@ -61,9 +61,9 @@ class WaveController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function show($id)
+    public function show(Wave $wave)
     {
-        //
+        return view('hydrosphere.waves.show',compact('wave'));
     }
 
     /**
@@ -72,7 +72,7 @@ class WaveController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function edit($id)
+    public function edit(Wave $wave)
     {
         $wave = wave::findOrFail($id);
 
@@ -85,9 +85,17 @@ class WaveController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function update($id)
+    public function update(Wave $wave)
     {
-        //
+        // $request->validate([
+        //                 'name' => 'required',
+        //                 'email' => 'required',
+        //             ]);
+        //         
+        //             $user->update($request->all());
+        //         
+        //             return redirect()->route('users.index')
+        //                             ->with('success','User updated successfully');
     }
 
     /**
@@ -96,9 +104,10 @@ class WaveController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function destroy($id)
+    public function destroy(Wave $wave)
     {
-        //
+        $wave->delete();
+        return redirect()->route('hydrosphere.waves.index')->with('success','Wave deleted successfully');
     }
 
     public function load_variables()

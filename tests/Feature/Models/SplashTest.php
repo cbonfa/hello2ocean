@@ -142,6 +142,7 @@ class SplashTest extends TestCase
             [ 'id' => $drop1->id, 'name' => 'EDICAO'], // update
             [ 'id' => null, 'name' => 'NOVO'], // 
         ]); 
+        
         $splash->refresh();
         $deleted = true;
         

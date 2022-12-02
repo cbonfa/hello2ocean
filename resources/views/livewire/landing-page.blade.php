@@ -21,13 +21,13 @@
                     Hello 2 Ocean
                 </h1>
                 <p class="text-indigo-200 text-xl mb-10">
-                    A nova rede social para <span class="font-bold underline">NAVEGAR</span> de verdade. Inscreva-se para novidades em breve
+                    A nova rede social para <span class="font-bold underline">NAVEGAR</span> de verdade. <br><small>Inscreva-se para novidades em breve</small>
                 </p>
                 <x-button 
                     class="py-3 px-8 bg-red-500 hover:bg-red-600"
                     x-on:click="showFisher = true"
                 >
-                    Subscribe
+                    Inscrever
                 </x-button>
             </div>
         </div>
@@ -35,15 +35,16 @@
         <!-- modal tailwind -->
         <x-model class="bg-pink-500" trigger="showFisher">
             <p class="text-white text-5xl font-extrabold text-center"> Vamos lá!</p>
+            <p class="text-white text-1xl font-extrabold text-center"> Desejo pescar em breve!</p>
             <form 
-                class="flex flex-col items-center p-24"
+                class="flex flex-col items-center p-20"
                 wire:submit.prevent="subscribe"
             >
                 <x-input 
                     class="px-5 py-3 w-80 border border-blue-400" 
                     type="email" 
                     name="email" 
-                    placeholder="email address"
+                    placeholder="endereço de e-mail"
                     wire:model.defer="email"
                 >
                 </x-input>
@@ -51,15 +52,16 @@
                     {{ 
                         $errors->has('email') 
                         ? $errors->first('email')
-                        : 'We will send you a confirmation e-mail'
+                        : 'Nós iremos enviar um e-mails de confirmação'
                     }}
+                    {{-- 'We will send you a confirmation e-mail' --}}
                 </span>
                 <x-button class="px-5 py-3 mt-5 w-80 bg-blue-500 justify-center">
                     <span class="animate-spin mr-1" wire:loading wire:targe="subscribe">
                         &#9696;
                     </span>
                     <span wire:loading.remove wire:target="subscribe">
-                        Get It
+                        Prontinho!
                     </span>                    
                 </x-button>
             </form>
@@ -71,15 +73,17 @@
                 &check; 
             </p>
             <p class="text-white text-5xl font-extrabold text-center mt-16">
-                Great!
+                Perfeito!
             </p>
             @if (request()->has('verified') && request()->verified == 1)
                 <p class="text-white text-3xl text-center">
-                    Thanks for confirming your account.
+                    Obrigado por confirmar seu e-mail
+                    {{-- Thanks for confirming your account. --}}
                 </p>
             @else
                 <p class="text-white text-3xl text-center">
-                    See you in your inbox.
+                    Veja sua caixa de e-mail
+                    {{-- See you in your inbox. --}}
                 </p>
             @endif
             

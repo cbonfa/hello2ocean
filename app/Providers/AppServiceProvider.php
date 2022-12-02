@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 // INI createUpdateOrDelete
-use Illuminate\Support\ServiceProvider;
-use App\Support\Macros\CreateUpdateOrDelete;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Support\Macros\CreateUpdateOrDelete;
 // END createUpdateOrDelete
 
 class AppServiceProvider extends ServiceProvider
@@ -38,8 +37,5 @@ class AppServiceProvider extends ServiceProvider
             return (new CreateUpdateOrDelete($hasMany, $records))();
         });
         // END createUpdateOrDelete
-        if($this->app->environment('production')) {
-            URL::forceScheme('https');
-        }
     }
 }

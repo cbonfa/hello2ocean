@@ -24,3 +24,4 @@ Route::get('/fishers/verify/{fisher}', [FisherController::class, 'verify'])
 
 
 require __DIR__.'/auth.php';
+

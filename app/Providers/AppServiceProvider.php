@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Support\Macros\CreateUpdateOrDelete;
 // END createUpdateOrDelete
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

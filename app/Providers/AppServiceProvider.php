@@ -2,14 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 // INI createUpdateOrDelete
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Support\Macros\CreateUpdateOrDelete;
 // END createUpdateOrDelete
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,10 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->environment('production')) {
-            $this->app['request']->server->set('HTTPS','on');
-            URL::forceSchema('https');
-        }
         // INI createUpdateOrDelete
         // Inside of the boot() method.
         HasMany::macro('createUpdateOrDelete', function (iterable $records) {

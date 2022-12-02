@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FisherController;
 
@@ -14,10 +13,6 @@ use App\Http\Controllers\FisherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-if($this->app->environment('production')) {
-    URL::forceScheme('https');
-}
 
 Route::get('/', function () {
     return view('welcome');

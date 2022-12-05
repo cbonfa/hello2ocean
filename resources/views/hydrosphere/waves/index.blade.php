@@ -1,3 +1,22 @@
+<style>
+    @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
+
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+  }
+</style>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -22,7 +41,7 @@
                 <p class="text-2xl text-gray-600 font-bold mb-6 underline">
                     All the Waves
                 </p>
-
+                {{-- https://tailwindcomponents.com/component/mobile-responsive-table --}}
                 <table class="w-full">
                     <thead class="norder border-b-2 border-gray-300 text-indigo-600">
                         <tr>

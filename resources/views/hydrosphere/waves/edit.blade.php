@@ -10,20 +10,20 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                 @if(session('success'))
-                    <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3">
+                    <div class="bg-green-100 rounded-lg py-5 px-6 text-base text-green-700 mb-3">
                         {{ session('success') }}
                     </div>
                 @endif
                 @if(session('error'))
-                <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3">
+                <div class="bg-red-100 rounded-lg py-5 px-6 text-base text-red-700 mb-3">
                     {{ session('error') }}
                 </div>
                 @endif
                 <h1>Edit a Wave</h1> 
 
                 {{ Form::open(array('url' => route  ('hydrosphere.waves.update', $wave->id))) }}
-                    @csrf
-                    @method('PUT')
+                    @csrf
+                    @method('PUT')
                     <div>
                         <x-label for="name" :value="__('name')" />
                         <x-input id="name" class="block mt-1 w-full"

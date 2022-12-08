@@ -1,3 +1,55 @@
 [x-cloak] {
     display: none;
 }
+
+@media (min-width: 640px) {
+    .tablemobile {
+      display: inline-table !important;
+    }
+
+    .tablemobile thead tr:not(:first-child) {
+      display: none;
+    }
+
+    .tablemobile thead {
+        border-bottom-width: 2px;
+    }
+
+    .tablemobile tr td div { 
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    
+    .actions {
+        width: 150px;
+    }
+}
+
+@media (max-width: 640px) {
+    .tablemobile { 
+        /* flex */
+        display: flex;
+    }
+
+    .tablemobile thead tr {
+        /* text-sm */
+        font-size: 0.875rem;
+        text-align: right;
+        padding-right: 10px;
+    }
+    
+    .tablemobile tr td {  
+        height: 40px;  
+        line-height: 40px;
+        padding: 0px;
+    }
+
+    .tablemobile tr td a {    
+        line-height: 20px;
+    }
+
+    .tablemobile tr td button {
+        line-height: 20px;
+    }
+
+}

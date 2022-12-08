@@ -19,51 +19,13 @@
                     {{ session('error') }}
                 </div>
                 @endif
-                <h1>Edit a Wave</h1> 
+                <p class="text-2xl text-gray-600 font-bold mb-6 underline">
+                    {{ __('waves.edit') }}
+                </p>
+                @include('hydrosphere.waves._form')
 
-                {{ Form::open(array('url' => route  ('hydrosphere.waves.update', $wave->id))) }}
-                    @csrf
-                    @method('PUT')
-                    <div>
-                        <x-label for="name" :value="__('name')" />
-                        <x-input id="name" class="block mt-1 w-full"
-                                        type="text"
-                                        name="name"
-                                        :value="old('name') ?? $wave->name" />
-                    </div>
-                    <div>
-                        <x-label for="description" :value="__('description')" />
-                        <x-textarea 
-                        class="w-full flex-auto" 
-                        rows="4" 
-                        name="description" 
-                        >{{ old('description') ?? $wave->description }}</x-textarea>
-                    </div>
-                    
-                    <div>
-                        <x-label for="description" :value="__('language')" />
-                        <x-select
-                        name="language_id"
-                        class="w-full"
-                        includeBlank="{{__('all.choose_your_language')}}"
-                        labelMethod="description"
-                        :list="$languages"
-                        :selected="old('language_id') ?? $wave->language_id" />                        
-                    </div>
-                    {{--  {{ array('0'=>'SelectaLevel','1'=>'SeesSunlight','2'=>'FoosballFanatic','3'=>'BasementDweller'),old('Wave_level') }} /> --}}
-                    <div>
-                        <hr>
-                    </div>
-                    <div class="mt-5">
-                        <x-button 
-                        class="w-full bg-blue-500  hover:bg-blue-700"
-
-                        >
-                            Save the Wave
-                        </x-button>
-                    </div>
-                {{ Form::close() }}
-                <div class="mt-5">
+                <div class="mt-5"><hr></div>
+                <div class="mt-5 text-center">
                     <x-button-link class="bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.index')">
                         {{ __('waves.see_all') }}
                     </x-button-link>

@@ -1,36 +1,67 @@
-<div class="flex flex-col bg-indigo-900 w-full h-screen"
+<div class="flex flex-col w-full h-screen"
         x-data="{
             showFisher: @entangle('showFisher'),
             showSuccess: @entangle('showSuccess'),
         }">
-        <nav class="flex pt-5 justify-between container mx-auto text-indigo-200">
-            <a class="text-4xl" href="/">
-                <x-application-logo class="w-16 h-16 fill-current"></x-application-logo>
-            </a>
-            <div class="flex justify-end">
-                @auth
-                    {{-- {{ <a href="{{ route('hydrosphere.index') }}">Hydrosphere</a> }} --}}
-                @else
-                    {{-- <a href="{{ route('login') }}">Login</a> --}}
-                @endauth
-            </div>
-        </nav>
-        <div class="flex container mx-auto items-center h-full">
-            <div class="flex flex-col w-1/3 items-start">
-                <h1 class="text-white font-bold text-5xl leading-tight mb-4">
-                    Hello 2 Ocean
-                </h1>
-                <p class="text-indigo-200 text-xl mb-10">
-                    A nova rede social para <span class="font-bold underline">NAVEGAR</span> de verdade. <br><small>Inscreva-se para novidades em breve</small>
-                </p>
-                <x-button 
-                    class="py-3 px-8 bg-red-500 hover:bg-red-600"
-                    x-on:click="showFisher = true"
-                >
-                    Inscrever
-                </x-button>
-            </div>
+
+        
+        <div class="header">
+            <div class="flex flex-col space-y-2">
+                <div>
+                    <nav class="flex pt-5 justify-between container mx-auto text-indigo-200">
+                        <a class="text-4xl" href="/">
+                            <x-application-logo class="w-16 h-16 fill-current"></x-application-logo>
+                        </a>
+                        <div class="flex justify-end">
+                            @auth
+                                {{-- {{ <a href="{{ route('hydrosphere.index') }}">Hydrosphere</a> }} --}}
+                            @else
+                                {{-- <a href="{{ route('login') }}">Login</a> --}}
+                            @endauth
+                        </div>
+                    </nav>
+                    <div class="flex container mx-auto">
+                        <div class="flex flex-col w-1/3 items-start">
+                            <h1 class="text-white font-bold text-5xl leading-tight mb-4">
+                                Hello 2 Ocean
+                            </h1>
+                            <p class="text-indigo-200 text-xl mb-10">
+                                A nova rede social para <span class="font-bold underline">NAVEGAR</span> de verdade. <br><small>Inscreva-se para novidades em breve</small>
+                            </p>
+                            <x-button 
+                                class="py-3 px-8 bg-red-500 hover:bg-red-600"
+                                x-on:click="showFisher = true"
+                            >
+                                Inscrever
+                            </x-button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INI Content before waves-->
+                <!-- Content before waves-->
+            
+                <!--Waves Container-->
+                <div>
+                    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+                    </g>
+                    </svg>
+                    </div>
+                    <!--Waves end-->
+                
+                </div>
+                <!--Header ends-->        
         </div>
+        
 
         <!-- modal tailwind -->
         <x-model class="bg-pink-500" trigger="showFisher">
@@ -88,7 +119,11 @@
             @endif
             
         </x-model>
-        
-
-        
+        <div class=" items-center">
+            <p>Em breve pescador</p>
+        </div>
+       <!--Content ends-->
     </div>
+    <!--Content starts-->
+    
+    <link href="{{ asset('/css/landing-page.css') }}" rel="stylesheet">

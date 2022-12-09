@@ -1,6 +1,16 @@
 @props(['name', 'list', 'selected', 'includeBlank', 'labelMethod'])
 
-<select name="{{$name}}" id="{{$name}}" {!! $attributes->merge(['class' => 'rounded-md shadow-sm']) !!}"}}>
+@error($attributes['name'])
+    @php
+        $class = 'rounded-md shadow-sm border-red-500';
+    @endphp
+@else
+    @php
+        $class = 'rounded-md shadow-sm';
+    @endphp
+@enderror
+
+<select name="{{$name}}" id="{{$name}}" {!! $attributes->merge(['class' => $class]) !!}"}}>
     {{ $slot }}
     @if (isset($includeBlank))
         <option value="">{{$includeBlank}}</option>    
@@ -15,3 +25,6 @@
         @endforeach
     @endif
 </select>
+@error($attributes['name'])
+<div class="text-sm text-red-600">{{ $message }}</div>
+@enderror

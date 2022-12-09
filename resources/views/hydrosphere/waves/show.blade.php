@@ -20,7 +20,13 @@
                 </div>
                 @endif
 
-                <h1>Show the Wave</h1>
+                <p class="text-2xl text-gray-600 font-bold underline">
+                    {{ __('waves.show') }}
+                </p>
+                <p class="">{{ __('waves.explanation') }}</p>
+                <div class="inline-flex justify-center items-center w-full">
+                        <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
+                </div>
 
 
                 <div>

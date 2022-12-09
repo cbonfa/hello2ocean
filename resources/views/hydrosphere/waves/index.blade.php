@@ -20,9 +20,13 @@
                 </div>
                 @endif
 
-                <p class="text-2xl text-gray-600 font-bold mb-6 underline">
-                    All the Waves
+                <p class="text-2xl text-gray-600 font-bold underline">
+                    {{ __('waves.index') }}
                 </p>
+                <p class="">{{ __('waves.explanation') }}</p>
+                <div class="inline-flex justify-center items-center w-full">
+                        <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
+                </div>
                 
                 {{-- https://tailwindcomponents.com/component/mobile-responsive-table --}}
                 <table class="tablemobile w-full flex-row flex-no-wrap overflow-hidden my-5">

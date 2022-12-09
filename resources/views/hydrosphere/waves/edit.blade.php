@@ -19,9 +19,15 @@
                     {{ session('error') }}
                 </div>
                 @endif
-                <p class="text-2xl text-gray-600 font-bold mb-6 underline">
+
+                <p class="text-2xl text-gray-600 font-bold underline">
                     {{ __('waves.edit') }}
                 </p>
+                <p class="">{{ __('waves.explanation') }}</p>
+                
+                <div class="inline-flex justify-center items-center w-full">
+                        <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
+                </div>
                 @include('hydrosphere.waves._form')
 
                 <div class="mt-5"><hr></div>

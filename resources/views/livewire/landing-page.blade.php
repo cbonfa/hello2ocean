@@ -1,9 +1,9 @@
-<div class="flex flex-col w-full h-screen"
-        x-data="{
-            showFisher: @entangle('showFisher'),
-            showSuccess: @entangle('showSuccess'),
-        }">
-
+<div x-data="{
+        showFisher: @entangle('showFisher'),
+        showSuccess: @entangle('showSuccess'),
+    }"
+    class="flex flex-col w-full h-screen"   
+    >
         
         <div class="header">
             <div class="flex flex-col space-y-2">
@@ -88,7 +88,7 @@
                     {{-- 'We will send you a confirmation e-mail' --}}
                 </span>
                 <x-button class="px-5 py-3 mt-5 w-80 bg-blue-500 justify-center">
-                    <span class="animate-spin mr-1" wire:loading wire:targe="subscribe">
+                    <span class="animate-spin mr-1" wire:loading wire:target="subscribe">
                         &#9696;
                     </span>
                     <span wire:loading.remove wire:target="subscribe">
@@ -122,7 +122,7 @@
         <div class=" items-center">
             <p>Em breve pescador</p>
         </div>
-       <!--Content ends-->
+        <!--Content ends-->
     </div>
     <!--Content starts-->
     

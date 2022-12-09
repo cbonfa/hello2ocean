@@ -24,37 +24,46 @@
                     {{ __('waves.show') }}
                 </p>
                 <p class="">{{ __('waves.explanation') }}</p>
-                <div class="inline-flex justify-center items-center w-full">
+                {{-- <div class="inline-flex justify-center items-center w-full">
                         <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
+                </div> --}}
+
+                <div class="mt-6 overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-300">
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr class="divide-x divide-gray-200">
+                                <th scope="col" class="w-1/4 py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 bg-gray-50 sm:pl-6">
+                                    {{ __('all.name') }}
+                                </th>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
+                                    {{ $wave->name }}
+                                </td>
+                            </tr>
+                            <tr class="divide-x divide-gray-200">
+                                <th scope="col" class="w-1/4 py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 bg-gray-50 sm:pl-6">
+                                    {{ __('all.description') }}
+                                </th>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
+                                    {!! nl2br(e($wave->description)) !!}
+                                </td>
+                            </tr>
+                            <tr class="divide-x divide-gray-200">
+                                <th scope="col" class="w-1/4 py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 bg-gray-50 sm:pl-6">
+                                    {{ __('all.language') }}
+                                </th>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
+                                    {{ $wave->language->description }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-
-                <div>
-                    <div>
-                        <div>
-                            <strong>Name:</strong>
-                            {{ $wave->name }}
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <strong>Description:</strong>
-                            {{ to_nc($wave->description) }}
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <strong>Language:</strong>
-                        {{ $wave->language->description }}
-                    </div>
-                </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-5 text-center">
                 <x-button-link class="bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.index')">
                     {{ __('waves.see_all') }}
                 </x-button-link>
-                <x-button-link class="ml-4 bg-gray-500 hover:bg-gray-800" :href="route('hydrosphere.waves.edit', compact('wave'))">
+                <x-button-link class="ml-4 bg-blue-500 hover:bg-blue-800" :href="route('hydrosphere.waves.edit', compact('wave'))">
                     {{ __('waves.edit') }}
                 </x-button-link>
             </div>

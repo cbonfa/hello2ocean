@@ -48,6 +48,7 @@ class WaveController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
+            'description' => 'required',
             'language_id' => 'required',
         ]);
         // sem o ALL tem que colocar no validate

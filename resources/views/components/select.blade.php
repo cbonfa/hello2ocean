@@ -1,16 +1,23 @@
-@props(['name', 'list', 'selected', 'includeBlank', 'labelMethod'])
+@props(['list', 'selected', 'includeBlank', 'labelMethod', 'label' => false])
 
 @error($attributes['name'])
     @php
         $class = 'rounded-md shadow-sm border-red-500';
+        $class_label = 'block font-medium text-sm text-gray-700 mt-3 text-red-600';
     @endphp
 @else
     @php
         $class = 'rounded-md shadow-sm';
+        $class_label = 'block font-medium text-sm text-gray-700 mt-3';
     @endphp
 @enderror
 
-<select name="{{$name}}" id="{{$name}}" {!! $attributes->merge(['class' => $class]) !!}"}}>
+@if($label !== false)
+<label for="{{ $attributes['name'] }}" class="{{ $class_label }}">
+    {{ $label ?? $slot }}
+</label>
+@endif
+<select name="{{$attributes['name']}}" id="{{$attributes['name']}}" {!! $attributes->merge(['class' => $class]) !!}"}}>
     {{ $slot }}
     @if (isset($includeBlank))
         <option value="">{{$includeBlank}}</option>    

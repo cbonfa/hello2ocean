@@ -7,15 +7,16 @@
         @csrf
     @endisset
     <div>
-        <x-label for="name" :value="__('name')" />
-        <x-input id="name" class="block mt-1 w-full"
-                        type="text"
-                        name="name"
-                        :value="old('name', $wave->name ?? '')" />
+        <x-input 
+            :label="__('all.name')"
+            id="name" class="block mt-1 w-full"
+            type="text"
+            name="name"
+            :value="old('name', $wave->name ?? '')" />
     </div>
     <div>
-        <x-label for="description" :value="__('description')" />
         <x-textarea 
+        :label="__('all.description')"
         class="w-full flex-auto" 
         rows="4" 
         name="description" 
@@ -23,9 +24,9 @@
     </div>
 
     <div>
-        <x-label for="language_id" :value="__('language')" />
         <x-select
         name="language_id"
+        :label="__('all.language')"
         class="w-full"
         includeBlank="{{__('all.choose_your_language')}}"
         labelMethod="description"

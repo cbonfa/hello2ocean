@@ -19,10 +19,19 @@ class WaveController extends Controller
     /**
     * Display a listing of the resource.
     */
-    public function index()
+    public function index(Request $request)
     {
         // get all the sharks
-        $waves = Wave::latest()->paginate(50);
+        $search = $request->input('search');
+
+        
+        if (!blank($search)) {
+            $waves = Wave::where('name','LIKE','%'.$search.'%')
+                        ->orWhere('description', 'LIKE', '%'.$search.'%')
+                        ->paginate(50);
+        } else {
+            $waves = Wave::latest()->paginate(50);
+        }
         // load the view and pass the sharks
 
         return view('hydrosphere.waves.index',compact('waves'))

@@ -19,13 +19,28 @@
                 </div>
                 @endif
 
-                <p class="text-2xl text-gray-600 font-bold underline">
-                    {{ __('waves.index') }}
-                </p>
-                <p class="">{{ __('waves.explanation') }}</p>
-                <div class="inline-flex justify-center items-center w-full">
-                        <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
+                <div class="flex flex-col md:flex-row">
+                    <div class="flex-auto">
+                        <p class="text-2xl text-gray-600 font-bold underline">
+                            {{ __('waves.index') }}
+                        </p>
+                        <p class="">{{ __('waves.explanation') }}</p>
+                    </div>
+                    <div class="flex-auto lg:w-1/4 md:w-auto">
+                        <x-search-form
+                            route="{{ route('hydrosphere.waves.index') }}"
+                            placeholder="{{ __('waves.search_placeholder') }}"
+                            value="{{ old('search') }}"
+                        >
+                            {{ __('all.search') }}
+                        </x-search-form>
+                    </div>
                 </div>
+
+                <div class="inline-flex justify-center items-center w-full">
+                    <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
+                </div>
+                
                 
                 {{-- https://tailwindcomponents.com/component/mobile-responsive-table --}}
                 <table class="tablemobile w-full flex-row flex-no-wrap overflow-hidden my-5">

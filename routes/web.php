@@ -22,6 +22,10 @@ Route::get('/fishers/verify/{fisher}', [FisherController::class, 'verify'])
     ->middleware('signed')
     ->name('fishers.verify');
 
+# Auth
+Route::get('fishers/login', [FisherController::class, 'login']);
+Route::post('fishers/session', [FisherController::class, 'session']);
+
 
 require __DIR__.'/auth.php';
 

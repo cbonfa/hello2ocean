@@ -25,6 +25,12 @@ class CreateWavesTable extends Migration
             $table->foreignIdFor(Fisher::class)->nullable();
             $table->boolean('blocked')->default(false);
             $table->text('blocked_reason')->nullable();
+            # Referring to Upper Wave
+            $table->unsignedBigInteger('wave_id_main')->nullable();;
+            $table->foreign('wave_id_main')->references('id')->on('waves');
+            # Reference to same language
+            $table->unsignedBigInteger('wave_id_language')->nullable();;
+            $table->foreign('wave_id_language')->references('id')->on('waves');
             # $table->string('IP', 128)->nullable();
             
             $table->timestamps();

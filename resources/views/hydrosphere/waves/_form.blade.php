@@ -34,6 +34,16 @@
         :selected="old('language_id', $wave->language_id ?? '')" />                        
     </div>
     <div>
+        <x-tom-select
+            id="wave_id_main"
+            name="wave_id_main"
+            wire:model="testUser"
+            :options="$users"
+            placeholder="Pick a user"
+            items="{{ $testUser }}"
+        />
+    </div>
+    <div>
         <hr>
     </div>
     <div class="mt-5">

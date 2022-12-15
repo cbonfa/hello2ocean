@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'fisher' => [
+            'driver' => 'session',
+            'provider' => 'fishers',
+        ],
     ],
 
     /*
@@ -64,6 +69,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+        'fishers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Fisher::class,
+        ],        
 
         // 'users' => [
         //     'driver' => 'database',

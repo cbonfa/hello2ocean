@@ -18,6 +18,8 @@ class WaveFactory extends Factory
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
             'language_id' => Language::factory()->create()->id,
+            'wave_id_main' => null,
+            'wave_id_language' => null
         ];
     }
 }

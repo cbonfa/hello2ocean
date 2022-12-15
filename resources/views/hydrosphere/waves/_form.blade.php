@@ -37,10 +37,26 @@
         <x-tom-select
             id="wave_id_main"
             name="wave_id_main"
-            wire:model="testUser"
-            :options="$users"
-            placeholder="Pick a user"
-            items="{{ $testUser }}"
+            label="Selecione a Onda Superior"
+            :options="[
+                [
+                    'id' => 1,
+                    'title' => 'John Doe',
+                    'subtitle' => 'hello@test.test'
+                ],
+                [
+                    'id' => 2,
+                    'title' => 'Winter Doe',
+                    'subtitle' => 'winter@test.test'
+                ],
+                [
+                    'id' => 3,
+                    'title' => 'Summer Doe',
+                    'subtitle' => 'summer@test.test'
+                ]
+            ]"
+            placeholder="Escolha a Onda Superior"
+            items="{{ '1' }}"
         />
     </div>
     <div>

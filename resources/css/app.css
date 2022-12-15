@@ -2,4 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '/node_modules/tom-select/dist/css/tom-select.default.css';
 @import 'custom'

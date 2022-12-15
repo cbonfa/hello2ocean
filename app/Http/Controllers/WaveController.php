@@ -121,6 +121,16 @@ class WaveController extends Controller
         return redirect()->route('hydrosphere.waves.index')->with('success','Wave deleted successfully');
     }
 
+    public function search(Request $request)
+    {
+        $waves = Wave::limit(6)->get()->transform(fn($user) => [
+            'id' => $user->id,
+            'title' => $user->name,
+            'subtitle' => $user->email
+         ]); 
+         return response()->json($waves);
+    }
+
     public function load_variables()
     {
         

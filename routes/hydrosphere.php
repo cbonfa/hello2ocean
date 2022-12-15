@@ -12,4 +12,5 @@ Route::get('/', function () {
 Route::get('fishers', [FisherController::class, 'all'])
     ->name('fishers.all');
 
+Route::get('waves/search', [WaveController::class, 'search'])->name('waves.search');
 Route::resource('waves', WaveController::class);

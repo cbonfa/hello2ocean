@@ -17,7 +17,7 @@ class WaveFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'language_id' => Language::factory()->create()->id,
+            'language_id' => 1,
             'wave_id_main' => null,
             'wave_id_language' => null
         ];

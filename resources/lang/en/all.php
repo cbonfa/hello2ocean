@@ -6,6 +6,7 @@ return [
     'hydrosphere' => 'Hydrosphere',
     'language' => 'Language',
     'are_you_sure_delete' => 'Are You Sure Delete this Item?',
+    'search' => 'Search',
 
     'choose_your_language' => 'Choose Your Language',
     'show' => 'Show',

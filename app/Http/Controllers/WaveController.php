@@ -28,6 +28,7 @@ class WaveController extends Controller
         if (!blank($search)) {
             $waves = Wave::where('name','LIKE','%'.$search.'%')
                         ->orWhere('description', 'LIKE', '%'.$search.'%')
+                        ->orderByDesc('id')
                         ->paginate(50);
         } else {
             $waves = Wave::latest()->paginate(50);
@@ -123,11 +124,19 @@ class WaveController extends Controller
 
     public function search(Request $request)
     {
-        $waves = Wave::limit(6)->get()->transform(fn($user) => [
-            'id' => $user->id,
-            'title' => $user->name,
-            'subtitle' => $user->email
-         ]); 
+        $search = $request->input('q');
+
+        $waves = Wave::where('name','LIKE','%'.$search.'%')
+                    ->orWhere('description', 'LIKE', '%'.$search.'%')
+                    ->limit(50)
+                    ->orderBy('name')
+                    ->get()
+                    ->transform(fn($wave) => [
+                        'id' => $wave->id,
+                        'title' => $wave->name,
+                        'subtitle' => $wave->description
+                    ]); 
+
          return response()->json($waves);
     }
 

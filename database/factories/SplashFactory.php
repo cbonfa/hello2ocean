@@ -16,14 +16,16 @@ class SplashFactory extends Factory
 
     public function definition()
     {
+        $wave_id = (Wave::count() == 0) ? Wave::factory()->create()->id : Wave::inRandomOrder()->first()->id;
+        $language_id = (Language::count() == 0) ? Language::factory()->create()->id : Language::first()->id;
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
             'blocked' => false,
             'blocked_reason' => null,
             'days_to_expire' => null,
-            'wave_id' => Wave::factory()->create()->id,
-            'language_id' => Language::factory()->create()->id,
+            'wave_id' => $wave_id,
+            'language_id' => $language_id,
         ];
     }
 }

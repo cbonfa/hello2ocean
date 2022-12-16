@@ -21,11 +21,11 @@ class Wave extends Model
         return $this->hasMany(Splash::class); 
     } 
 
-    public function main_splash(){
+    public function main_wave(){
         return $this->belongsTo(Wave::class, 'wave_id_main', 'id');
     }
 
-    public function main_splash_language(){
+    public function main_wave_language(){
         return $this->belongsTo(Wave::class, 'wave_id_language', 'id');
     }
     

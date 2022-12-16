@@ -41,21 +41,20 @@ class WaveTest extends TestCase
         $this->assertTrue($wave->splashs->contains($splash));
     }
 
-    public function test_main_splash() {
+    public function test_main_wave() {
         $main_wave = Wave::factory()->create();
         $wave = Wave::factory(['wave_id_main' => $main_wave])->create();
 
-        $this->assertInstanceOf(Wave::class, $wave->main_splash); 
-        $this->assertTrue($wave->main_splash->id == $main_wave->id);
+        $this->assertInstanceOf(Wave::class, $wave->main_wave); 
+        $this->assertTrue($wave->main_wave->id == $main_wave->id);
     }
 
-    public function test_main_language_splash() {
+    public function test_main_language_wave() {
         $main_language = Wave::factory()->create();
         $wave = Wave::factory(['wave_id_language' => $main_language])->create();
-        print_r($wave);
 
-        $this->assertInstanceOf(Wave::class, $wave->main_splash_language); 
-        $this->assertTrue($wave->main_splash_language->id == $main_language->id);
+        $this->assertInstanceOf(Wave::class, $wave->main_wave_language); 
+        $this->assertTrue($wave->main_wave_language->id == $main_language->id);
     }    
 
 

@@ -7,6 +7,7 @@ return [
     'create' => 'Create New Wave',
     'delete' => 'Delete Wave',
     'see_all' => 'See All Waves',
+    'main_wave' => 'Main Wave',
     'explanation' => 'A wave can have multiple bottles and splashes. 
                     A wave is a style, where a group of interests joins'
 ];

@@ -15,6 +15,7 @@ class FisherFactory extends Factory
      */
     public function definition()
     {
+        $language_id = (Language::count() == 0) ? Language::factory()->create()->id : Language::first()->id;
         return [
             'name' => $this->faker->name(),
             'nick' => $this->faker->word(),
@@ -23,7 +24,7 @@ class FisherFactory extends Factory
             'email_verified_at' => now(),
             'last_sign_in_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'language_id' => Language::factory()->create()->id,
+            'language_id' => $language_id,
             'remember_token' => Str::random(10),
         ];
     }

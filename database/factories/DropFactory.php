@@ -18,6 +18,7 @@ class DropFactory extends Factory
      */
     public function definition()
     {
+        $language_id = (Language::count() == 0) ? Language::factory()->create()->id : Language::first()->id;
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->name(),
@@ -28,7 +29,7 @@ class DropFactory extends Factory
             'blocked' => false,
             'blocked_reason' => null,
             'user_id' => User::factory()->create()->id,
-            'fisher_id' => Fisher::factory()->create()->id,
+            'fisher_id' => $language_id,
             # 'IP' => $this->faker->ipv4(),
         ];
     }

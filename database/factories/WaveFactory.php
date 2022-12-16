@@ -14,10 +14,11 @@ class WaveFactory extends Factory
      */
     public function definition()
     {
+        $language_id = (Language::count() == 0) ? Language::factory()->create()->id : Language::first()->id;
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'language_id' => 1,
+            'language_id' => $language_id,
             'wave_id_main' => null,
             'wave_id_language' => null
         ];

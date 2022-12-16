@@ -74,4 +74,13 @@ class WaveCrudTest extends TestCase
         # https://www.youtube.com/watch?v=3t53jcEwrbQ&t=1s
     }
 
+    public function test_user_can_update_wave(){
+        $wave = Wave::factory()->create();
+        print "/hydrosphee/waves/{$wave->id}/edit";
+        $response = $this->actingAs($this->user)->get("/hydrosphere/waves/{$wave->id}/edit");
+        $response->assertStatus(200);
+        # https://www.youtube.com/watch?v=3t53jcEwrbQ&t=1s
+    }
+
+
 }

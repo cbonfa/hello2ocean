@@ -26,13 +26,13 @@
                                 Hello 2 Ocean
                             </h1>
                             <p class="text-indigo-200 text-xl mb-10">
-                                A nova rede social para <span class="font-bold underline">NAVEGAR</span> de verdade. <br><small>Inscreva-se para novidades em breve</small>
+                                {!! __('welcome.slogan') !!}
                             </p>
                             <x-button 
                                 class="py-3 px-8 bg-red-500 hover:bg-red-600"
                                 x-on:click="showFisher = true"
                             >
-                                Inscrever
+                            {{ __('welcome.subscribe') }}
                             </x-button>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
             
         </x-model>
         <div class=" items-center">
-            <p>Em breve pescador</p>
+            @include('partials/language_switcher')
         </div>
         <!--Content ends-->
     </div>

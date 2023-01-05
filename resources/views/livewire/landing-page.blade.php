@@ -119,7 +119,7 @@
             @endif
             
         </x-model>
-        <div class=" items-center">
+        <div class="p-2">
             @include('partials/language_switcher')
         </div>
         <!--Content ends-->

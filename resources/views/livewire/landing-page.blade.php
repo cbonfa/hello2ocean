@@ -30,7 +30,7 @@
                             </p>
                             <x-button 
                                 class="py-3 px-8 bg-red-500 hover:bg-red-600"
-                                x-on:click="showFisher = true"
+                                x-on:click="showFisher = true; $nextTick(() => { $refs.input.focus(); });"
                             >
                             {{ __('welcome.subscribe') }}
                             </x-button>
@@ -76,6 +76,7 @@
                     type="email" 
                     name="email" 
                     placeholder="{{ __('Email Address') }}"
+                    x-ref="input"
                     wire:model.defer="email"
                 >
                 </x-input>

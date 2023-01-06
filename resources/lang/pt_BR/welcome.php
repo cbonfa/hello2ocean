@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'slogan' => 'Responda, Combine e <span class="font-bold underline">Fisgue!</span><br><small>Encontre pessoas incríveis como você, com seus interesses, em pleno alto mar...</small>',
+    'slogan' => 'Responda, Combine e <span class="font-bold underline">Fisgue!</span><br><small>Encontre pessoas incríveis como você, com seus interesses, em alto mar...</small>',
     'subscribe' => 'Receba Novidades em Breve',
     'modal.inscricao.title' => 'Ola Pescador!',
     'modal.inscricao.subtitle' => 'Cadastre-se para receber acesso antecipado e conhecer as novidades dessa NOVA e SURPREENDENTE Rede Social.',

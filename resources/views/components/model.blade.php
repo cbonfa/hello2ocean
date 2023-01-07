@@ -5,7 +5,6 @@
     x-show="{{ $trigger }}"
     x-on:click.self="{{ $trigger }} = false"
     x-on:keydown.escape.window="{{ $trigger }} = false"
-    x-trap="open"
 >
         <div {{ $attributes->merge(['class' => 'm-auto md:align-middle md:w-96 shadow-2xl rounded-xl p-8']) }}>
             {{ $slot }}

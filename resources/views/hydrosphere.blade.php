@@ -23,6 +23,11 @@
                                 Manage Waves
                             </a>
                         </li>
+                        <li class="text-blue-500 hover:underline">                        
+                            <a href="{{ route('hydrosphere.languages.index') }}">
+                                Manage Languages
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

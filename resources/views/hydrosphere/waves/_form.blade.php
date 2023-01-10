@@ -1,4 +1,4 @@
-    @isset($waves->id)
+    @isset($wave->id)  
         {{ Form::open(array('url' => route  ('hydrosphere.waves.update', $wave->id))) }}
         @csrf
         @method('PUT')
@@ -66,7 +66,7 @@
         <x-button 
         class="w-full bg-blue-500  hover:bg-blue-700"
         >
-            Save the Wave
+        {{ __('waves.save') }}
         </x-button>
     </div>
     {{ Form::close() }}

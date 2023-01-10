@@ -9,6 +9,8 @@ class Language extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['description', 'country', 'country_code', 'locale', 'active'];
+
     public function splashs() 
     { 
         return $this->hasMany(Splash::class); 

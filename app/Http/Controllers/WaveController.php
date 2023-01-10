@@ -64,7 +64,7 @@ class WaveController extends Controller
         // sem o ALL tem que colocar no validate
         $show = Wave::create($request->all());
    
-        return redirect()->route('hydrosphere.waves.index')->with('success', 'Wave is successfully saved');
+        return redirect()->route('hydrosphere.waves.index')->with('success', __('waves.created_success'));
     }
 
     /**
@@ -105,9 +105,9 @@ class WaveController extends Controller
         ]);
         //         
         $wave->update($request->all());
-        //         
+        // 
         return redirect()->route('hydrosphere.waves.show', compact('wave'))
-        ->with('success','Wavez updated successfully');
+        ->with('success', __('waves.updated_success'));
     }
 
     /**
@@ -119,7 +119,7 @@ class WaveController extends Controller
     public function destroy(Wave $wave)
     {
         $wave->delete();
-        return redirect()->route('hydrosphere.waves.index')->with('success','Wave deleted successfully');
+        return redirect()->route('hydrosphere.waves.index')->with('success',__('waves.deleted_success'));
     }
 
     public function search(Request $request)
@@ -142,7 +142,6 @@ class WaveController extends Controller
 
     public function load_variables()
     {
-        
         $this->languages = Language::all();
     }
 }

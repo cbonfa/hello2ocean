@@ -22,14 +22,14 @@
                 <div class="flex flex-col md:flex-row">
                     <div class="flex-auto">
                         <p class="text-2xl text-gray-600 font-bold underline">
-                            {{ __('waves.index') }}
+                            {{ __('languages.index') }}
                         </p>
-                        <p class="">{{ __('waves.explanation') }}</p>
+                        <p class="">{{ __('languages.explanation') }}</p>
                     </div>
                     <div class="flex-auto lg:w-1/4 md:w-auto">
                         <x-search-form
-                            route="{{ route('hydrosphere.waves.index') }}"
-                            placeholder="{{ __('waves.search_placeholder') }}"
+                            route="{{ route('hydrosphere.languages.index') }}"
+                            placeholder="{{ __('languages.search_placeholder') }}"
                             value="{{request()->input('search')}}"
                         >
                             {{ __('all.search') }}
@@ -42,37 +42,36 @@
                 </div>
                 
                 
-                {{-- https://tailwindcomponents.com/component/mobile-responsive-table --}}
                 <table class="tablemobile w-full flex-row flex-no-wrap overflow-hidden my-5">
                     <thead class="border-gray-300 text-indigo-600">
-                        @foreach($waves as $wave)
+                        @foreach($languages as $language)
                             <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
                                 <td>{{ __('all.id') }}</td>
                                 <td>{{ __('all.name') }}</td>
-                                <td>{{ __('all.description') }}</td>
-                                <td>{{ __('all.language') }}</td>
+                                <td>{{ __('all.country') }}</td>
+                                <td>{{ __('all.active') }}</td>
                                 <td class="actions">{{ __('all.actions') }}</td>
                             </tr>
                         @endforeach   
                     </thead>
                     
                     <tbody class="bg-white sm:flex-none">
-                        @foreach($waves as $key => $value)
+                        @foreach($languages as $key => $value)
                             <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->id }}</td>
-                                <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->name }}</td>
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->description }}</td>
-                                <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->language->description }}</td>
+                                <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->country }}</td>
+                                <td class="text-sm text-indigo-900 border-b border-gray-400">{{ to_sn($value->active) }}</td>
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">
-                                    <form action="{{ route('hydrosphere.waves.destroy',$value->id) }}" method="POST">
+                                    <form action="{{ route('hydrosphere.languages.destroy',$value->id) }}" method="POST">
                                         <div class="flex flex-row">
                                             <div class="flex-1 px-1">
-                                                <x-button-show :href="route('hydrosphere.waves.show',$value->id)">
+                                                <x-button-show :href="route('hydrosphere.languages.show',$value->id)">
                                                     {{ __('all.show') }}
                                                 </x-button-show>
                                             </div>
                                             <div class="flex-1 px-1">
-                                                <x-button-edit :href="route('hydrosphere.waves.edit',$value->id)">
+                                                <x-button-edit :href="route('hydrosphere.languages.edit',$value->id)">
                                                     {{ __('all.edit') }}
                                                 </x-button-edit>
                                             </div>
@@ -89,11 +88,11 @@
                         </tbody>
                 </table>
 
-                {!! $waves->links() !!} 
+                {!! $languages->links() !!} 
                 </div>
                 <div class="mt-5 px-2">
-                    <x-button-link class="bg-blue-500 hover:bg-blue-800 block" :href="route('hydrosphere.waves.create')">
-                        {{ __('waves.create') }}
+                    <x-button-link class="bg-blue-500 hover:bg-blue-800 block" :href="route('hydrosphere.languages.create')">
+                        {{ __('languages.create') }}
                     </x-button-link>
                 </div>
             </div>

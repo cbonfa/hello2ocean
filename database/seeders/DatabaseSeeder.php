@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory(['name' => 'César Bonfá', 'email' => 'bonfa@inaum.net', 'password' => bcrypt('12345678')])->create();
         
         Language::create(['id' => 1,
-                        'description' => 'Português',
+                         'description' => 'Português',
                          'country' => 'Brasil', 
                          'country_code' => 'BR',
                          'locale' => 'pt_BR',

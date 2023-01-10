@@ -31,6 +31,17 @@ class WaveCrudTest extends TestCase
         $response->assertSee(__('waves.index'));
     }
 
+    public function test_hydrosphere_waves_index_search(){
+        $wave1 = Wave::factory(['name' => 'Find this 43533'])->create();
+        $wave2 = Wave::factory(['name' => 'Do not find this 34328'])->create();
+        $response = $this->actingAs($this->user)->get('/hydrosphere/waves');
+        $response->assertSee('43533');
+        $response->assertSee('34328');
+        $response = $this->actingAs($this->user)->get('/hydrosphere/waves?search=43533');
+        $response->assertSee('43533');
+        $response->assertDontSee('34328');
+    }
+
     public function test_unath_user_cannot_see_hydrosphere_waves()
     {
         $response = $this->get('/hydrosphere/waves');
@@ -58,6 +69,7 @@ class WaveCrudTest extends TestCase
                 'language_id' => $this->language_id
             ]
         );
+        $response->assertSessionHasNoErrors();
         $response->assertRedirect('/hydrosphere/waves');
         $this->assertEquals(($last_count+1), Wave::count());
         $this->assertDatabaseHas('waves', [
@@ -66,21 +78,40 @@ class WaveCrudTest extends TestCase
                                         ]);
     }
 
-    public function test_user_can_see_edit_wave(){
+    public function test_user_can_see_the_edit_wave(){
         $wave = Wave::factory()->create();
-        print "/hydrosphee/waves/{$wave->id}/edit";
         $response = $this->actingAs($this->user)->get("/hydrosphere/waves/{$wave->id}/edit");
         $response->assertStatus(200);
-        # https://www.youtube.com/watch?v=3t53jcEwrbQ&t=1s
+        $response->assertSee($wave->name);
     }
 
     public function test_user_can_update_wave(){
+        $tot = Wave::count();
         $wave = Wave::factory()->create();
-        print "/hydrosphee/waves/{$wave->id}/edit";
-        $response = $this->actingAs($this->user)->get("/hydrosphere/waves/{$wave->id}/edit");
-        $response->assertStatus(200);
-        # https://www.youtube.com/watch?v=3t53jcEwrbQ&t=1s
+        $this->assertCount(($tot+1), Wave::all());
+        $response = $this->actingAs($this->user)->put("/hydrosphere/waves/{$wave->id}", [
+            'name' => 'Wave Name 514', 
+            'description' => 'Wave Description 515',
+            'language_id' => $this->language_id
+        ]);
+        # after the update, the same registration count
+        $this->assertCount(($tot+1), Wave::all());
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect("/hydrosphere/waves/{$wave->id}");
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('waves', [
+            'name' => 'Wave Name 514', 
+            'description' => 'Wave Description 515'
+        ]);
     }
 
+    public function test_user_can_delete_wave(){
+        $tot = Wave::count();
+        $wave = Wave::factory()->create();
+        $this->assertCount(($tot+1), Wave::all());
+        $response = $this->actingAs($this->user)->delete("/hydrosphere/waves/{$wave->id}");
+        $response->assertStatus(302);
+        $this->assertCount($tot, Wave::all());
+    }
 
 }

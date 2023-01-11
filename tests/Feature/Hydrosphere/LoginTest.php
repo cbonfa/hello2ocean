@@ -17,7 +17,7 @@ class LoginTest extends TestCase
             'email' => 'test@test.com',
             'password' => bcrypt('password')
         ]);
-        $response = $this->post('/login', [
+        $response = $this->post('/hydrosphere/login', [
             'email' => 'test@test.com',
             'password' => 'password'
         ]);
@@ -35,6 +35,6 @@ class LoginTest extends TestCase
     public function test_auth_user_cannot_access_hydrosphere(){
         $response = $this->get('/hydrosphere');
         $response->assertStatus(302);
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/hydrosphere/login');
     }
 }

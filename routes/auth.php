@@ -11,30 +11,32 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+                ->name('login')->prefix('hydrosphere');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->prefix('hydrosphere');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-                ->name('password.request');
+                ->name('password.request')->prefix('hydrosphere');
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-                ->name('password.email');
+                ->name('password.email')->prefix('hydrosphere');
 
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-                ->name('password.reset');
+                ->name('password.reset')->prefix('hydrosphere');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
-                ->name('password.update');
+                ->name('password.update')->prefix('hydrosphere');
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('register', [RegisteredUserController::class, 'create'])
+                ->name('register')->prefix('hydrosphere');
+
+    Route::post('register', [RegisteredUserController::class, 'store'])->prefix('hydrosphere');
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -47,10 +49,10 @@ Route::middleware('auth')->group(function () {
                 ->name('verification.send');
 
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-                ->name('password.confirm');
+                ->name('password.confirm')->prefix('hydrosphere');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store'])->prefix('hydrosphere');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
+                ->name('logout')->prefix('hydrosphere');
 });

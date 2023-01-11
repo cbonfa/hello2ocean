@@ -47,7 +47,7 @@ class WaveCrudTest extends TestCase
         $response = $this->get('/hydrosphere/waves');
         $response->assertStatus(302);
         $response->assertDontSee(__('waves.index'));
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/hydrosphere/login');
     }
 
     public function test_unath_user_cannot_see_hydrosphere_create_waves()
@@ -55,7 +55,7 @@ class WaveCrudTest extends TestCase
         $response = $this->get('/hydrosphere/waves/create');
         $response->assertStatus(302);
         $response->assertDontSee(__('waves.create'));
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/hydrosphere/login');
     }    
 
     public function test_admin_user_can_store_new_wave()

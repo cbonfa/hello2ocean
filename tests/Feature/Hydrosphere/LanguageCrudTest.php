@@ -46,7 +46,7 @@ class LanguageCrudTest extends TestCase
         $response = $this->get('/hydrosphere/languages');
         $response->assertStatus(302);
         $response->assertDontSee(__('languages.index'));
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/hydrosphere/login');
     }
 
     public function test_unath_user_cannot_see_hydrosphere_create_languages()
@@ -54,7 +54,7 @@ class LanguageCrudTest extends TestCase
         $response = $this->get('/hydrosphere/languages/create');
         $response->assertStatus(302);
         $response->assertDontSee(__('languages.create'));
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/hydrosphere/login');
     }    
 
     public function test_admin_user_can_store_new_language()

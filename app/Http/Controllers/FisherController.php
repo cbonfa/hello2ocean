@@ -24,17 +24,17 @@ class FisherController extends Controller
         # Fisherr::all()
     }
 
-    public function login()
-    {
-        return view('fishers.login');
-    }
+    // public function login()
+    // {
+    //     return view('fishers.login');
+    // }
 
-    public function session(Request $request)
-    {
-        if (Auth::guard('fisher')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('fisher.dashboard'));
-        }
-    }
+    // public function session(Request $request)
+    // {
+    //     if (Auth::guard('fisher')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+    //         return redirect()->intended(route('fisher.dashboard'));
+    //     }
+    // }
 
     public function sing_out()
     {

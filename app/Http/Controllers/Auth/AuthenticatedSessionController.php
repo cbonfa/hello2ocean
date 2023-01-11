@@ -20,6 +20,7 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+
     /**
      * Handle an incoming authentication request.
      *
@@ -51,4 +52,38 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    /** 
+     * Fisher Login
+     */
+    public function create_fisher()
+    {
+        return view('auth.fisher_login');
+    }
+
+    public function store_fisher(LoginRequest $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('fisher')->attempt($request->only(['email','password']), $request->get('remember'))){
+            return redirect()->intended('/boat');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function destroy_fisher(Request $request)
+    {
+        Auth::guard('fisher')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }    
+
 }

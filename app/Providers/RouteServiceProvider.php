@@ -52,6 +52,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->name('hydrosphere.')
                 ->group(base_path('routes/hydrosphere.php'));
+
+            Route::middleware(['web', 'auth:fisher'])
+                ->prefix('boat')
+                ->namespace($this->namespace)
+                ->name('boat.')
+                ->group(base_path('routes/boat.php'));
         });
     }
 

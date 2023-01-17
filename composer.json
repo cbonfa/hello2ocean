@@ -14,7 +14,8 @@
         "laravelcollective/html": "^6.3",
         "livewire/livewire": "^2.10",
         "outhebox/blade-flags": "^1.1",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "staudenmeir/laravel-merged-relations": "^1.0"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

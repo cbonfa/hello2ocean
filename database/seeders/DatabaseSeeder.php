@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Language;
 use App\Models\Fisher;
+use App\Models\Net; 
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,7 +36,13 @@ class DatabaseSeeder extends Seeder
                          'active' => false,
                         ]);                        
         
-        Fisher::factory(['name' => 'Fisher Teste 1', 'email' => 'fisher1@gmail.com', 'password' => bcrypt('12345678')])->create();
-        Fisher::factory(['name' => 'Fisher Teste 2', 'email' => 'fisher2@gmail.com', 'password' => bcrypt('12345678')])->create();
+        # Cria Pescadores
+        $fisher1 = Fisher::factory(['name' => 'Fisher Teste 1', 'email' => 'fisher1@gmail.com', 'password' => bcrypt('12345678')])->create();
+        $fisher2 = Fisher::factory(['name' => 'Fisher Teste 2', 'email' => 'fisher2@gmail.com', 'password' => bcrypt('12345678')])->create();
+        $fisher3 = Fisher::factory(['name' => 'Fisher Teste 3', 'email' => 'fisher3@gmail.com', 'password' => bcrypt('12345678')])->create();
+
+        # Cria Miguchos
+        Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher2->id])->create();
+        Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher3->id])->create();
     }
 }

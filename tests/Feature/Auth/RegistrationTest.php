@@ -11,6 +11,8 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $dropViews = true;
+
     private $user;
 
     public function setup(): void

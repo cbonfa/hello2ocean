@@ -10,6 +10,8 @@ class PasswordConfirmationFisherTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $dropViews = true;
+
     public function confirm_fisher_password_screen_can_be_rendered()
     {
         $user = Fisher::factory()->create();

@@ -6,6 +6,7 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
 
 class Fisher extends Authenticatable
 {
@@ -47,7 +48,7 @@ class Fisher extends Authenticatable
 
     public function allNet()
     {
-        return $this->mergedRelationWithModel(User::class, 'view_net');
+        return $this->mergedRelationWithModel(Fisher::class, 'view_net');
     }
 
     public function affinities()
@@ -66,7 +67,7 @@ class Fisher extends Authenticatable
 
     public function allAffinities()
     {
-        return $this->mergedRelationWithModel(User::class, 'view_affinities');
+        return $this->mergedRelationWithModel(Fisher::class, 'view_affinities');
     }
     # FriendShip
     # https://blog.codecourse.com/setting-up-laravel-friendship-relations

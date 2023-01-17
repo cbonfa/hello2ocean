@@ -12,6 +12,8 @@ class PasswordResetFisherTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $dropViews = true;
+
     public function fisher_reset_password_link_screen_can_be_rendered()
     {
         $response = $this->get('/fisher/forgot-password');

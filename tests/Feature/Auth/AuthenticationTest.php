@@ -10,6 +10,8 @@ use Tests\TestCase;
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
+    
+    protected $dropViews = true;
 
     public function test_fisher_login_screen_can_be_rendered()
     {

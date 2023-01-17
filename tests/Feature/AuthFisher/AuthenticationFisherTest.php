@@ -11,6 +11,8 @@ class AuthenticationFisherTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $dropViews = true;
+
     public function test_login_screen_can_be_rendered()
     {
         $response = $this->get('/fisher/login');

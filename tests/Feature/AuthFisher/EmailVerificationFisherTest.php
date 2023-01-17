@@ -14,6 +14,8 @@ class EmailVerificationFisherTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $dropViews = true;
+
     public function email_fisher_verification_screen_can_be_rendered()
     {
         $user = Fisher::factory()->create([

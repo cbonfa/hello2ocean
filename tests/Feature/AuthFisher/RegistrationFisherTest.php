@@ -13,6 +13,8 @@ class RegistrationFisherTest extends TestCase
 
     private $user;
 
+    protected $dropViews = true;
+
     public function setup(): void
     {
         parent::setup();

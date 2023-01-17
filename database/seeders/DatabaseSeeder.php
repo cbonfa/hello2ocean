@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Language;
+use App\Models\Fisher;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +34,8 @@ class DatabaseSeeder extends Seeder
                          'locale' => 'en',
                          'active' => false,
                         ]);                        
-        // Fisher::factory(10)->create();
+        
+        Fisher::factory(['name' => 'Fisher Teste 1', 'email' => 'fisher1@gmail.com', 'password' => bcrypt('12345678')])->create();
+        Fisher::factory(['name' => 'Fisher Teste 2', 'email' => 'fisher2@gmail.com', 'password' => bcrypt('12345678')])->create();
     }
 }

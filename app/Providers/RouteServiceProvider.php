@@ -19,6 +19,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/hydrosphere';
 
+    public const BOAT = '/boat';
+
     /**
      * The controller namespace for the application.
      *

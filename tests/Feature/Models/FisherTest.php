@@ -15,7 +15,7 @@ class FisherTest extends TestCase
     {
         $this->assertTrue( 
           Schema::hasColumns('fishers', [
-            'id','name', 'nick', 'sign_in_count',
+            'id','name', 'nick', 'sign_in_count', 'profile_image', 'nick_image',
             'email', 'email_verified_at', 'last_sign_in_at', 
             'password', 'language_id'
         ]), 1);

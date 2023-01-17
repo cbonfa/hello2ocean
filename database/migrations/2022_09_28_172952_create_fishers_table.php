@@ -17,7 +17,9 @@ class CreateFishersTable extends Migration
         Schema::create('fishers', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('profile_image')->nullable();
             $table->string('nick')->nullable();
+            $table->string('nick_image')->nullable();
             $table->integer('sign_in_count')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

@@ -15,6 +15,9 @@ class Fisher extends Authenticatable
 
     protected $fillable = [
         'name',
+        'profile_image',
+        'nick',
+        'nick_image',
         'email',
         'password',
     ];
@@ -27,4 +30,32 @@ class Fisher extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];   
+
+    public function net()
+    {
+        return $this->belongsToMany(User::class, 'net', 'fisher_id', 'friend_id')
+            ->wherePivot('blocked', false)
+            ->withTimestamps();
+    }
+ 
+    public function netFrom()
+    {
+        return $this->belongsToMany(User::class, 'net', 'friend_id', 'fisher_id')
+            ->wherePivot('blocked', false)
+            ->withTimestamps();
+    }
+
+    public function affinities()
+    {
+        return $this->belongsToMany(User::class, 'net', 'fisher_id', 'fisherman_id')
+            ->wherePivot('join_date', null)
+            ->withTimestamps();
+    }
+ 
+    public function affinitiesFrom()
+    {
+        return $this->belongsToMany(User::class, 'net', 'fisherman_id', 'fisher_id')
+        ->wherePivot('join_date', null)
+            ->withTimestamps();
+    }
 }

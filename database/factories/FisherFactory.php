@@ -18,7 +18,9 @@ class FisherFactory extends Factory
         $language_id = (Language::count() == 0) ? Language::factory()->create()->id : Language::first()->id;
         return [
             'name' => $this->faker->name(),
+            'profile_image' => $this->faker->imageUrl(150, 150, 'profile', true),
             'nick' => $this->faker->word(),
+            'nick_image'  => $this->faker->imageUrl(200, 200, 'nick', true),
             'sign_in_count' => random_int(1, 99),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

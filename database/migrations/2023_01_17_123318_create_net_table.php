@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('profile_image')->default('profile_image');
             $table->string('display_name')->default('nick');
             $table->boolean('blocked')->default(false);
-            $table->integer('affinity')->nullable(); # percentual de afinidade
+            $table->integer('affinity')->default(0); # percentual de afinidade
             $table->bigInteger('points')->nullable(); # numero de drops que bateram
             $table->bigInteger('drops')->nullable(); # numero de drops respondidos
             $table->bigInteger('splashs')->nullable(); # numero de splashs respondidos

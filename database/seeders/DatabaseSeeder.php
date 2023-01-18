@@ -37,12 +37,12 @@ class DatabaseSeeder extends Seeder
                         ]);                        
         
         # Cria Pescadores
-        $fisher1 = Fisher::factory(['name' => 'Fisher Teste 1', 'email' => 'fisher1@gmail.com', 'password' => bcrypt('12345678')])->create();
-        $fisher2 = Fisher::factory(['name' => 'Fisher Teste 2', 'email' => 'fisher2@gmail.com', 'password' => bcrypt('12345678')])->create();
-        $fisher3 = Fisher::factory(['name' => 'Fisher Teste 3', 'email' => 'fisher3@gmail.com', 'password' => bcrypt('12345678')])->create();
+        $fisher1 = Fisher::factory(['name' => 'Fisher Teste', 'email' => 'fisher@gmail.com', 'password' => bcrypt('12345678'), 'nick_image' => url('images/profile1.jpg')])->create();
+        $fisher2 = Fisher::factory(['name' => 'Fisher Teste 2', 'email' => 'fisher2@gmail.com', 'password' => bcrypt('12345678'), 'nick_image' => url('images/profile2.jpg')])->create();
+        $fisher3 = Fisher::factory(['name' => 'Fisher Teste 3', 'email' => 'fisher3@gmail.com', 'password' => bcrypt('12345678'), 'nick_image' => url('images/profile3.jpg')])->create();
 
         # Cria Miguchos
-        Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher2->id])->create();
-        Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher3->id])->create();
+        Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher2->id, 'affinity' => 60])->create();
+        Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher3->id, 'affinity' => 80])->create();
     }
 }

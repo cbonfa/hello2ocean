@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
 
+
 class Fisher extends Authenticatable
 {
-    use HasFactory, MustVerifyEmail, Notifiable;
+    use HasFactory, MustVerifyEmail, Notifiable, HasMergedRelationships;
+    
 
     protected $guard = "fisher";
 

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Models;
 
+use App\Models\Affinitie;
 use App\Models\Fisher;
 use App\Models\Net;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -36,7 +37,15 @@ class FisherTest extends TestCase
         $this->assertCount(1, $net);
     }
 
-    public function test_return_fisher_net_not_show_blocked_fisher(){
+    public function test_return_fisher_from_net(){
+        $fisher = Fisher::factory()->create();
+        $friend = Fisher::factory()->create();
+        Net::factory(['fisher_id' => $friend->id, 'friend_id' => $fisher->id])->create();
+        $netFrom = $fisher->netFrom;
+        $this->assertCount(1, $netFrom);
+    }
+
+    public function test_return_fisher_net_not_show_blocked_fishers(){
         $fisher = Fisher::factory()->create();
         $friend = Fisher::factory()->create();
         $friendBlocked = Fisher::factory()->create();
@@ -46,6 +55,7 @@ class FisherTest extends TestCase
         $this->assertCount(1, $net);
     }
 
+    # teste union view net + fromNet
     public function test_return_fisher_net_view_all(){
         $fisher1 = Fisher::factory()->create();
         $fisher2 = Fisher::factory()->create();
@@ -54,6 +64,44 @@ class FisherTest extends TestCase
         Net::factory(['fisher_id' => $fisher3->id, 'friend_id' => $fisher1->id])->create();
         $net = $fisher1->allNet;
         $this->assertCount(2, $net);
+    }
+
+    public function test_return_fisher_affinitie(){
+        $fisher = Fisher::factory()->create();
+        $friend = Fisher::factory()->create();
+        Affinitie::factory(['fisher_id' => $fisher->id, 'fisherman_id' => $friend->id])->create();
+        $affinities = $fisher->affinities;
+        $this->assertCount(1, $affinities);
+    }
+
+    public function test_return_fisher_affinities_from(){
+        $fisher = Fisher::factory()->create();
+        $friend = Fisher::factory()->create();
+        Affinitie::factory(['fisher_id' => $friend->id, 'fisherman_id' => $fisher->id])->create();
+        $affinitiesFrom = $fisher->affinitiesFrom;
+        $this->assertCount(1, $affinitiesFrom);
+    }
+
+    public function test_return_fisher_affinities_not_show_blocked_fishers(){
+
+        $fisher = Fisher::factory()->create();
+        $friend = Fisher::factory()->create();
+        $friendBlocked = Fisher::factory()->create();
+        Affinitie::factory(['fisher_id' => $fisher->id, 'fisherman_id' => $friend->id])->create();
+        Affinitie::factory(['fisher_id' => $fisher->id, 'fisherman_id' => $friendBlocked->id, 'join_date' => date("Y-m-d H:i:s")])->create();
+        $affinities = $fisher->affinities;
+        $this->assertCount(1, $affinities);
+    }
+
+    # teste union view affinitie + affinitiesFrom
+    public function test_return_fisher_affinitie_view_all(){
+        $fisher1 = Fisher::factory()->create();
+        $fisher2 = Fisher::factory()->create();
+        $fisher3 = Fisher::factory()->create();
+        Affinitie::factory(['fisher_id' => $fisher1->id, 'fisherman_id' => $fisher2->id])->create();
+        Affinitie::factory(['fisher_id' => $fisher3->id, 'fisherman_id' => $fisher1->id])->create();
+        $affinities = $fisher1->allAffinities;
+        $this->assertCount(2, $affinities);
     }
 
 }

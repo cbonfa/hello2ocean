@@ -21,11 +21,15 @@ class MessageSent implements ShouldBroadcast
      * @return void
      */
     protected $fisher;
+    public $user;
+    
     public $message;
 
-    public function __construct(Fisher $fisher, $message)
+    public function __construct(Fisher $fisher, Fisher $user,  $message)
     {
-        //
+        # Quem está enviando
+        $this->user = $user;
+        # Destinatário (Addressee/Receiver)
         $this->fisher = $fisher;
         $this->message = $message;
     }
@@ -37,7 +41,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        \Log::debug($this->message);
-        return new PrivateChannel("fisher.chat.{$this->fisher->id}", ['guard' => 'fisher']);
+        return new PrivateChannel("chat.fisher.{$this->fisher->id}", ['guard' => 'fisher']);
     }
 }

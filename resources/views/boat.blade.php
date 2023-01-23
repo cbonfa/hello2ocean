@@ -20,16 +20,25 @@
         </div>
         
 
-        <x-boat-chat/>
+        
     </div>
   @push('scripts')
     <script>
         function sendMessage(fisher_id)
         {
-            alert('entrou');
             let postVars = { message: 'Hello' };
             window.axios.post(`/boat/chat/send_message/${fisher_id}`, postVars);
         }
+    </script>
+    <script>
+        window.onload=function(){
+            Echo.private('chat.fisher.{{ Auth::user()->id }}')
+                .listen('MessageSent', (e) => {
+                    alert(e.message);
+                    console.log(e);
+            });
+        }    
+        
     </script>
   @endpush
 </x-boat-layout>

@@ -49,8 +49,9 @@
                     <!-- Chat list -->
                     <div class="divide-y divide-gray-200">
                         @foreach ($net as $fisher)
+                        <div x-clock x-data="{ showChat: false }">
                             <!-- User -->
-                            <button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
+                            <button @click.prevent="showChat=true" class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
                                 <div class="flex items-center">
 
                                     <img class="rounded-full items-start flex-shrink-0 mr-3" src="{{ $fisher->nick_image }}" width="32" height="32" alt="Marie Zulfikar" />
@@ -59,7 +60,9 @@
                                         <div class="text-[13px]">The video chat ended · 2hrs</div>
                                     </div>
                                 </div>
-                            </button>    
+                            </button>  
+                            <x-boat-chat :fisher="$fisher"/>
+                        </div>
                         @endforeach
                     </div>
                 </div>

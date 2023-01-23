@@ -22,6 +22,6 @@ Broadcast::channel('notifications', function ($user) {
     return $user != null;
 });
 
-Broadcast::channel('fisher.chat.{receiver}', function ($fisher, $receiver) {
+Broadcast::channel('chat.fisher.{receiver}', function ($fisher, $receiver) {
     return (int) $fisher->id === (int) $receiver;
-});
+}, ['guards' => ['fisher']]);

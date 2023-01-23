@@ -10,7 +10,8 @@ class ChatController extends Controller
 {
     public function sendMessage(Request $request, Fisher $fisher)
     {
-        broadcast(new MessageSent($fisher, "teste" . $request->message));
+        # \Log::debug('entrou ChatController');
+        broadcast(new MessageSent($fisher, $request->user(), $request->message));
         # broadcast($request->user(), "teste" . $request->message);
         return $request->message;
     }

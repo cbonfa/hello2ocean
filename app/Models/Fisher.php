@@ -73,4 +73,16 @@ class Fisher extends Authenticatable
     }
     # FriendShip
     # https://blog.codecourse.com/setting-up-laravel-friendship-relations
+
+    public function chat(){
+        return $this->hasMany(Chat::class); 
+    }
+
+    public function chat_from($receiver){
+        $receiver_id = ($receiver instanceof Fisher) ? $receiver->id : $receiver;
+        return $this->chat()->where('receiver_id','=', $receiver_id)->orderBy('created_at');
+    }
+
+
+
 }

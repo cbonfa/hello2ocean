@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Affinitie;
+use App\Models\Chat;
 use App\Models\Fisher;
 use App\Models\Net;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -102,6 +103,27 @@ class FisherTest extends TestCase
         Affinitie::factory(['fisher_id' => $fisher3->id, 'fisherman_id' => $fisher1->id])->create();
         $affinities = $fisher1->allAffinities;
         $this->assertCount(2, $affinities);
+    }
+
+    public function test_fisher_show_chat_messages(){
+        $fisher = Fisher::factory()->create();
+        $chat = Chat::factory(['fisher_id' => $fisher->id])->create();
+        $this->assertEquals(1, $fisher->chat->count());
+        $this->assertTrue($fisher->chat->contains($chat));
+    }
+
+    public function test_fisher_show_chat_from_messages(){
+        $fisher = Fisher::factory()->create();
+        $receiver1 = Fisher::factory()->create();
+        $receiver2 = Fisher::factory()->create();
+        $chat1 = Chat::factory(['fisher_id' => $fisher->id, 'receiver_id' => $receiver1->id])->create();
+        $chat2 = Chat::factory(['fisher_id' => $fisher->id, 'receiver_id' => $receiver2->id])->create();
+
+        # teste by ID
+        $this->assertEquals(1, $fisher->chat_from($receiver1->id)->count());
+        # teste by fisher
+        $this->assertEquals(1, $fisher->chat_from($receiver2)->count());
+
     }
 
 }

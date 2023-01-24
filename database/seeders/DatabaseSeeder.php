@@ -45,5 +45,7 @@ class DatabaseSeeder extends Seeder
         # Cria Miguchos
         Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher2->id, 'affinity' => 60])->create();
         Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher3->id, 'affinity' => 80])->create();
+
+        Net::factory(['fisher_id' => $fisher4->id, 'friend_id' => $fisher3->id, 'affinity' => 100])->create();
     }
 }

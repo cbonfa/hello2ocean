@@ -15,7 +15,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <x-boat-contacts :fisher="Auth::user()" :net="$net"/>
+                <x-boat-contacts :user="Auth::user()" :net="$net"/>
             </div>
         </div>
         
@@ -38,7 +38,20 @@
                     console.log(e);
             });
         }    
-        
+    </script>
+    <script>
+        // Sample stores
+        // https://technotrampoline.com/articles/working-with-arrays-in-alpinejs-stores/
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('utils', () => ({
+                messages: [ { sent: 'BiriguiLISTENER', received: '', datetime: '' }, { received: 'XXX', datetime: '' }, { sent: '', received: 'received NANANANA', datetime: '' } ],
+                newMessage: "",
+                addMessage(){
+                    this.messages.push({ received: this.newMessage });
+                    this.newMessage = "";
+                }
+            }))
+        })
     </script>
   @endpush
 </x-boat-layout>

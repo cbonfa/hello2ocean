@@ -1,4 +1,4 @@
-        @props(['fisher', 'net' => []])
+        @props(['user', 'net' => []])
         <!-- Card -->
         <div class="relative max-w-[340px] bg-white shadow-lg rounded-lg">
             <!-- Card header -->
@@ -7,11 +7,11 @@
                     <!-- Image + name -->
                     <div class="flex items-center">
                         <a class="inline-flex items-start mr-3" href="#0">
-                            <img class="rounded-full" src="{{ $fisher->nick_image }}" width="48" height="48" alt="Lauren Marsano" />
+                            <img class="rounded-full" src="{{ $user->nick_image }}" width="48" height="48" alt="Lauren Marsano" />
                         </a>
                         <div class="pr-1">
                             <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
-                                <h2 class="text-xl leading-snug font-bold">{{ $fisher->name }}</h2>
+                                <h2 class="text-xl leading-snug font-bold">{{ $user->name }}</h2>
                             </a>
                             <a class="block text-sm font-medium hover:text-indigo-500" href="#0">@lauren.mars</a>
                         </div>
@@ -49,7 +49,7 @@
                     <!-- Chat list -->
                     <div class="divide-y divide-gray-200">
                         @foreach ($net as $fisher)
-                        <div x-clock x-data="{ showChat: false }">
+                        <div x-data="{ showChat: false }">
                             <!-- User -->
                             <button @click.prevent="showChat=true" class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
                                 <div class="flex items-center">
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </button>  
-                            <x-boat-chat :fisher="$fisher"/>
+                            <x-boat-chat :user="$user" :fisher="$fisher"/>
                         </div>
                         @endforeach
                     </div>

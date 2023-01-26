@@ -5,7 +5,7 @@
     <div x-clock x-show="showChat" class="fixed bottom-0 right-0">
         <!-- flex to align chat box side by side -->
       <div class="flex space-x-4">
-        <div x-data="utils" class="w-80 h-96 flex flex-col border shadow-md bg-white">
+        <div id="fisher_{{ $fisher->id }}" x-data="utils" class="w-80 h-96 flex flex-col border shadow-md bg-white">
           <div class="flex items-center justify-between border-b p-2">
             <!-- user info -->
             <div class="flex items-center">

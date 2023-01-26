@@ -36,7 +36,14 @@
                 .listen('MessageSent', (e) => {
                     alert(e.message);
                     console.log(e);
+                    console.log(e.message);
+                    console.log(e.user.id);
+                    // document.getElementById('fisher_' + e.user.id).dispatchEvent(new CustomEvent('add_fisher_message', { message: 'Mensagem Teste' }));
             });
+
+            // document.querySelectorAll('[x-data]').forEach(el => {
+            //     console.log(el.__x.getUnobservedData());
+            // });
         }    
     </script>
     <script>
@@ -45,13 +52,22 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('utils', () => ({
                 messages: [ { sent: 'BiriguiLISTENER', received: '', datetime: '' }, { received: 'XXX', datetime: '' }, { sent: '', received: 'received NANANANA', datetime: '' } ],
-                newMessage: "",
+                newMessage: '',
+                eventListeners: {
+                    ['@add_fisher_message'](){
+                        console.log('escape key was hit');
+                    }
+                },
                 addMessage(){
                     this.messages.push({ received: this.newMessage });
+
+                    let postVars = { message: this.newMessage };
+                    window.axios.post(`/boat/chat/send_message/${this.fisherId}`, postVars);
+                    
                     this.newMessage = "";
                 }
             }))
-        })
+        });
     </script>
   @endpush
 </x-boat-layout>

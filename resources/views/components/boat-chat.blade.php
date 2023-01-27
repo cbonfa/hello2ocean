@@ -5,7 +5,7 @@
     <div x-clock x-show="showChat" class="fixed bottom-0 right-0">
         <!-- flex to align chat box side by side -->
       <div class="flex space-x-4">
-        <div id="fisher_{{ $fisher->id }}" x-data="utils" class="w-80 h-96 flex flex-col border shadow-md bg-white">
+        <div id="fisher_{{ $fisher->id }}" x-data="utils" @add-fisher-message="addMessageOnBroadcast(event);" class="w-80 h-96 flex flex-col border shadow-md bg-white">
           <div class="flex items-center justify-between border-b p-2">
             <!-- user info -->
             <div class="flex items-center">
@@ -43,7 +43,7 @@
               <template x-for="message in messages">
                 <!-- chat message -->
                 <div>
-                  <template x-if="message.sent">
+                  <template x-if="message.received">
                     <div class="flex items-center mb-4">
                       <div class="flex-none flex flex-col items-center space-y-1 mr-4">
                         <img class="rounded-full w-10 h-10"
@@ -51,7 +51,7 @@
                         <a href="#" class="block text-xs hover:underline">{{ $fisher->name }}</a>
                       </div>
                       <div class="flex-1 bg-indigo-400 text-white p-2 rounded-lg mb-2 relative">
-                        <div x-text="message.sent"></div>
+                        <div x-text="message.received"></div>
                         <!-- arrow -->
                         <div class="absolute left-0 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
                         <!-- end arrow -->
@@ -60,7 +60,7 @@
                   </template>
                   <!-- end chat message -->
                   <!-- chat message -->
-                  <template x-if="message.received">
+                  <template x-if="message.sent">
                     <div class="flex items-center flex-row-reverse mb-4">
                       <div class="flex-none flex flex-col items-center space-y-1 ml-4">
                         <img class="rounded-full w-10 h-10"
@@ -68,7 +68,7 @@
                         <a href="#" class="block text-xs hover:underline">{{ $user->name }}</a>
                       </div>
                       <div class="flex-1 bg-indigo-100 text-gray-800 p-2 rounded-lg mb-2 relative">
-                        <div x-text="message.received"></div>
+                        <div x-text="message.sent"></div>
                 
                         <!-- arrow -->
                         <div class="absolute right-0 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-100"></div>

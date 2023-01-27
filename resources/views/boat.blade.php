@@ -34,11 +34,11 @@
         window.onload=function(){
             Echo.private('chat.fisher.{{ Auth::user()->id }}')
                 .listen('MessageSent', (e) => {
-                    alert(e.message);
-                    console.log(e);
-                    console.log(e.message);
-                    console.log(e.user.id);
-                    // document.getElementById('fisher_' + e.user.id).dispatchEvent(new CustomEvent('add_fisher_message', { message: 'Mensagem Teste' }));
+                    document.getElementById('fisher_' + e.user.id).dispatchEvent(
+                        new CustomEvent('add-fisher-message', {
+                                                                detail: { message: e.message, fisher_id: e.user.id }
+                                                            })
+                    );
             });
 
             // document.querySelectorAll('[x-data]').forEach(el => {
@@ -53,13 +53,12 @@
             Alpine.data('utils', () => ({
                 messages: [ { sent: 'BiriguiLISTENER', received: '', datetime: '' }, { received: 'XXX', datetime: '' }, { sent: '', received: 'received NANANANA', datetime: '' } ],
                 newMessage: '',
-                eventListeners: {
-                    ['@add_fisher_message'](){
-                        console.log('escape key was hit');
-                    }
+                addMessageOnBroadcast(event){
+                    this.messages.push({ received: event.detail.message });
+                    $parent.showChat = true;
                 },
                 addMessage(){
-                    this.messages.push({ received: this.newMessage });
+                    this.messages.push({ sent: this.newMessage });
 
                     let postVars = { message: this.newMessage };
                     window.axios.post(`/boat/chat/send_message/${this.fisherId}`, postVars);

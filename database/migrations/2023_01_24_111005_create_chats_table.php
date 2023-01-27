@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('receiver_id')->constrained('fishers');
             $table->text('text_sent');
             $table->text('received_text');
+            $table->dateTime('read_in')->nullable();
             $table->timestamps();
         });
     }

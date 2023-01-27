@@ -24,21 +24,18 @@
     </div>
   @push('scripts')
     <script>
-        function sendMessage(fisher_id)
-        {
-            let postVars = { message: 'Hello' };
-            window.axios.post(`/boat/chat/send_message/${fisher_id}`, postVars);
-        }
-    </script>
-    <script>
         window.onload=function(){
             Echo.private('chat.fisher.{{ Auth::user()->id }}')
                 .listen('MessageSent', (e) => {
-                    document.getElementById('fisher_' + e.user.id).dispatchEvent(
-                        new CustomEvent('add-fisher-message', {
-                                                                detail: { message: e.message, fisher_id: e.user.id }
-                                                            })
-                    );
+                    if (document.getElementById('fisher_' + e.user.id)) {
+                        document.getElementById('fisher_' + e.user.id).dispatchEvent(
+                            new CustomEvent('add-fisher-message', {
+                                                                    detail: { message: e.message, fisher_id: e.user.id }
+                                                                })
+                        );
+                    } else {
+                        alert('mensagem de alguém não na sua lista');
+                    }
             });
 
             // document.querySelectorAll('[x-data]').forEach(el => {
@@ -51,19 +48,32 @@
         // https://technotrampoline.com/articles/working-with-arrays-in-alpinejs-stores/
         document.addEventListener('alpine:init', () => {
             Alpine.data('utils', () => ({
-                messages: [ { sent: 'BiriguiLISTENER', received: '', datetime: '' }, { received: 'XXX', datetime: '' }, { sent: '', received: 'received NANANANA', datetime: '' } ],
+                messages: [ ],
                 newMessage: '',
+                showChat: false,
+                setMessages(fisher_id){
+                    // axios
+                    //   this.messages = messages;
+                },
                 addMessageOnBroadcast(event){
                     this.messages.push({ received: event.detail.message });
-                    $parent.showChat = true;
+                    this.showChat = true;
+                    // End of scroll
+                    var objDiv = document.getElementById("chat_fisher_" + event.detail.fisher_id);
+                    setTimeout(() => {
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }, "50");
                 },
-                addMessage(){
+                addMessage(fisher_id){
                     this.messages.push({ sent: this.newMessage });
-
                     let postVars = { message: this.newMessage };
-                    window.axios.post(`/boat/chat/send_message/${this.fisherId}`, postVars);
-                    
+                    window.axios.post(`/boat/chat/send_message/${fisher_id}`, postVars);
                     this.newMessage = "";
+                    // End of scroll
+                    var objDiv = document.getElementById("chat_fisher_" + fisher_id);
+                    setTimeout(() => {
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }, "50");
                 }
             }))
         });

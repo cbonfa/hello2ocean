@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature\AuthFisher;
 
 use App\Models\Fisher;
 use Illuminate\Foundation\Testing\RefreshDatabase;

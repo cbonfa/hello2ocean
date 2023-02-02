@@ -5,6 +5,7 @@
             <header class="pt-6 pb-4 px-5 border-b border-gray-200">
                 <div class="flex justify-between items-center mb-3">
                     <!-- Image + name -->
+                    @auth
                     <div class="flex items-center">
                         <a class="inline-flex items-start mr-3" href="#0">
                             <img class="rounded-full" src="{{ $user->nick_image }}" width="48" height="48" alt="Lauren Marsano" />
@@ -15,7 +16,8 @@
                             </a>
                             <a class="block text-sm font-medium hover:text-indigo-500" href="#0">@lauren.mars</a>
                         </div>
-                    </div>
+                    </div>                
+                    @endauth
                     <!-- Settings button -->
                     <div class="relative inline-flex flex-shrink-0">
                         <button class="text-gray-400 hover:text-gray-500 rounded-full focus:ring-0 outline-none focus:outline-none">

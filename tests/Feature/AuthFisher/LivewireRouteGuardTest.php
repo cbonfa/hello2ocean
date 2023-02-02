@@ -16,10 +16,10 @@ class LivewireRouteGuardTest  extends TestCase
     public function test_livewire_component_guard()
     {
         $livewire = \Livewire::test(Home::class);
-        $livewire->lastResponse->assertStatusCode(401);
+        $livewire->assertStatus(401);
 
         $this->actingAs(Fisher::factory()->create(), 'fisher');   
         $livewire = \Livewire::test(Home::class);
-        $livewire->lastResponse->assertOk();
+        $livewire->assertOk();
     }
 }

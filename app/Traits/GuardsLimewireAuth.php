@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Auth;
 trait GuardsLimewireAuth
 {
     
-    public function initializeGuardsAgainstAccess()
+    protected function initializeGuardsLimewireAuth()
     {
-        if (app()->runningInConsole() && app()->runningUnitTests()) {
-            return;
+        
+        if (app()->runningInConsole() && (!app()->runningUnitTests())) {
+             return;
         }
-
         if (isset($this->guard)) {
             abort_unless(Auth::guard($this->guard)->check(), 401);
         }

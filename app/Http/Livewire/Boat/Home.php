@@ -16,8 +16,8 @@ class Home extends Component
     
     public function render()
     {
-        
-        $net = auth()->user()->guest || auth()->user()->net;
+
+        $net = (auth()->check()) ? auth()->user()->net : [];
         return view('livewire.boat.home', compact('net'));
     }
 }

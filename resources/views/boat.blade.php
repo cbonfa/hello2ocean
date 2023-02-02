@@ -30,6 +30,9 @@
                         );
                     } else {
                         alert('mensagem de alguém não na sua lista');
+                        window.livewire.on('add_contact', () => {
+                            console.log( '----');
+                        });
                     }
             });
 

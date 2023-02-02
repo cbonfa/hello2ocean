@@ -1,4 +1,4 @@
-@props(['user', 'fisher'])
+@props(['user'])
 
 <div>
     <!-- chat box -->
@@ -10,10 +10,10 @@
             <!-- user info -->
             <div class="flex items-center">
               <img class="rounded-full w-10 h-10"
-                src="{{ $fisher->nick_image }}" />
+                :src="contact.nick_image" />
               <div class="pl-2">
                 <div class="font-semibold">
-                  <a class="hover:underline" href="#">{{ $fisher->name }}</a>
+                  <a class="hover:underline" href="#" x-text="contact.name"></a>
                 </div>
                 <div class="text-xs text-gray-600">Online</div>
               </div>
@@ -37,7 +37,7 @@
             <!-- end chat box action -->
           </div>
           
-          <div id="chat_fisher_{{ $fisher->id }}" class="flex-1 px-4 py-4 overflow-y-auto">
+          <div :id="['chat_fisher_' + contact.id]" class="flex-1 px-4 py-4 overflow-y-auto">
             
             <div>
               <template x-for="message in messages">
@@ -47,8 +47,8 @@
                     <div class="flex items-center mb-4">
                       <div class="flex-none flex flex-col items-center space-y-1 mr-4">
                         <img class="rounded-full w-10 h-10"
-                          src="{{ $fisher->nick_image }}" />
-                        <a href="#" class="block text-xs hover:underline">{{ $fisher->name }}</a>
+                          :src="contact.nick_image" />
+                        <a href="#" class="block text-xs hover:underline" x-text="contact.name"></a>
                       </div>
                       <div class="flex-1 bg-indigo-400 text-white p-2 rounded-lg mb-2 relative">
                         <div x-text="message.received"></div>
@@ -102,13 +102,12 @@
             <!-- end chat input action -->
         
             <div class="w-full mx-2">
-              <input x-ref="input_message" @keydown.enter="addMessage({{ $fisher->id }})" x-model="newMessage" class="w-full rounded-full border border-gray-200" type="text" value="" placeholder="Aa" autofocus />
+              <input x-ref="input_message" @keydown.enter="addMessage(contact.id)" x-model="newMessage" class="w-full rounded-full border border-gray-200" type="text" value="" placeholder="Aa" autofocus />
             </div>
-        
             <!-- chat send action -->
         
             <div>
-              <button @click="addMessage({{ $fisher->id }})" class="inline-flex hover:bg-indigo-50 rounded-full p-2" type="button">
+              <button @click="addMessage(contact.id)" class="inline-flex hover:bg-indigo-50 rounded-full p-2" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

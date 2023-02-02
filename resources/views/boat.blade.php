@@ -47,8 +47,12 @@
                 newMessage: '',
                 showChat: false,
                 setMessages(fisher_id){
-                    // axios
-                    //   this.messages = messages;
+                    axios.post(`/boat/chat/get_messages/${fisher_id}`, {})
+                    .then((response) => {
+                       this.messages = response.data; 
+                    }, (error) => {
+                        console.log(error);
+                    });
                 },
                 addMessageOnBroadcast(event){
                     this.messages.push({ received: event.detail.message });

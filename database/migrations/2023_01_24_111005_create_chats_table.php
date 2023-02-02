@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('fisher_id')->constrained();
             $table->foreignId('receiver_id')->constrained('fishers');
-            $table->text('text_sent');
-            $table->text('received_text');
+            $table->text('text_sent')->nullable();
+            $table->text('received_text')->nullable();
             $table->dateTime('read_in')->nullable();
             $table->timestamps();
         });

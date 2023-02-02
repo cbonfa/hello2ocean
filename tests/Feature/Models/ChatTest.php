@@ -36,4 +36,12 @@ class ChatTest extends TestCase
         $this->assertInstanceOf(Fisher::class, $chat->received);
     }
 
+    public function test_create_history_chat(){
+        $sender = Fisher::factory()->create();
+        $receiver = Fisher::factory()->create();
+        $chats = Chat::create_history_chat($sender->id, $receiver->id, 'MSG TEST');
+        $this->assertCount(2, Chat::all());
+        $this->assertCount(2, $chats);
+    }
+
 }

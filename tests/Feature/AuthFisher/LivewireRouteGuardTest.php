@@ -14,7 +14,7 @@ class LivewireRouteGuardTest  extends TestCase
 
     protected $dropViews = true;
 
-    public function test_livewire_component_guard()
+    public function test_livewire_component_auth_guard()
     {
         $livewire = Livewire::test(Home::class);
         $livewire->assertStatus(401);

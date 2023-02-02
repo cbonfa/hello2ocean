@@ -51,24 +51,24 @@
                     <!-- Chat list -->
                     <div class="divide-y divide-gray-200">
                         @foreach ($net as $fisher)
-                        <div id="fisher_{{ $fisher->id }}" 
-                            x-data="utils" 
-                            x-init="setMessages({{ $fisher->id }});" 
-                            @add-fisher-message="addMessageOnBroadcast(event);"
-                            >
-                            <!-- User -->
-                            <button @click.prevent="showChat=true; $nextTick(() => { $refs.input_message.focus(); });" class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
-                                <div class="flex items-center">
+                            <div id="fisher_{{ $fisher->id }}" 
+                                x-data="utils" 
+                                x-init="setMessages({{ $fisher->id }});" 
+                                @add-fisher-message="addMessageOnBroadcast(event);"
+                                >
+                                <!-- User -->
+                                <button @click.prevent="showChat=true; $nextTick(() => { $refs.input_message.focus(); });" class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
+                                    <div class="flex items-center">
 
-                                    <img class="rounded-full items-start flex-shrink-0 mr-3" src="{{ $fisher->nick_image }}" width="32" height="32" alt="Marie Zulfikar" />
-                                    <div>
-                                        <h4 class="text-sm font-semibold text-gray-900">{{ $fisher->name }}</h4>
-                                        <div class="text-[13px]">The video chat ended · 2hrs</div>
+                                        <img class="rounded-full items-start flex-shrink-0 mr-3" src="{{ $fisher->nick_image }}" width="32" height="32" alt="Marie Zulfikar" />
+                                        <div>
+                                            <h4 class="text-sm font-semibold text-gray-900">{{ $fisher->name }}</h4>
+                                            <div class="text-[13px]">The video chat ended · 2hrs</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </button>  
-                            <x-boat-chat :user="$user" :fisher="$fisher"/>
-                        </div>
+                                </button>  
+                                <x-boat-chat :user="$user" :fisher="$fisher"/>
+                            </div>
                         @endforeach
                     </div>
                 </div>

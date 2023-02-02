@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Chat;
 use App\Models\Fisher;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -41,6 +42,7 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        Chat::create_history_chat($this->user->id, $this->fisher->id, $this->message);
         return new PrivateChannel("chat.fisher.{$this->fisher->id}", ['guard' => 'fisher']);
     }
 }

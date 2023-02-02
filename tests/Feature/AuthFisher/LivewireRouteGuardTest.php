@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Http\Livewire\Boat\Home;
 use App\Models\Fisher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 
 class LivewireRouteGuardTest  extends TestCase
 {
@@ -15,11 +16,11 @@ class LivewireRouteGuardTest  extends TestCase
 
     public function test_livewire_component_guard()
     {
-        $livewire = \Livewire::test(Home::class);
+        $livewire = Livewire::test(Home::class);
         $livewire->assertStatus(401);
 
         $this->actingAs(Fisher::factory()->create(), 'fisher');   
-        $livewire = \Livewire::test(Home::class);
+        $livewire = Livewire::test(Home::class);
         $livewire->assertOk();
     }
 }

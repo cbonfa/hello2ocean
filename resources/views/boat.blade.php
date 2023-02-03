@@ -29,10 +29,13 @@
                                                                 })
                         );
                     } else {
-                        alert('mensagem de alguém não na sua lista');
-                        window.livewire.on('add_contact', () => {
-                            console.log( '----');
-                        });
+                        if (confirm('Alguém que não está na sua lista está enviando uma mensagem, deseja adiciona-lo?')) {
+                            document.getElementById('net_contacs').dispatchEvent(
+                                new CustomEvent('add-fisher', {
+                                                                        detail: { message: e.message, fisher: e.user }
+                                                                    })
+                            );
+                        }
                     }
             });
 
@@ -43,9 +46,8 @@
     </script>
     <script>
         // Sample stores
-        // https://technotrampoline.com/articles/working-with-arrays-in-alpinejs-stores/
         document.addEventListener('alpine:init', () => {
-            Alpine.data('utils', () => ({
+            Alpine.data('chats', () => ({
                 messages: [ ],
                 newMessage: '',
                 showChat: false,
@@ -77,8 +79,25 @@
                         objDiv.scrollTop = objDiv.scrollHeight;
                     }, "50");
                 }
-            }))
+            }));
+
         });
+        
+        // function addFisher(event){
+        //     var fisher = event.detail.fisher;
+        //     var message = event.detail.message;
+        //     this.contacts.push({ fisher });
+        //     setTimeout(() => {
+        //         if (document.getElementById('fisher_' + fisher.id)) {
+        //             document.getElementById('fisher_' + fisher.id).dispatchEvent(
+        //                 new CustomEvent('add-fisher-message', {
+        //                                     detail: { message: message, fisher_id: fisher.id }
+        //                                 });
+        //             );
+        //         }
+        //     }, "50");
+        // }        
+        
     </script>
   @endpush
 </x-boat-layout>

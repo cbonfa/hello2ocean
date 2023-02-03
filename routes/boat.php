@@ -8,6 +8,9 @@ use App\Http\Controllers\ChatController;
 
 Route::get('/', [BoatController::class, 'index'])->name('index');
 
+# ------------------------------------------------------------------------------
+# CHAT ROUTES
+# ------------------------------------------------------------------------------
 Route::post('chat/send_message/{fisher}', [ChatController::class, 'sendMessage'])
     ->name('chat.send.message');
 
@@ -17,5 +20,5 @@ Route::post('chat/get_messages/{fisher}', [ChatController::class, 'getMessages']
 Route::post('chat/get_net', [ChatController::class, 'getNet'])
     ->name('chat.get.net');
 
-    Route::post('chat/add_net/{fisher}', [ChatController::class, 'addNet'])
+Route::post('chat/add_net/{fisher}', [ChatController::class, 'addNet'])
     ->name('chat.add.net');

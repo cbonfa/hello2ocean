@@ -13,7 +13,10 @@
     <div class="py-12">
         
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <livewire:boat.home></livewire:boat.home>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <x-boat-contacts :user="Auth::user()"/>
+            </div>
+            {{-- <livewire:boat.bootle></livewire:boat.bootle> --}}
         </div>
                 
     </div>
@@ -63,12 +66,15 @@
                     this.contacts.push({ id: fisher.id, name: fisher.name, nick_image: fisher.nick_image });
                     axios.post(`/boat/chat/add_net/${fisher.id}`, {})
                     .then((response) => {
-                        alert('respondeu');
-                        document.getElementById("chat_fisher_" + fisher.id).dispatchEvent(
+                        if (response.status = 'ok'){
+
+                            document.getElementById("chat_fisher_" + fisher.id).dispatchEvent(
                             new CustomEvent('open-and-scroll', {
                                                                     detail: { fisher_id: fisher.id }
                                                                 })
                             );
+                        }
+
                     }, (error) => {
                         console.log(error);
                     });

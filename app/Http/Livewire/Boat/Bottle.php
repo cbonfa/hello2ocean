@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Boat;
+namespace App\Http\Livewire\Bottle;
 
 
 use Livewire\Component;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Traits\GuardsLimewireAuth;
 
 
-class Home extends Component
+class Bottle extends Component
 {
 
     use GuardsLimewireAuth;
@@ -20,6 +20,6 @@ class Home extends Component
     public function render()
     {
         $this->contacts = (auth()->check()) ? auth()->user()->net->toArray('id', 'name', 'nick_image') : [];
-        return view('livewire.boat.home');
+        return view('livewire.boat.bottle');
     }
 }

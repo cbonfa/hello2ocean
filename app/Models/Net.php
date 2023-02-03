@@ -13,5 +13,5 @@ class Net extends Model
 
     protected $fillable = ['fisher_id', 'friend_id', 'profile_image', 
                             'display_name', 'blocked', 'affinity', 
-                            'points','drops', 'splashs'];
+                            'points','drops', 'splashs', 'join_date'];
 }

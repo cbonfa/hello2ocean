@@ -25,6 +25,7 @@ class CreateFishersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_sign_in_at')->nullable();
             $table->string('password')->nullable();
+            $table->dateTime('premium_until')->nullable();
             $table->foreignIdFor(Language::class)->nullable();
             $table->rememberToken();
             # $table->string('IP', 128)->nullable();

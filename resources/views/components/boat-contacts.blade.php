@@ -50,13 +50,14 @@
                 <div class="pl-5 pb-3 overflow-y-auto h-96">
                     <!-- Chat list -->
                     <div class="divide-y divide-gray-200">
-                        <div id="net_contacs" x-data="{ contacts: @entangle('contacts') }" @add-fisher="addFisher(event);">
+                        <div id="net_contacs" @add-fisher-net="addNetOnBroadcast(event);" x-data="net" x-init="loadContacts()">
                             <template x-for="contact in contacts">
                             {{-- @foreach ($net as $fisher) --}}
                                 <div :id="['fisher_' + contact.id]"  
                                     x-data="chats" 
                                     x-init="setMessages(contact.id);" 
                                     @add-fisher-message="addMessageOnBroadcast(event);"
+                                    @open-and-scroll="alert('entrou!'); openAndScrool(event);"
                                     >
                                     <!-- User -->
                                     <button @click.prevent="showChat=true; $nextTick(() => { $refs.input_message.focus(); });" class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">

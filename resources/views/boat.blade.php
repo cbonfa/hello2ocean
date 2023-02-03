@@ -31,7 +31,7 @@
                     } else {
                         if (confirm('Alguém que não está na sua lista está enviando uma mensagem, deseja adiciona-lo?')) {
                             document.getElementById('net_contacs').dispatchEvent(
-                                new CustomEvent('add-fisher', {
+                                new CustomEvent('add-fisher-net', {
                                                                         detail: { message: e.message, fisher: e.user }
                                                                     })
                             );
@@ -47,6 +47,35 @@
     <script>
         // Sample stores
         document.addEventListener('alpine:init', () => {
+            Alpine.data('net', () => ({
+                contacts: [ ],
+                loadContacts(){
+                    axios.post('/boat/chat/get_net', {})
+                    .then((response) => {
+                        this.contacts = response.data;
+                    }, (error) => {
+                        console.log(error);
+                    });
+                    
+                },
+                addNetOnBroadcast(event){
+                    var fisher = event.detail.fisher
+                    this.contacts.push({ id: fisher.id, name: fisher.name, nick_image: fisher.nick_image });
+                    axios.post(`/boat/chat/add_net/${fisher.id}`, {})
+                    .then((response) => {
+                        alert('respondeu');
+                        document.getElementById("chat_fisher_" + fisher.id).dispatchEvent(
+                            new CustomEvent('open-and-scroll', {
+                                                                    detail: { fisher_id: fisher.id }
+                                                                })
+                            );
+                    }, (error) => {
+                        console.log(error);
+                    });
+                    
+                }
+            }));
+
             Alpine.data('chats', () => ({
                 messages: [ ],
                 newMessage: '',
@@ -59,15 +88,6 @@
                         console.log(error);
                     });
                 },
-                addMessageOnBroadcast(event){
-                    this.messages.push({ received: event.detail.message });
-                    this.showChat = true;
-                    // End of scroll
-                    var objDiv = document.getElementById("chat_fisher_" + event.detail.fisher_id);
-                    setTimeout(() => {
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, "50");
-                },
                 addMessage(fisher_id){
                     this.messages.push({ sent: this.newMessage });
                     let postVars = { message: this.newMessage };
@@ -78,7 +98,26 @@
                     setTimeout(() => {
                         objDiv.scrollTop = objDiv.scrollHeight;
                     }, "50");
-                }
+                },
+                addMessageOnBroadcast(event){
+                    this.messages.push({ received: event.detail.message });
+                    this.showChat = true;
+                    // End of scroll
+                    var objDiv = document.getElementById("chat_fisher_" + event.detail.fisher_id);
+                    setTimeout(() => {
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }, "50");
+                },                
+                openAndScrool(event){
+                    alert('entrou2');
+                    console.log(event.detail);
+                    var fisher_id = event.detail.fisher_id;
+                    setTimeout(() => {
+                        this.showChat = true
+                        var objDiv = document.getElementById("chat_fisher_" + fisher_id);
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }, "50");
+                },
             }));
 
         });

@@ -126,4 +126,21 @@ class FisherTest extends TestCase
 
     }
 
+    public function test_add_fisher_net(){
+        $fisher = Fisher::factory()->create();
+        $friend = Fisher::factory()->create();
+        $fisher->addNet($friend->id);
+        $this->assertCount(1, $fisher->net);
+        $this->assertEquals($friend->id, $fisher->net->first()->id);
+    }
+
+    public function test_do_not_let_duplicity_fisher_net(){
+        $fisher = Fisher::factory()->create();
+        $friend = Fisher::factory()->create();
+        $fisher->addNet($friend->id);
+        $fisher->addNet($friend->id);
+        $this->assertCount(1, $fisher->net);
+        $this->assertEquals($friend->id, $fisher->net->first()->id);
+    }
+
 }

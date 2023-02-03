@@ -25,4 +25,20 @@ class ChatController extends Controller
                     ->orderBy('created_at')
                     ->get());
     }
+
+    public function getNet(Request $request){
+        return response()->json(auth()->user()->net->map(function($fisher) {									
+            return [
+                    'id' => $fisher->id,
+                    'name' => $fisher->name,
+                    'nick_image' => $fisher->nick_image
+                ];
+            }));
+    }
+
+    public function addNet(Request $request, Fisher $fisher){
+        $status = 'erro';
+        if (auth()->user()->addNet($fisher->id)) { $status = 'ok'; }
+        return response()->json(['status' => $status]);
+    }
 }

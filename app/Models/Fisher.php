@@ -83,6 +83,15 @@ class Fisher extends Authenticatable
         return $this->chat()->where('receiver_id','=', $receiver_id)->orderBy('created_at');
     }
 
+    public function addNet($fisher)
+    {
+        $fisher_id = ($fisher instanceof Fisher) ? $fisher->id : $fisher;
+        if (!Net::where(['fisher_id' => $this->id, 'friend_id' => $fisher_id])->exists()) {
+            Net::create(['fisher_id' => $this->id, 'friend_id' => $fisher_id, 'join_date' =>  date("Y-m-d H:i:s")]);
+        }
+
+    }
+
 
 
 }

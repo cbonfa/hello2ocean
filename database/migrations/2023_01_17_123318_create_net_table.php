@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('fisher_id')->constrained();
             $table->foreignId('friend_id')->constrained('fishers');
             $table->string('profile_image')->default('profile_image');
+            $table->dateTime('join_date')->nullable();
             $table->string('display_name')->default('nick');
             $table->boolean('blocked')->default(false);
             $table->integer('affinity')->default(0); # percentual de afinidade

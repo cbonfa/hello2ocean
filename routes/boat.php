@@ -13,3 +13,9 @@ Route::post('chat/send_message/{fisher}', [ChatController::class, 'sendMessage']
 
 Route::post('chat/get_messages/{fisher}', [ChatController::class, 'getMessages'])
     ->name('chat.get.messages');
+
+Route::post('chat/get_net', [ChatController::class, 'getNet'])
+    ->name('chat.get.net');
+
+    Route::post('chat/add_net/{fisher}', [ChatController::class, 'addNet'])
+    ->name('chat.add.net');

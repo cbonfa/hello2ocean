@@ -4,9 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoatController;
 use App\Http\Controllers\ChatController;
-
+use App\Http\Controllers\Boat\FisherController;
 
 Route::get('/', [BoatController::class, 'index'])->name('index');
+
+# ------------------------------------------------------------------------------
+# FISHER DETAILS EDIT
+# ------------------------------------------------------------------------------
+Route::get('edit', [FisherController::class, 'edit'])->name('fisher.edit');
 
 # ------------------------------------------------------------------------------
 # CHAT ROUTES

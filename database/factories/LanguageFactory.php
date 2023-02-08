@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LanguageFactory extends Factory
@@ -13,10 +14,10 @@ class LanguageFactory extends Factory
      */
     public function definition()
     {
+        $country_id = (Country::count() == 0) ? Country::factory()->create()->id : Country::first()->id;
         return [
             'description' => $this->faker->country(),
-            'country' => $this->faker->country(),
-            'country_code' => $this->faker->countryCode(),
+            'country_id' =>$country_id,
             'locale' => $this->faker->locale(), 
             'active' => true,
         ];

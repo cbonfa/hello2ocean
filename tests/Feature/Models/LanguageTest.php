@@ -19,7 +19,7 @@ class LanguageTest extends TestCase
     {
         $this->assertTrue( 
             Schema::hasColumns('languages', [
-              'id','country', 'country_code', 'locale', 'active'
+              'id','country_id', 'locale', 'active'
           ]), 1);
     }
 

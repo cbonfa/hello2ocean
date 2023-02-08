@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Country;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLanguagesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,15 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('ceps', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->foreignIdFor(Country::class);            $table->char('locale', 6)->unique()->index();
-            $table->boolean('active')->default(true);
+            $table->string('cep');
+            $table->string('logradouro');
+            $table->string('complemento');
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('uf');
+            $table->integer('ibge');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ class CreateLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('ceps');
     }
-}
+};

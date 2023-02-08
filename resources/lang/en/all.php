@@ -15,6 +15,7 @@ return [
     'actions' => 'Actions',
 
     'choose_your_language' => 'Choose Your Language',
+    'choose_your_country' => 'Choose Your Country',
     'show' => 'Show',
     'edit' => 'Edit',
     'delete' => 'Delete',

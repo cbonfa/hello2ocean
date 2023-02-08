@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
+
+    protected $countries;
+
+    public function __construct()
+    {
+        $this->load_variables();
+    }
 
     /**
     * Display a listing of the resource.
@@ -19,7 +27,6 @@ class LanguageController extends Controller
         
         if (!blank($search)) {
             $languages = Language::where('description','LIKE','%'.$search.'%')
-                        ->orWhere('country', 'LIKE', '%'.$search.'%')
                         ->orderBy('description')
                         ->paginate(50);
         } else {
@@ -38,7 +45,7 @@ class LanguageController extends Controller
         */
     public function create()
     {
-        return view('hydrosphere.languages.create');
+        return view('hydrosphere.languages.create')->with('countries', $this->countries);
     }
 
     /**
@@ -50,8 +57,7 @@ class LanguageController extends Controller
     {
         $request->validate([
             'description' => 'required|max:255',
-            'country' => 'required|max:255',
-            'country_code' => 'required|max:255',
+            'country_id' => 'required',
             'locale' => 'required|max:255'
         ]);
         // sem o ALL tem que colocar no validate
@@ -81,7 +87,7 @@ class LanguageController extends Controller
     {
         // $wave = Language::findOrFail($id);
 
-        return view('hydrosphere.languages.edit', compact('language'));
+        return view('hydrosphere.languages.edit', compact('language'))->with('countries', $this->countries);
     }
 
     /**
@@ -94,8 +100,7 @@ class LanguageController extends Controller
     {
         $request->validate([
             'description' => 'required|max:255',
-            'country' => 'required|max:255',
-            'country_code' => 'required|max:255',
+            'country_id' => 'required',
             'locale' => 'required|max:255'
         ]);
         //         
@@ -115,6 +120,11 @@ class LanguageController extends Controller
     {
         $language->delete();
         return redirect()->route('hydrosphere.languages.index')->with('success',__('languages.deleted_success'));
+    }
+
+    private function load_variables()
+    {
+        $this->countries = Country::all();
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -61,11 +62,10 @@ class LanguageCrudTest extends TestCase
     {
         
         $last_count = Language::count();
-
+        $country_id = Country::factory()->create()->id;
         $response = $this->actingAs($this->user)->post('/hydrosphere/languages', [
                 'description' => 'This is one Language 4355',
-                'country' => 'Brasil',
-                'country_code' => 'BR',
+                'country_id' => $country_id,
                 'locale' => 'pt_BR',
                 'active' => true
             ]
@@ -75,8 +75,7 @@ class LanguageCrudTest extends TestCase
         $this->assertEquals(($last_count+1), Language::count());
         $this->assertDatabaseHas('languages', [
                                             'description' => 'This is one Language 4355',
-                                            'country' => 'Brasil',
-                                            'country_code' => 'BR',
+                                            'country_id' => $country_id
                                         ]);
     }
 
@@ -90,11 +89,11 @@ class LanguageCrudTest extends TestCase
     public function test_user_can_update_language(){
         $tot = Language::count();
         $language = Language::factory()->create();
+        $country_id = Country::factory()->create()->id;
         $this->assertCount(($tot+1), Language::all());
         $response = $this->actingAs($this->user)->put("/hydrosphere/languages/{$language->id}", [
             'description' => 'Change Language 2349',
-            'country' => 'USA',
-            'country_code' => 'BR',
+            'country_id' => $country_id,
             'locale' => 'pt_BR',
             'active' => false
         ]);
@@ -105,7 +104,7 @@ class LanguageCrudTest extends TestCase
         $response->assertStatus(302);
         $this->assertDatabaseHas('languages', [
             'description' => 'Change Language 2349',
-            'country' => 'USA',
+            'country_id' => $country_id,
             'active' => false
         ]);
     }

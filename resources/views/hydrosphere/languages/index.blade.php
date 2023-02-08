@@ -60,7 +60,7 @@
                             <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->id }}</td>
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->description }}</td>
-                                <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->country }}</td>
+                                <td class="text-sm text-indigo-900 border-b border-gray-400">{{ $value->country->name }}</td>
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">{{ to_sn($value->active) }}</td>
                                 <td class="text-sm text-indigo-900 border-b border-gray-400">
                                     <form action="{{ route('hydrosphere.languages.destroy',$value->id) }}" method="POST">

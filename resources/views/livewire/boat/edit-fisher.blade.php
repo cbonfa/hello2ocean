@@ -28,6 +28,7 @@
             <input type="file" class="form-control" wire:model="nick_image">
             @error('nick_image') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
         
 
         <div class="d-grid gap-2">

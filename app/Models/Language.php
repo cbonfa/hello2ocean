@@ -9,7 +9,13 @@ class Language extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['description', 'country', 'country_code', 'locale', 'active'];
+    protected $fillable = ['description', 'country_id', 'locale', 'active'];
+
+    public function country() 
+    { 
+        return $this->belongsTo(Country::class); 
+    } 
+
 
     public function splashs() 
     { 

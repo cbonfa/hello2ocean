@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
 use App\Models\User;
 use App\Models\Language;
 use App\Models\Fisher;
@@ -19,22 +20,26 @@ class DatabaseSeeder extends Seeder
     {
         // senha: password
         User::factory(['name' => 'César Bonfá', 'email' => 'bonfa@inaum.net', 'password' => bcrypt('12345678')])->create();
+
+        Country::create(['id' => 1, 
+                        'name' => 'Brasil',
+                        'code' => 'BR']);
+
+        Country::create(['id' => 2, 
+                        'name' => 'United States of America',
+                        'code' => 'USA']);
         
         Language::create(['id' => 1,
                          'description' => 'Português',
-                         'country' => 'Brasil', 
-                         'country_code' => 'BR',
+                         'country_id' => 1,
                          'locale' => 'pt_BR',
-                         'active' => true,
-                        ]);
+                         'active' => true]);
 
         Language::create(['id' => 2,
                         'description' => 'English',
-                         'country' => 'Estados Unidos', 
-                         'country_code' => 'USA',
-                         'locale' => 'en',
-                         'active' => false,
-                        ]);                        
+                        'country_id' => 2,
+                        'locale' => 'en',
+                        'active' => false]);                        
         
         # Cria Pescadores
         $fisher = Fisher::factory(['name' => 'Fisher Teste', 'email' => 'fisher@gmail.com', 'password' => bcrypt('12345678'), 'nick_image' => url('images/profile1.jpg')])->create();

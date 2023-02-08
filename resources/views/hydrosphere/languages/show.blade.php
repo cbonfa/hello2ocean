@@ -45,15 +45,7 @@
                                     {{ __('all.country') }}
                                 </th>
                                 <td class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
-                                    {{ $language->country }}
-                                </td>
-                            </tr>
-                            <tr class="divide-x divide-gray-200">
-                                <th scope="col" class="w-1/4 py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 bg-gray-50 sm:pl-6">
-                                    {{ __('all.country_code') }}
-                                </th>
-                                <td class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
-                                    {{ $language->country_code }}
+                                    {{ $language->country->name }}
                                 </td>
                             </tr>
                             <tr class="divide-x divide-gray-200">

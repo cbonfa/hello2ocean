@@ -3,7 +3,7 @@
 namespace Tests\Feature\AuthFisher;
 
 use Tests\TestCase;
-use App\Http\Livewire\Boat\Home;
+use App\Http\Livewire\Boat\EditFisher;
 use App\Models\Fisher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -16,11 +16,11 @@ class LivewireRouteGuardTest  extends TestCase
 
     public function test_livewire_component_auth_guard()
     {
-        $livewire = Livewire::test(Home::class);
+        $livewire = Livewire::test(EditFisher::class);
         $livewire->assertStatus(401);
 
         $this->actingAs(Fisher::factory()->create(), 'fisher');   
-        $livewire = Livewire::test(Home::class);
+        $livewire = Livewire::test(EditFisher::class);
         $livewire->assertOk();
     }
 }

@@ -15,20 +15,14 @@
             :value="old('description', $language->description ?? '')" />
     </div>
     <div>
-        <x-input 
-            :label="__('all.country')"
-            id="country" class="block mt-1 w-full"
-            type="text"
-            name="country"
-            :value="old('country', $language->country ?? '')" />
-    </div>
-    <div>
-        <x-input 
-            :label="__('all.country_code')"
-            id="country_code" class="block mt-1 w-full"
-            type="text"
-            name="country_code"
-            :value="old('country_code', $language->country_code ?? '')" />
+        <x-select
+        name="country_id"
+        :label="__('all.country')"
+        class="w-full"
+        includeBlank="{{__('all.choose_your_country')}}"
+        labelMethod="name"
+        :list="$countries"
+        :selected="old('country_id', $language->country_id ?? '')" />                        
     </div>
     <div>
         <x-input 

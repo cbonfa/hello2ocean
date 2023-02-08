@@ -1690,6 +1690,9 @@ select {
 .justify-items-center {
   justify-items: center;
 }
+.gap-2 {
+  gap: 0.5rem;
+}
 .gap-5 {
   gap: 1.25rem;
 }

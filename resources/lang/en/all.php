@@ -3,6 +3,7 @@
 return [
     'id' => 'ID',
     'name' => 'Name',
+    'nick' => 'Nick Name',
     'description' => 'Description',
     'hydrosphere' => 'Hydrosphere',
     'language' => 'Language',

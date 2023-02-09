@@ -22,10 +22,9 @@ class WaveController extends Controller
     */
     public function index(Request $request)
     {
-        // get all the sharks
+        
         $search = $request->input('search');
 
-        
         if (!blank($search)) {
             $waves = Wave::where('name','LIKE','%'.$search.'%')
                         ->orWhere('description', 'LIKE', '%'.$search.'%')

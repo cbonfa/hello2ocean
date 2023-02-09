@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Boat;
 
+use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\Fisher;
 use App\Traits\GuardsLimewireAuth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Victorybiz\GeoIPLocation\GeoIPLocation;
+use Illuminate\Support\Carbon;
 
 class EditFisher extends Component
 {
@@ -18,13 +20,14 @@ class EditFisher extends Component
     private $fisher;
     
     public $profile_image, $nick_image;
-    public $name, $nick;
+    public $name, $nick, $country_id;
     public $updateFisher = false;
 
     public function __construct()
     {
         $this->fisher = auth()->user();
         $this->edit();
+        $this->setGeoIP();
     }
 
     public function edit(){
@@ -73,6 +76,27 @@ class EditFisher extends Component
     private function resetFields(){
         $this->name = '';
         $this->nick = '';
+    }
+
+    private function setGeoIP(){
+        if(empty($this->fisher->country_id)){
+            $geoip = new GeoIPLocation(); 
+            $countryName = $geoip->getCountry();
+            $countryCode = $geoip->getCountryCode();
+            
+            if(!empty($countryCode)){
+                $country = Country::firstOrNew(['code' => $countryCode]);
+                if (empty($country->name)){
+                    $country->name= $countryName;
+                }
+                $this->fisher->country_id = $country->id;
+                $this->fisher->lat = $geoip->getLatitude();
+                $this->fisher->long = $geoip->getLongitude();
+                $this->fisher->geo_ip_at = Carbon::now();
+                $this->fisher->save();
+            }
+
+        }
     }
 
     private function uploadAndResize($field, $width = 300, $height = 300){

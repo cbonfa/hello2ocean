@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
-
+use Illuminate\Support\Carbon;
 
 class Fisher extends Authenticatable
 {
@@ -23,6 +23,8 @@ class Fisher extends Authenticatable
         'nick_image',
         'email',
         'password',
+        'language_id',
+        'country_id',
     ];
 
     protected $hidden = [
@@ -85,13 +87,12 @@ class Fisher extends Authenticatable
 
     public function addNet($fisher)
     {
+
         $fisher_id = ($fisher instanceof Fisher) ? $fisher->id : $fisher;
         if (!Net::where(['fisher_id' => $this->id, 'friend_id' => $fisher_id])->exists()) {
-            Net::create(['fisher_id' => $this->id, 'friend_id' => $fisher_id, 'join_date' =>  date("Y-m-d H:i:s")]);
+            Net::create(['fisher_id' => $this->id, 'friend_id' => $fisher_id, 'join_date' => Carbon::now()]);
         }
 
     }
-
-
 
 }

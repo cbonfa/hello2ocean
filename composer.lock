@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bbfd5ca90c5d413018982dd447bc466",
+    "content-hash": "22a1e9d431ef10cb9a55616d98aaaffe",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6002,6 +6002,77 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
+        },
+        {
+            "name": "victorybiz/geoip-location",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/victorybiz/geoip-location.git",
+                "reference": "4f1e3e16bc74014b978c85893c01caa0cfd48c08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/victorybiz/geoip-location/zipball/4f1e3e16bc74014b978c85893c01caa0cfd48c08",
+                "reference": "4f1e3e16bc74014b978c85893c01caa0cfd48c08",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Victorybiz\\GeoIPLocation\\GeoIPLocationServiceProvider"
+                    ],
+                    "aliases": {
+                        "GeoIPLocation": "Victorybiz\\GeoIPLocation\\Facades\\GeoIPLocationFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Victorybiz\\GeoIPLocation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Victory Osayi",
+                    "email": "lavictorybiz@gmail.com"
+                }
+            ],
+            "description": "Get the geographical location of website visitors based on their IP addresses. Support Laravel 5 and PHP (Non-Laravel) Project.",
+            "keywords": [
+                "geoip",
+                "github",
+                "laravel",
+                "laravel 5",
+                "laravel 6",
+                "laravel 7",
+                "laravel 8",
+                "open source",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/victorybiz/geoip-location/issues",
+                "source": "https://github.com/victorybiz/geoip-location/tree/v1.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/victoryosayi",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-09-10T10:29:06+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -8,39 +8,14 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm p-8">
-                @if(session('success'))
-                    <div class="bg-green-100 py-5 px-6 text-base text-green-700 mb-3">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if(session('error'))
-                <div class="bg-red-100 py-5 px-6 text-base text-red-700 mb-3">
-                    {{ session('error') }}
-                </div>
-                @endif
-
-                <div class="flex flex-col md:flex-row">
-                    <div class="flex-auto">
-                        <p class="text-2xl text-gray-600 font-bold underline">
-                            {{ __('languages.index') }}
-                        </p>
-                        <p class="">{{ __('languages.explanation') }}</p>
-                    </div>
-                    <div class="flex-auto lg:w-1/4 md:w-auto">
-                        <x-search-form
-                            route="{{ route('hydrosphere.languages.index') }}"
-                            placeholder="{{ __('languages.search_placeholder') }}"
-                            value="{{request()->input('search')}}"
-                        >
-                            {{ __('all.search') }}
-                        </x-search-form>
-                    </div>
-                </div>
-
-                <div class="inline-flex justify-center items-center w-full">
-                    <hr class="mb-6 w-full h-1 border-t border-dashed border-gray-800">
-                </div>
-                
+                <x-hydrosphere-title
+                    title="{{ __('languages.index') }}"
+                    subtitle="{{ __('languages.explanation') }}"
+                    showSearch="true"
+                    searchRoute="{{ route('hydrosphere.languages.index') }}"
+                    searchPlaceholder="{{ __('languages.search_placeholder') }}"
+                    searchValue="{{ request()->input('search') }}"
+                />             
                 
                 <table class="tablemobile w-full flex-row flex-no-wrap overflow-hidden my-5">
                     <thead class="border-gray-300 text-indigo-600">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Country;
 use App\Models\Language;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,12 +30,16 @@ class CreateFishersTable extends Migration
             $table->string('localidade')->nullable();
             $table->string('uf')->nullable();
             $table->text('international_address')->nullable();
+            $table->decimal('lat', 10, 7)->nullable();
+            $table->decimal('long', 10, 7)->nullable();
+            $table->dateTime('geo_ip_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_sign_in_at')->nullable();
             $table->string('password')->nullable();
             $table->dateTime('premium_until')->nullable();
             $table->integer('sign_in_count')->default(0);            
             $table->foreignIdFor(Language::class)->nullable();
+            $table->foreignIdFor(Country::class)->nullable();
             $table->rememberToken();
             # $table->string('IP', 128)->nullable();
             

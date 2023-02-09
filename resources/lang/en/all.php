@@ -7,11 +7,12 @@ return [
     'hydrosphere' => 'Hydrosphere',
     'language' => 'Language',
     'country' => 'Country',
-    'country_code' => 'Country Code',
+    'country.code' => 'Country Code (BR, USA, etc)',
     'locale' => 'Locale',
     'active' => 'Active',
     'are_you_sure_delete' => 'Are You Sure Delete this Item?',
     'search' => 'Search',
+    'code' => 'Code',
     'actions' => 'Actions',
 
     'choose_your_language' => 'Choose Your Language',

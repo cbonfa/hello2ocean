@@ -28,6 +28,11 @@
                                 Manage Languages
                             </a>
                         </li>
+                        <li class="text-blue-500 hover:underline">                        
+                            <a href="{{ route('hydrosphere.countries.index') }}">
+                                Manage Countryes
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

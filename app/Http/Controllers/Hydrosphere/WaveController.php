@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Hydrosphere;
 
 use App\Models\Wave;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class WaveController extends Controller
 {

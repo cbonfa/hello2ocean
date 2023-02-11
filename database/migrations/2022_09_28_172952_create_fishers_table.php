@@ -22,12 +22,14 @@ class CreateFishersTable extends Migration
             $table->string('nick')->nullable();
             $table->string('nick_image')->nullable();
             $table->string('email')->unique();
+            $table->date('birthdate')->nullable();
+            $table->string('gender', 2)->nullable();
             $table->string('zipcode')->nullable();
             $table->string('address')->nullable();
             $table->string('number')->nullable();
             $table->string('complemento')->nullable();
-            $table->string('bairro')->nullable();
-            $table->string('localidade')->nullable();
+            $table->string('neighborhood')->nullable();
+            $table->string('city')->nullable();
             $table->string('uf')->nullable();
             $table->text('international_address')->nullable();
             $table->decimal('lat', 10, 7)->nullable();
@@ -38,6 +40,7 @@ class CreateFishersTable extends Migration
             $table->string('password')->nullable();
             $table->dateTime('premium_until')->nullable();
             $table->integer('sign_in_count')->default(0);            
+            $table->string('secret_code')->nullable()->unique();
             $table->foreignIdFor(Language::class)->nullable();
             $table->foreignIdFor(Country::class)->nullable();
             $table->rememberToken();

@@ -10,6 +10,8 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Victorybiz\GeoIPLocation\GeoIPLocation;
 use Illuminate\Support\Carbon;
+use BenSampo\Enum\Rules\EnumValue;
+use App\Enums\GenderType;
 
 class EditFisher extends Component
 {
@@ -20,7 +22,8 @@ class EditFisher extends Component
     private $fisher;
     
     public $profile_image, $nick_image;
-    public $name, $nick, $country_id;
+    public $name, $nick, $country_id, $birthdate, $gender;
+    public $genders;
     public $updateFisher = false;
 
     public function __construct()
@@ -34,12 +37,17 @@ class EditFisher extends Component
         if (empty($this->fisher)) { return; }
         $this->name = $this->fisher->name;
         $this->nick = $this->fisher->nick;
+        $this->birthdate = $this->fisher->birthdate;
+        $this->gender = $this->fisher->gender;
+        $this->genders = GenderType::asSelectArray();
     }
 
     public function update(){
         $fisher = $this->fisher;
         $data = $this->validate(['name' => 'required',
                                 'nick'  => 'required',
+                                'birthdate' => 'nullable|date',
+                                'gender' => ['required', new EnumValue(GenderType::class)],
                                 'nick_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
                                 'profile_image'  => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048']);
         try{
@@ -79,15 +87,18 @@ class EditFisher extends Component
     }
 
     private function setGeoIP(){
-        if(empty($this->fisher->country_id)){
+        if (!auth()->check()) { return; }
+        if((!empty($this->fisher)) || (empty($this->fisher->country_id))){
             $geoip = new GeoIPLocation(); 
             $countryName = $geoip->getCountry();
             $countryCode = $geoip->getCountryCode();
             
-            if(!empty($countryCode)){
+                if(!empty($countryCode)){
+                
                 $country = Country::firstOrNew(['code' => $countryCode]);
                 if (empty($country->name)){
                     $country->name= $countryName;
+                    $country->save();
                 }
                 $this->fisher->country_id = $country->id;
                 $this->fisher->lat = $geoip->getLatitude();
@@ -120,6 +131,6 @@ class EditFisher extends Component
 
     public function render()
     {
-        return view('livewire.boat.edit-fisher');
+        return view('livewire.boat.edit-fisher', ['genders' => $this->genders]);
     }
 }

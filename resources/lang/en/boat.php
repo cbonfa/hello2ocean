@@ -11,4 +11,7 @@ return [
     'fisher.edit.placeholder.name' => 'Enter your Name',
     'fisher.edit.button_text.nick' => 'Select Nick Image',
     'fisher.edit.button_text.profile' => 'Select Profile Image',
+    'fisher.edit.choose_your_gender' => 'Choose your Gender',
+    'fisher.edit.birthdate' => 'Put your Birth Date',
 ];
+

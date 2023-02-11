@@ -1,4 +1,4 @@
-@props(['list', 'selected', 'includeBlank', 'labelMethod', 'label' => false])
+@props(['list', 'selected', 'includeBlank', 'labelMethod' => null, 'label' => false])
 
 @error($attributes['name'])
     @php

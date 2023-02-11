@@ -23,8 +23,28 @@
                 id="name" class="block mt-1 w-full"
                 type="text"
                 name="name"
-                :placeholder="__('boat.fisher.edit.placeholder.profile')" 
+                :placeholder="__('boat.fisher.edit.placeholder.name')" 
                 wire:model.defer="name" />
+        </div>
+
+        <div>
+            <x-input 
+                :label="__('all.birthdate')"
+                id="birthdate" class="block mt-1 w-full"
+                type="text"
+                name="birthdate"
+                :placeholder="__('boat.fisher.edit.birthdate')" 
+                wire:model.defer="birthdate" />
+        </div>        
+        <div>
+            <x-select
+            name="gender"
+            :label="__('all.gender')"
+            class="w-full"
+            includeBlank="{{__('boat.fisher.edit.choose_your_gender')}}"
+            wire:model.defer="gender"
+            :list="$genders"
+            :selected="old('gender', auth()->user()->gender ?? '')" />                        
         </div>
 
         <div>

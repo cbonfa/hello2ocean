@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
 use Illuminate\Support\Carbon;
+
+use function PHPSTORM_META\map;
 
 class Fisher extends Authenticatable
 {
@@ -16,6 +19,14 @@ class Fisher extends Authenticatable
 
     protected $guard = "fisher";
 
+    //protected $dateFormat = 'd/m/Y';
+
+    // protected $dates = [
+    //     'created_at',
+    //     'updated_at',
+    //     'birthdate'
+    // ];
+
     protected $fillable = [
         'name',
         'profile_image',
@@ -23,6 +34,8 @@ class Fisher extends Authenticatable
         'nick_image',
         'email',
         'password',
+        'gender',
+        'birthdate',
         'language_id',
         'country_id',
     ];
@@ -94,5 +107,21 @@ class Fisher extends Authenticatable
         }
 
     }
+
+    protected function Birthdate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  Carbon::parse($value)->format('d/m/Y'),
+            set: fn ($value) =>  Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
+            
+        );
+    }
+
+//     protected function Birthdate(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
+//        );
+//    }
 
 }

@@ -4,6 +4,8 @@ return [
     'id' => 'ID',
     'name' => 'Name',
     'nick' => 'Nick Name',
+    'birthdate' => 'Birth Date',
+    'gender' => 'Gender',
     'description' => 'Description',
     'hydrosphere' => 'Hydrosphere',
     'language' => 'Language',

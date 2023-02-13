@@ -19,7 +19,7 @@ class Fisher extends Authenticatable
 
     protected $guard = "fisher";
 
-    //protected $dateFormat = 'd/m/Y';
+    // protected $dateFormat = 'd/m/Y';
 
     // protected $dates = [
     //     'created_at',
@@ -112,8 +112,7 @@ class Fisher extends Authenticatable
     {
         return new Attribute(
             get: fn ($value) =>  Carbon::parse($value)->format('d/m/Y'),
-            set: fn ($value) =>  Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
-            
+            set: fn (String $value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),  
         );
     }
 
@@ -121,6 +120,7 @@ class Fisher extends Authenticatable
 //    {
 //        return Attribute::make(
 //            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
+//            set: fn (String $value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),  
 //        );
 //    }
 

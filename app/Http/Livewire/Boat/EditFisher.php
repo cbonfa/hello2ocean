@@ -46,7 +46,7 @@ class EditFisher extends Component
         $fisher = $this->fisher;
         $data = $this->validate(['name' => 'required',
                                 'nick'  => 'required',
-                                'birthdate' => 'nullable|date',
+                                'birthdate' => 'nullable|date_format:d/m/Y',
                                 'gender' => ['required', new EnumValue(GenderType::class)],
                                 'nick_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
                                 'profile_image'  => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048']);

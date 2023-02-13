@@ -27,7 +27,7 @@ class FisherTest extends TestCase
     }
 
     public function teste_create_fisher(){
-        $this->assertInstanceOf(Fisher::class, Fisher::factory()->create()); 
+        $this->assertInstanceOf(Fisher::class, Fisher::factory(['birthdate' => '19/05/1977'])->create()); 
     }
 
     public function test_return_fisher_net(){

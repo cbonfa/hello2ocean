@@ -38,9 +38,14 @@
         </div>      --}}
 
         <div>
-            <input x-mask="99/99/9999" 
+            <x-data-mask 
+                :label="__('all.birthdate')"
+                id="birthdate" class="block mt-1 w-full"
+                type="text"
+                name="birthdate"
                 placeholder="DD/MM/YYYY"
-                >
+                wire:model.defer="birthdate"
+                />
         </div>
         <div>
             <x-select

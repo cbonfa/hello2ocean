@@ -1,6 +1,173 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@alpinejs/mask/dist/module.esm.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@alpinejs/mask/dist/module.esm.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ module_default),
+/* harmony export */   "stripDown": () => (/* binding */ stripDown)
+/* harmony export */ });
+// packages/mask/src/index.js
+function src_default(Alpine) {
+  Alpine.directive("mask", (el, {value, expression}, {effect, evaluateLater}) => {
+    let templateFn = () => expression;
+    let lastInputValue = "";
+    if (["function", "dynamic"].includes(value)) {
+      let evaluator = evaluateLater(expression);
+      effect(() => {
+        templateFn = (input) => {
+          let result;
+          Alpine.dontAutoEvaluateFunctions(() => {
+            evaluator((value2) => {
+              result = typeof value2 === "function" ? value2(input) : value2;
+            }, {scope: {
+              $input: input,
+              $money: formatMoney.bind({el})
+            }});
+          });
+          return result;
+        };
+        processInputValue(el);
+      });
+    } else {
+      processInputValue(el);
+    }
+    el.addEventListener("input", () => processInputValue(el));
+    el.addEventListener("blur", () => processInputValue(el, false));
+    function processInputValue(el2, shouldRestoreCursor = true) {
+      let input = el2.value;
+      let template = templateFn(input);
+      if (!template || template === "false")
+        return false;
+      if (lastInputValue.length - el2.value.length === 1) {
+        return lastInputValue = el2.value;
+      }
+      let setInput = () => {
+        lastInputValue = el2.value = formatInput(input, template);
+      };
+      if (shouldRestoreCursor) {
+        restoreCursorPosition(el2, template, () => {
+          setInput();
+        });
+      } else {
+        setInput();
+      }
+    }
+    function formatInput(input, template) {
+      if (input === "")
+        return "";
+      let strippedDownInput = stripDown(template, input);
+      let rebuiltInput = buildUp(template, strippedDownInput);
+      return rebuiltInput;
+    }
+  });
+}
+function restoreCursorPosition(el, template, callback) {
+  let cursorPosition = el.selectionStart;
+  let unformattedValue = el.value;
+  callback();
+  let beforeLeftOfCursorBeforeFormatting = unformattedValue.slice(0, cursorPosition);
+  let newPosition = buildUp(template, stripDown(template, beforeLeftOfCursorBeforeFormatting)).length;
+  el.setSelectionRange(newPosition, newPosition);
+}
+function stripDown(template, input) {
+  let inputToBeStripped = input;
+  let output = "";
+  let regexes = {
+    "9": /[0-9]/,
+    a: /[a-zA-Z]/,
+    "*": /[a-zA-Z0-9]/
+  };
+  let wildcardTemplate = "";
+  for (let i = 0; i < template.length; i++) {
+    if (["9", "a", "*"].includes(template[i])) {
+      wildcardTemplate += template[i];
+      continue;
+    }
+    for (let j = 0; j < inputToBeStripped.length; j++) {
+      if (inputToBeStripped[j] === template[i]) {
+        inputToBeStripped = inputToBeStripped.slice(0, j) + inputToBeStripped.slice(j + 1);
+        break;
+      }
+    }
+  }
+  for (let i = 0; i < wildcardTemplate.length; i++) {
+    let found = false;
+    for (let j = 0; j < inputToBeStripped.length; j++) {
+      if (regexes[wildcardTemplate[i]].test(inputToBeStripped[j])) {
+        output += inputToBeStripped[j];
+        inputToBeStripped = inputToBeStripped.slice(0, j) + inputToBeStripped.slice(j + 1);
+        found = true;
+        break;
+      }
+    }
+    if (!found)
+      break;
+  }
+  return output;
+}
+function buildUp(template, input) {
+  let clean = Array.from(input);
+  let output = "";
+  for (let i = 0; i < template.length; i++) {
+    if (!["9", "a", "*"].includes(template[i])) {
+      output += template[i];
+      continue;
+    }
+    if (clean.length === 0)
+      break;
+    output += clean.shift();
+  }
+  return output;
+}
+function formatMoney(input, delimiter = ".", thousands) {
+  if (/^\D+$/.test(input))
+    return "9";
+  thousands = thousands ?? (delimiter === "," ? "." : ",");
+  let addThousands = (input2, thousands2) => {
+    let output = "";
+    let counter = 0;
+    for (let i = input2.length - 1; i >= 0; i--) {
+      if (input2[i] === thousands2)
+        continue;
+      if (counter === 3) {
+        output = input2[i] + thousands2 + output;
+        counter = 0;
+      } else {
+        output = input2[i] + output;
+      }
+      counter++;
+    }
+    return output;
+  };
+  let strippedInput = input.replaceAll(new RegExp(`[^0-9\\${delimiter}]`, "g"), "");
+  let template = Array.from({length: strippedInput.split(delimiter)[0].length}).fill("9").join("");
+  template = addThousands(template, thousands);
+  if (input.includes(delimiter))
+    template += `${delimiter}99`;
+  queueMicrotask(() => {
+    if (this.el.value.endsWith(delimiter))
+      return;
+    if (this.el.value[this.el.selectionStart - 1] === delimiter) {
+      this.el.setSelectionRange(this.el.selectionStart - 1, this.el.selectionStart - 1);
+    }
+  });
+  return template;
+}
+
+// packages/mask/builds/module.js
+var module_default = src_default;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/alpinejs/dist/module.esm.js":
 /*!**************************************************!*\
   !*** ./node_modules/alpinejs/dist/module.esm.js ***!
@@ -5033,15 +5200,18 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _alpinejs_mask__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/mask */ "./node_modules/@alpinejs/mask/dist/module.esm.js");
  // Echo.channel('notifications')
 //     .listen('FisherSessionChanged', (e) => {
 //         console.log(e);
 //     });
 
 
+
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
-window.TomSelect = __webpack_require__(/*! tom-select */ "./node_modules/tom-select/dist/js/tom-select.complete.js");
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].plugin(_alpinejs_mask__WEBPACK_IMPORTED_MODULE_2__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+window.TomSelect = __webpack_require__(/*! tom-select */ "./node_modules/tom-select/dist/js/tom-select.complete.js");
 
 /***/ }),
 
@@ -34694,7 +34864,7 @@ var tomSelect=function(el,opts){return new TomSelect(el,opts);}
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://axios-http.com","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.14.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"/home/bonfa/projetos/h2o_laravel","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

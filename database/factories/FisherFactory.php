@@ -27,7 +27,7 @@ class FisherFactory extends Factory
             'email_verified_at' => now(),
             'last_sign_in_at' => now(),
             'gender' => GenderType::getRandomValue(),
-            'birthdate' => $this->faker->dateTimeBetween('1990-01-01', '2012-12-31'),
+            'birthdate' => $this->faker->dateTimeBetween('1990-01-01', '2012-12-31')->format('d/m/Y'),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'language_id' => $language_id,
             'remember_token' => Str::random(10),

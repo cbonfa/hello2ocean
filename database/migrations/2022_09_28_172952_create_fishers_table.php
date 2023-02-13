@@ -24,13 +24,14 @@ class CreateFishersTable extends Migration
             $table->string('email')->unique();
             $table->date('birthdate')->nullable();
             $table->string('gender', 2)->nullable();
-            $table->string('zipcode')->nullable();
+            $table->string('cep')->nullable();
             $table->string('address')->nullable();
             $table->string('number')->nullable();
             $table->string('complemento')->nullable();
             $table->string('neighborhood')->nullable();
             $table->string('city')->nullable();
             $table->string('uf')->nullable();
+            $table->string('zipcode')->nullable();
             $table->text('international_address')->nullable();
             $table->decimal('lat', 10, 7)->nullable();
             $table->decimal('long', 10, 7)->nullable();

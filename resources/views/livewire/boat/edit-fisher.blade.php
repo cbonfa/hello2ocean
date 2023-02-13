@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8">
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8" x-data>
     <form wire:submit.prevent="update()" enctype="multipart/form-data">
         @csrf
         <x-boat-info-alert/>
@@ -27,7 +27,7 @@
                 wire:model.defer="name" />
         </div>
 
-        <div>
+        {{-- <div>
             <x-input 
                 :label="__('all.birthdate')"
                 id="birthdate" class="block mt-1 w-full"
@@ -35,7 +35,13 @@
                 name="birthdate"
                 :placeholder="__('boat.fisher.edit.birthdate')" 
                 wire:model.defer="birthdate" />
-        </div>        
+        </div>      --}}
+
+        <div>
+            <input x-mask="99/99/9999" 
+                placeholder="DD/MM/YYYY"
+                >
+        </div>
         <div>
             <x-select
             name="gender"

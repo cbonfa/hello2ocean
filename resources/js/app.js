@@ -6,8 +6,10 @@ import './bootstrap';
 //     });
 
 import Alpine from 'alpinejs';
+import mask from '@alpinejs/mask'
 
 window.Alpine = Alpine;
-window.TomSelect = require('tom-select');
-
+Alpine.plugin(mask);
 Alpine.start();
+
+window.TomSelect = require('tom-select');

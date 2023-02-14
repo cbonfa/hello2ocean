@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@alpinejs/mask@^3.11.1":
+  version "3.11.1"
+  resolved "https://registry.npmjs.org/@alpinejs/mask/-/mask-3.11.1.tgz"
+  integrity sha512-SoFqWkr55wg8TUx5viALW8rPKb/nkKhcpBF7UY0pqimVWnoaFuvmQxndzOPKIBuilv02i3FCDZC4x+5AvRze3Q==
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz"

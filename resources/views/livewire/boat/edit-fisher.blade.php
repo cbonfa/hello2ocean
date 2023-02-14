@@ -8,6 +8,20 @@
         />
 
         <div>
+            <x-upload-with-preview
+                :label="__('boat.fisher.edit.nick.image')"
+                image_preview="{{ auth()->user()->nick_image }}"
+                :button_text="__('boat.fisher.edit.button_text.nick')"
+                wire_model="nick_image" />
+        </div>        
+        <div>
+            <x-upload-with-preview
+                :label="__('boat.fisher.edit.profile.image')"
+                image_preview="{{ auth()->user()->profile_image }}"
+                :button_text="__('boat.fisher.edit.button_text.profile')"
+                wire_model="profile_image" />
+        </div>
+        <div>
             <x-input 
                 :label="__('all.nick')"
                 id="nick" class="block mt-1 w-full"
@@ -26,16 +40,6 @@
                 :placeholder="__('boat.fisher.edit.placeholder.name')" 
                 wire:model.defer="name" />
         </div>
-
-        {{-- <div>
-            <x-input 
-                :label="__('all.birthdate')"
-                id="birthdate" class="block mt-1 w-full"
-                type="text"
-                name="birthdate"
-                :placeholder="__('boat.fisher.edit.birthdate')" 
-                wire:model.defer="birthdate" />
-        </div>      --}}
 
         <div>
             <x-data-mask 
@@ -57,21 +61,89 @@
             :list="$genders"
             :selected="old('gender', auth()->user()->gender ?? '')" />                        
         </div>
-
         <div>
-            <x-upload-with-preview
-                :label="__('boat.fisher.edit.nick.image')"
-                image_preview="{{ auth()->user()->nick_image }}"
-                :button_text="__('boat.fisher.edit.button_text.nick')"
-                wire_model="nick_image" />
-        </div>        
-        <div>
-            <x-upload-with-preview
-                :label="__('boat.fisher.edit.profile.image')"
-                image_preview="{{ auth()->user()->profile_image }}"
-                :button_text="__('boat.fisher.edit.button_text.profile')"
-                wire_model="profile_image" />
+            <x-input 
+                :label="__('all.cep')"
+                id="cep" class="block mt-1 w-full"
+                type="text"
+                name="cep"
+                :placeholder="__('boat.fisher.edit.placeholder.cep')" 
+                wire:model.defer="cep" />
         </div>
+        <div>
+            <x-input 
+                :label="__('all.address')"
+                id="address" class="block mt-1 w-full"
+                type="text"
+                name="address"
+                :placeholder="__('boat.fisher.edit.placeholder.address')" 
+                wire:model.defer="address" />
+        </div>
+        <div>
+            <x-input 
+                :label="__('all.number')"
+                id="number" class="block mt-1 w-full"
+                type="text"
+                name="number"
+                :placeholder="__('boat.fisher.edit.placeholder.number')" 
+                wire:model.defer="number" />
+        </div>
+        <div>
+            <x-input 
+                :label="__('all.complement')"
+                id="complement" class="block mt-1 w-full"
+                type="text"
+                name="complement"
+                :placeholder="__('boat.fisher.edit.placeholder.complement')" 
+                wire:model.defer="complement" />
+        </div>
+        <div>
+            <x-input 
+                :label="__('all.neighborhood')"
+                id="neighborhood" class="block mt-1 w-full"
+                type="text"
+                name="neighborhood"
+                :placeholder="__('boat.fisher.edit.placeholder.neighborhood')" 
+                wire:model.defer="neighborhood" />
+        </div>
+        <div>
+            <x-input 
+                :label="__('all.city')"
+                id="city" class="block mt-1 w-full"
+                type="text"
+                name="city"
+                :placeholder="__('boat.fisher.edit.placeholder.city')" 
+                wire:model.defer="city" />
+        </div>
+        <div>
+            <x-input 
+                :label="__('all.uf')"
+                id="uf" class="block mt-1 w-full"
+                type="text"
+                name="uf"
+                :placeholder="__('boat.fisher.edit.placeholder.uf')" 
+                wire:model.defer="uf" />
+        </div>
+        <div>
+            <x-input 
+                :label="__('all.zipcode')"
+                id="zipcode" class="block mt-1 w-full"
+                type="text"
+                name="zipcode"
+                :placeholder="__('boat.fisher.edit.placeholder.zipcode')" 
+                wire:model.defer="zipcode" />
+        </div>
+        <div>
+            <x-textarea 
+                :label="__('all.international_address')"
+                id="international_address" class="block mt-1 w-full"
+                type="text"
+                name="international_address"
+                :placeholder="__('boat.fisher.edit.placeholder.international_address')" 
+                wire:model.defer="international_address" />
+        </div>
+
+        
         <div>
             <hr>
         </div>

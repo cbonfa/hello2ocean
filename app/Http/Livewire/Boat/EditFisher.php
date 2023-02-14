@@ -23,6 +23,8 @@ class EditFisher extends Component
     
     public $profile_image, $nick_image;
     public $name, $nick, $country_id, $birthdate, $gender;
+    public $cep ,$address ,$number ,$complement ,$neighborhood,$city ,$uf; 
+    public $zipcode, $international_address;
     public $genders;
     public $updateFisher = false;
 

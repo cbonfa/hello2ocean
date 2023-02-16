@@ -16,16 +16,7 @@ class Fisher extends Authenticatable
 {
     use HasFactory, MustVerifyEmail, Notifiable, HasMergedRelationships;
     
-
     protected $guard = "fisher";
-
-    // protected $dateFormat = 'd/m/Y';
-
-    // protected $dates = [
-    //     'created_at',
-    //     'updated_at',
-    //     'birthdate'
-    // ];
 
     protected $fillable = [
         'name',
@@ -38,6 +29,15 @@ class Fisher extends Authenticatable
         'birthdate',
         'language_id',
         'country_id',
+        'cep', 
+        'address',
+        'number',
+        'complement',
+        'neighborhood',
+        'city',
+        'uf',
+        'zipcode', 
+        'international_address',
     ];
 
     protected $hidden = [

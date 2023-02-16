@@ -12,6 +12,7 @@ use Victorybiz\GeoIPLocation\GeoIPLocation;
 use Illuminate\Support\Carbon;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Enums\GenderType;
+use App\Models\Fisher;
 
 class EditFisher extends Component
 {
@@ -31,17 +32,47 @@ class EditFisher extends Component
     public function __construct()
     {
         $this->fisher = auth()->user();
-        $this->edit();
+        $this->loadVars();
         $this->setGeoIP();
     }
 
-    public function edit(){
+    public function loadVars(){
         if (empty($this->fisher)) { return; }
-        $this->name = $this->fisher->name;
-        $this->nick = $this->fisher->nick;
-        $this->birthdate = $this->fisher->birthdate;
-        $this->gender = $this->fisher->gender;
+
+        // MUDAR PARA SET SERIA MELHOR
+        // MUDAR PARA args var seria melho
+        // loop dentro do getModels Seria melhor
+        // Adicionar o only, seria melhor
+        // passar o 'fisher' ou inves de Fisher::class seria melhor
+        $modelVars = $this->getModelVars($this, Fisher::class);
+        foreach($modelVars as $var){
+            $this->$var = $this->fisher->$var;
+        }        
+        // $this->nick = $this->fisher->nick;
+        // $this->birthdate = $this->fisher->birthdate;
+        // $this->gender = $this->fisher->gender;
         $this->genders = GenderType::asSelectArray();
+    }
+
+    public function updatedCep(){
+        # https://www.youtube.com/watch?v=VBkQmFnCUgo
+        {#1570 ▼ // app/Http/Livewire/Boat/EditFisher.php:63
+//   +"cep": "02336-040"
+//   +"logradouro": "Rua Casa Forte"
+//   +"complemento": ""
+//   +"bairro": "Água Fria"
+//   +"localidade": "São Paulo"
+//   +"uf": "SP"
+//   +"ibge": "3550308"
+//   +"gia": "1004"
+//   +"ddd": "11"
+//   +"siafi": "7107"
+// }
+        $ch = curl_init("https://viacep.com.br/ws/{$this->cep}/json/");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($ch));
+        curl_close($ch);
+        dd($result);
     }
 
     public function update(){
@@ -51,6 +82,9 @@ class EditFisher extends Component
                                 'birthdate' => 'nullable|date_format:d/m/Y',
                                 'gender' => ['required', new EnumValue(GenderType::class)],
                                 'nick_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+                                'cep' => '','address' => '','number' => '' ,'complement' => '',
+                                'neighborhood' => '','city' => '','uf' => '',
+                                
                                 'profile_image'  => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048']);
         try{
             if($this->nick_image){
@@ -70,7 +104,7 @@ class EditFisher extends Component
             $fisher->update($data);
             session()->flash('success', __('fishers.user.update.success'));
     
-            $this->edit();
+            $this->loadVars();
         }catch(\Exception $e){
             session()->flash('error', __('fishers.user.update.error'));
             $this->cancel();
@@ -130,6 +164,7 @@ class EditFisher extends Component
         Storage::disk('public')->put($path, $img);
         return Storage::disk('public', $img)->url($path);
     }
+
 
     public function render()
     {

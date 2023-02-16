@@ -68,7 +68,8 @@
                 type="text"
                 name="cep"
                 :placeholder="__('boat.fisher.edit.placeholder.cep')" 
-                wire:model.defer="cep" />
+                wire:model.lazy="cep"
+                x-mask="99999-999" />
         </div>
         <div>
             <x-input 

@@ -23,5 +23,19 @@ return [
     'show' => 'Show',
     'edit' => 'Edit',
     'delete' => 'Delete',
-
+    # INI não utilizado em outras linguas que não pt_BR
+    'cep' => 'CEP', 
+    'address' => 'Address',
+    'number' => 'Number',
+    'complement' => 'Complement',
+    'neighborhood' => 'Neighborhood',
+    'city' => 'City',
+    'uf' => 'UF',
+    # FIM não utilizado em outras linguas que não pt_BR
+    # INI usado em linguas não pt_BR
+    'zipcode' => 'Zipcode',
+    'international_address' => 'Address',
+    # FIM usado em linguas não pt_BR
 ];
+
+

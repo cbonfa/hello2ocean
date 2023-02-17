@@ -15,7 +15,7 @@ class CepTest extends TestCase
     {
         $this->assertTrue( 
           Schema::hasColumns('ceps', [
-            'cep', 'logradouro', 'complemento', 'bairro', 'cidade', 'uf', 'ibge'
+            'cep', 'logradouro', 'complemento', 'bairro', 'localidade', 'uf', 'ibge'
         ]), 1);
     }
 

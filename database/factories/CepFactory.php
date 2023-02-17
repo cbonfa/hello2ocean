@@ -18,7 +18,7 @@ class CepFactory extends Factory
             'logradouro' => $this->faker->streetName(),
             'complemento' => $this->faker->secondaryAddress(),
             'bairro' => $this->faker->state(),
-            'cidade' => $this->faker->cityPrefix(),
+            'localidade' => $this->faker->cityPrefix(),
             'uf' => $this->faker->stateAbbr(),
             'ibge' => $this->faker->buildingNumber(),
         ];

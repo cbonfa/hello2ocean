@@ -4,6 +4,7 @@ namespace Tests\Feature\Models;
 
 use App\Models\Affinitie;
 use App\Models\Chat;
+use App\Models\Country;
 use App\Models\Fisher;
 use App\Models\Net;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -22,12 +23,21 @@ class FisherTest extends TestCase
           Schema::hasColumns('fishers', [
             'id','name', 'nick', 'sign_in_count', 'profile_image', 'nick_image',
             'email', 'email_verified_at', 'last_sign_in_at', 
-            'password', 'language_id', 'birthdate', 'gender'
+            'password', 'language_id', 'birthdate', 'gender', 'cep', 
+            'address', 'number', 'complement', 'neighborhood', 'city', 'uf', 'zipcode',  
+            'international_address'
         ]), 1);
     }
 
     public function teste_create_fisher(){
         $this->assertInstanceOf(Fisher::class, Fisher::factory(['birthdate' => '19/05/1977'])->create()); 
+    }
+
+    public function test_return_fisher_country(){
+        $country = Country::factory()->create();
+        $fisher = Fisher::factory(['country_id' => $country->id])->create();
+        $this->assertInstanceOf(Country::class, $fisher->country); 
+        $this->assertEquals($country->name, $fisher->country->name);
     }
 
     public function test_return_fisher_net(){

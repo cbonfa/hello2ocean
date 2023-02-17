@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Enums\GenderType;
 use App\Models\Fisher;
+use App\Services\GetCep;
 
 class EditFisher extends Component
 {
@@ -55,24 +56,13 @@ class EditFisher extends Component
     }
 
     public function updatedCep(){
-        # https://www.youtube.com/watch?v=VBkQmFnCUgo
-        {#1570 ▼ // app/Http/Livewire/Boat/EditFisher.php:63
-//   +"cep": "02336-040"
-//   +"logradouro": "Rua Casa Forte"
-//   +"complemento": ""
-//   +"bairro": "Água Fria"
-//   +"localidade": "São Paulo"
-//   +"uf": "SP"
-//   +"ibge": "3550308"
-//   +"gia": "1004"
-//   +"ddd": "11"
-//   +"siafi": "7107"
-// }
-        $ch = curl_init("https://viacep.com.br/ws/{$this->cep}/json/");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = json_decode(curl_exec($ch));
-        curl_close($ch);
-        dd($result);
+        $cep = GetCep::find($this->cep);
+        $this->address = $cep->logradouro;
+        $this->neighborhood = $cep->bairro;
+        $this->complement = $cep->complemento;
+        $this->city = $cep->localidade;
+        $this->uf = $cep->uf;
+        // $address ,$number ,$complement ,$neighborhood,$city ,$uf; 
     }
 
     public function update(){

@@ -49,6 +49,11 @@ class Fisher extends Authenticatable
         'email_verified_at' => 'datetime',
     ];   
 
+    public function country() 
+    { 
+        return $this->belongsTo(Country::class); 
+    }
+
     public function net()
     {
         return $this->belongsToMany(Fisher::class, 'net', 'fisher_id', 'friend_id')

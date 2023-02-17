@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\GenderType;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Language;
@@ -17,6 +18,7 @@ class FisherFactory extends Factory
     public function definition()
     {
         $language_id = (Language::count() == 0) ? Language::factory()->create()->id : Language::first()->id;
+        $country_id = (Country::count() == 0) ? Country::factory()->create()->id : Country::first()->id;
         return [
             'name' => $this->faker->name(),
             'profile_image' => $this->faker->imageUrl(150, 150, 'profile', true),
@@ -30,6 +32,16 @@ class FisherFactory extends Factory
             'birthdate' => $this->faker->dateTimeBetween('1990-01-01', '2012-12-31')->format('d/m/Y'),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'language_id' => $language_id,
+            'cep' => $this->faker->postcode(), 
+            'address' => $this->faker->streetName(), 
+            'number' => random_int(200, 500), 
+            'complement' => $this->faker->secondaryAddress(), 
+            'neighborhood' => $this->faker->state(), 
+            'city' => $this->faker->cityPrefix(), 
+            'uf' => $this->faker->stateAbbr(), 
+            'zipcode' => '',  
+            'international_address' => '',
+            'country_id' => $country_id,
             'remember_token' => Str::random(10),
         ];
     }

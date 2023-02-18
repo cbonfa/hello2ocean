@@ -21,13 +21,13 @@ class DatabaseSeeder extends Seeder
         // senha: password
         User::factory(['name' => 'César Bonfá', 'email' => 'bonfa@inaum.net', 'password' => bcrypt('12345678')])->create();
 
-        Country::create(['id' => 1, 
-                        'name' => 'Brasil',
-                        'code' => 'BR']);
+        // Country::create(['id' => 1, 
+        //                 'name' => 'Brasil',
+        //                 'code' => 'BR']);
 
-        Country::create(['id' => 2, 
-                        'name' => 'United States of America',
-                        'code' => 'USA']);
+        // Country::create(['id' => 2, 
+        //                 'name' => 'United States of America',
+        //                 'code' => 'USA']);
         
         Language::create(['id' => 1,
                          'description' => 'Português',
@@ -54,6 +54,9 @@ class DatabaseSeeder extends Seeder
         Net::factory(['fisher_id' => $fisher1->id, 'friend_id' => $fisher->id, 'affinity' => 80])->create();
         Net::factory(['fisher_id' => $fisher3->id, 'friend_id' => $fisher2->id, 'affinity' => 100])->create();
 
+        $this->call([
+            CountriesSeeder::class,
+        ]);
 
     }
 }

@@ -15,9 +15,12 @@ class GetCep
         $infosCep = Cep::whereCep($cep)->first();
         if(empty($infosCep)){
             $response = Http::acceptJson()->get("https://viacep.com.br/ws/{$cep}/json/");
-            if (!empty($response)){
+            if (!empty($response)) { 
+                $arrayCep = (array) json_decode($response->body());
+            }
+            if (!empty($arrayCep['cep'])){
                 $cep = Cep::create(
-                                (array) json_decode($response->body())
+                                $arrayCep       
                             );
                 return $cep;
             } else { 

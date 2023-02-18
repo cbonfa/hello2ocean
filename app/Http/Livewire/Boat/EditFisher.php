@@ -8,12 +8,13 @@ use Livewire\WithFileUploads;
 use App\Traits\GuardsLimewireAuth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
-use Victorybiz\GeoIPLocation\GeoIPLocation;
+
 use Illuminate\Support\Carbon;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Enums\GenderType;
 use App\Models\Fisher;
 use App\Services\GetCep;
+use App\Services\GetGeoLocation;
 
 class EditFisher extends Component
 {
@@ -45,7 +46,8 @@ class EditFisher extends Component
         // loop dentro do getModels Seria melhor
         // Adicionar o only, seria melhor
         // passar o 'fisher' ou inves de Fisher::class seria melhor
-        $modelVars = $this->getModelVars($this, Fisher::class);
+        // Remover key se nullables
+        $modelVars = $this->getModelVars($this, Fisher::class, [ 'except' => ['nick_image', 'profile_image'] ]);
         foreach($modelVars as $var){
             $this->$var = $this->fisher->$var;
         }        
@@ -57,12 +59,12 @@ class EditFisher extends Component
 
     public function updatedCep(){
         $cep = GetCep::find($this->cep);
+        $this->cep = $cep->cep;
         $this->address = $cep->logradouro;
         $this->neighborhood = $cep->bairro;
         $this->complement = $cep->complemento;
         $this->city = $cep->localidade;
         $this->uf = $cep->uf;
-        // $address ,$number ,$complement ,$neighborhood,$city ,$uf; 
     }
 
     public function update(){
@@ -72,10 +74,9 @@ class EditFisher extends Component
                                 'birthdate' => 'nullable|date_format:d/m/Y',
                                 'gender' => ['required', new EnumValue(GenderType::class)],
                                 'nick_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-                                'cep' => '','address' => '','number' => '' ,'complement' => '',
-                                'neighborhood' => '','city' => '','uf' => '',
-                                
-                                'profile_image'  => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048']);
+                                'profile_image'  => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+                                'cep' => '|exists:games,id','address' => '','number' => '' ,'complement' => '',
+                                'neighborhood' => '','city' => '','uf' => '']);
         try{
             if($this->nick_image){
                 $data['nick_image'] = $this->uploadAndResize('nick_image');
@@ -115,20 +116,17 @@ class EditFisher extends Component
     private function setGeoIP(){
         if (!auth()->check()) { return; }
         if((!empty($this->fisher)) || (empty($this->fisher->country_id))){
-            $geoip = new GeoIPLocation(); 
-            $countryName = $geoip->getCountry();
-            $countryCode = $geoip->getCountryCode();
-            
-                if(!empty($countryCode)){
+            $geoIp = GetGeoLocation::byIP();
+            if(!empty($geoIp)){
                 
-                $country = Country::firstOrNew(['code' => $countryCode]);
+                $country = Country::firstOrNew(['code' => $geoIp->countryCode]);
                 if (empty($country->name)){
-                    $country->name= $countryName;
+                    $country->name= $geoIp->countryName;
                     $country->save();
                 }
                 $this->fisher->country_id = $country->id;
-                $this->fisher->lat = $geoip->getLatitude();
-                $this->fisher->long = $geoip->getLongitude();
+                $this->fisher->lat = $geoIp->lat;
+                $this->fisher->long = $geoIp->log;
                 $this->fisher->geo_ip_at = Carbon::now();
                 $this->fisher->save();
             }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code', 6); // BR USA etc
+            $table->string('locales', 10)->nullable(); // pt_BR
             $table->timestamps();
         });
     }

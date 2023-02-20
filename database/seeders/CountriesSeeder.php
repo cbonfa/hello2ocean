@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
+use App\Services\GetGeoLocation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -256,5 +258,10 @@ class CountriesSeeder extends Seeder {
 		);
 
 		DB::table('countries')->insert($countries);
-	}
+
+        foreach (Country::all() as $key => $country) {
+            $country->update(['locales' => GetGeoLocation::languageByCountry($country->code)]);
+	    }
+    }
+
 }

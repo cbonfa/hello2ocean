@@ -19,8 +19,4 @@ class BottleTest extends TestCase
         ]), 1);
     }
 
-    public function test_create_bottle(){
-        $this->markTestSkipped('must be revisited.');
-    }
-
 }

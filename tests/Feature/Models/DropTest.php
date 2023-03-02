@@ -23,12 +23,12 @@ class DropTest extends TestCase
         $this->assertInstanceOf(Drop::class, Drop::factory()->create()); 
     }
 
-    public function test_belongs_splash(){
-        $this->markTestSkipped('must be revisited.');
-    }
+    // public function test_belongs_splash(){
+    //     $this->markTestSkipped('must be revisited.');
+    // }
 
-    public function test_belongs_drop(){
-        $this->markTestSkipped('must be revisited.');
-    }
+    // public function test_belongs_drop(){
+    //     $this->markTestSkipped('must be revisited.');
+    // }
 
 }

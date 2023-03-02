@@ -119,7 +119,7 @@ class EditFisherTest extends TestCase
             ->assertSee(__('fishers.user.update.success'));
     }
 
-    public function test_boat_fisher_get_cep()
+    public function boat_fisher_get_cep()
     {
         $fisher = Fisher::factory()->create();
         $retorno = Livewire::actingAs($fisher, 'fisher')

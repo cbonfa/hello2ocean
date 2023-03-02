@@ -6,6 +6,7 @@ use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Traits\GuardsLimewireAuth;
+use App\Traits\LoadVarsLimewire;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +21,7 @@ class EditFisher extends Component
 {
     use WithFileUploads;
     use GuardsLimewireAuth;
+    use LoadVarsLimewire;
 
     protected $guard = 'fisher';
     private $fisher;
@@ -29,31 +31,23 @@ class EditFisher extends Component
     public $cep ,$address ,$number ,$complement ,$neighborhood,$city ,$uf; 
     public $zipcode, $international_address;
     public $genders;
+    # usar em caso de exibir o ZipCode ou não
+    public $brasil_address = true;
     public $updateFisher = false;
 
     public function __construct()
     {
         $this->fisher = auth()->user();
-        $this->loadVars();
         $this->setGeoIP();
+        $this->loadVars();
     }
 
     public function loadVars(){
         if (empty($this->fisher)) { return; }
-
-        // MUDAR PARA SET SERIA MELHOR
-        // MUDAR PARA args var seria melho
-        // loop dentro do getModels Seria melhor
-        // Adicionar o only, seria melhor
-        // passar o 'fisher' ou inves de Fisher::class seria melhor
-        // Remover key se nullables
         $modelVars = $this->getModelVars($this, Fisher::class, [ 'except' => ['nick_image', 'profile_image'] ]);
         foreach($modelVars as $var){
             $this->$var = $this->fisher->$var;
-        }        
-        // $this->nick = $this->fisher->nick;
-        // $this->birthdate = $this->fisher->birthdate;
-        // $this->gender = $this->fisher->gender;
+        }
         $this->genders = GenderType::asSelectArray();
     }
 
@@ -75,8 +69,9 @@ class EditFisher extends Component
                                 'gender' => ['required', new EnumValue(GenderType::class)],
                                 'nick_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
                                 'profile_image'  => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-                                'cep' => '|exists:games,id','address' => '','number' => '' ,'complement' => '',
-                                'neighborhood' => '','city' => '','uf' => '']);
+                                'cep' => 'required_if:brasil_address,true','address' => 'required_if:brasil_address,true','number' => '' ,'complement' => '',
+                                'neighborhood' => 'required_if:brasil_address,true','city' => 'required_if:brasil_address,true','uf' => 'required_if:brasil_address,true',
+                                'zipcode' => 'required_if:brasil_address,false', 'international_address' => 'required_if:brasil_address,false']);
         try{
             if($this->nick_image){
                 $data['nick_image'] = $this->uploadAndResize('nick_image');

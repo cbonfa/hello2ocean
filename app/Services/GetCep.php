@@ -11,6 +11,8 @@ class GetCep
     
     public static function find($cep)
     {
+        # remove consonants and symbols
+        $cep = preg_replace('/[^0-9]/', '', $cep);
         # find CEP
         $infosCep = Cep::whereCep($cep)->first();
         if(empty($infosCep)){

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Limewire;
 
+use App\Http\Livewire\Boat\EditFisher;
 use App\Models\Fisher;
 use Livewire\Livewire;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -119,14 +120,20 @@ class EditFisherTest extends TestCase
             ->assertSee(__('fishers.user.update.success'));
     }
 
-    public function boat_fisher_get_cep()
+    public function test_boat_fisher_get_cep()
     {
         $fisher = Fisher::factory()->create();
         $retorno = Livewire::actingAs($fisher, 'fisher')
-            ->test('boat.edit-fisher', ['cep', '02336040'])
-            ->call('updatedCep');
-//            ->assertSet('address', 'Rua Casa Forte');
-        dd($retorno);
+            ->test(EditFisher::class, ['cep', '02336040'])
+            ->call('updatedCep')
+            ->assertSet('address', 'Rua Casa Forte');
     }
+
+    // public function has_data_passed_correctly()
+    // {
+    //     Livewire::test(EditFisher::class, ['foo' => 'bar'])
+    //         ->assertSet('foo', 'bar')
+    //         ->assertSee('bar');
+    // }
 
 }

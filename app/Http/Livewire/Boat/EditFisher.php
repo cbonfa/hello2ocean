@@ -126,7 +126,8 @@ class EditFisher extends Component
                 }
                 $this->fisher->country_id = $country->id;
                 $this->fisher->lat = $geoIp->lat;
-                $this->fisher->long = $geoIp->log;
+
+                $this->fisher->long = $geoIp->lng;
                 $this->fisher->geo_ip_at = Carbon::now();
                 $this->fisher->save();
             }

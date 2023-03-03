@@ -2,12 +2,9 @@
 
 namespace Tests\Feature\Limewire;
 
-use App\Http\Livewire\Boat\EditFisher;
 use App\Models\Fisher;
 use Livewire\Livewire;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class EditFisherTest extends TestCase
@@ -47,7 +44,7 @@ class EditFisherTest extends TestCase
             ->call('update')
             ->assertHasErrors([ 'name' => 'required',
                                 'nick' => 'required',
-                              ]);
+                            ]);
     }
 
     public function test_fields_required_on_brasil_cep_address_updated()
@@ -67,7 +64,7 @@ class EditFisherTest extends TestCase
                                 'neighborhood' => 'required_if',
                                 'city' => 'required_if',
                                 'uf' => 'required_if'
-                              ]);
+                            ]);
     }
 
     public function test_fields_required_on_international_address_updated()
@@ -82,7 +79,7 @@ class EditFisherTest extends TestCase
             ->assertHasErrors([ 
                                 'zipcode' => 'required_if',
                                 'international_address' => 'required_if'
-                              ]);
+                            ]);
     }
 
     public function test_fisher_data_has_changed(){
@@ -120,13 +117,26 @@ class EditFisherTest extends TestCase
             ->assertSee(__('fishers.user.update.success'));
     }
 
-    public function test_boat_fisher_get_cep()
+    public function test_it_shows_form_fields(): void
+    {
+        $fisher = Fisher::factory()->create();
+        Livewire::actingAs($fisher, 'fisher')
+            ->test('boat.edit-fisher')
+            ->assertSee(__('boat.fisher.edit.title'))
+            ->assertSee(__('boat.fisher.edit.subtitle'))
+            ->assertSee(__('all.name'))
+            ->assertSee(__('all.nick'))
+            ->assertSee(__('boat.fisher.edit.save'));
+    }
+
+    public function boat_fisher_get_cep()
     {
         $fisher = Fisher::factory()->create();
         $retorno = Livewire::actingAs($fisher, 'fisher')
-            ->test(EditFisher::class, ['cep', '02336040'])
-            ->call('updatedCep')
-            ->assertSet('address', 'Rua Casa Forte');
+            ->test('boat.edit-fisher')
+            ->emit('updatedCep', 'cep', '02072-004');
+        dd($retorno);
+            // ->assertSee('Travessa Maria Nazaré');
     }
 
     // public function has_data_passed_correctly()

@@ -11,15 +11,16 @@ class GetCep
     
     public static function find($cep)
     {
-        # remove consonants and symbols
-        $cep = preg_replace('/[^0-9]/', '', $cep);
+        # Format CEP
+        $cep = Format::cep($cep);
         # find CEP
         $infosCep = Cep::whereCep($cep)->first();
         if(empty($infosCep)){
             $response = Http::acceptJson()->get("https://viacep.com.br/ws/{$cep}/json/");
-            if (!empty($response)) { 
+            if ( !empty($response) && ($response->status() == 200) ) { 
                 $arrayCep = (array) json_decode($response->body());
             }
+
             if (!empty($arrayCep['cep'])){
                 $cep = Cep::create(
                                 $arrayCep       

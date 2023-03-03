@@ -9,5 +9,5 @@ class Cep extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cep', 'logradouro', 'complemento', 'bairro', 'cidade', 'uf', 'ibge', 'gia', 'ddd', 'siafi'];
+    protected $fillable = ['cep', 'logradouro', 'complemento', 'bairro', 'localidade', 'uf', 'ibge', 'gia', 'ddd', 'siafi'];
 }

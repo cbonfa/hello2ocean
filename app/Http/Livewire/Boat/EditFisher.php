@@ -28,7 +28,7 @@ class EditFisher extends Component
     
     public $profile_image, $nick_image;
     public $name, $nick, $country_id, $birthdate, $gender;
-    public $cep ,$address ,$number ,$complement ,$neighborhood,$city ,$uf; 
+    public $cep ,$address ,$number ,$complement ,$neighborhood, $city, $uf; 
     public $zipcode, $international_address;
     public $genders;
     # usar em caso de exibir o ZipCode ou não
@@ -51,6 +51,7 @@ class EditFisher extends Component
         $this->genders = GenderType::asSelectArray();
     }
 
+    # LifeCycle Hook
     public function updatedCep(){
         $cep = GetCep::find($this->cep);
         $this->cep = $cep->cep;

@@ -17,7 +17,7 @@
     {{ $label ?? $slot }}
 </label>
 @endif
-<select name="{{$attributes['name']}}" id="{{$attributes['name']}}" {!! $attributes->merge(['class' => $class]) !!}"}}>
+<select name="{{$attributes['name']}}" id="{{$attributes['name']}}" {!! $attributes->merge(['class' => $class]) !!}">
     {{ $slot }}
     @if (isset($includeBlank))
         <option value="">{{$includeBlank}}</option>    

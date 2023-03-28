@@ -147,8 +147,7 @@ class SplashTest extends TestCase
         $deleted = true;
         
         foreach ($splash->drops as $drop)
-        {        
-
+        {
             if ($drop->id == $drop2->id) { $deleted = false; }
         }
         $this->assertTrue($deleted);

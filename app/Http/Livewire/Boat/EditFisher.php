@@ -35,6 +35,7 @@ class EditFisher extends Component
     public $brasil_address = true;
     public $updateFisher = false;
 
+    # o correto acredito que seja mount()
     public function __construct()
     {
         $this->fisher = auth()->user();

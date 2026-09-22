@@ -1,0 +1,151 @@
+INSTRUÇÕES DO PROJETO HELLO2OCEAN (H2O)
+=======================================
+
+Anotações importantes sobre ambiente, execução, testes e deploy.
+Adicione novas informações nas seções correspondentes.
+
+
+1. REQUISITOS
+-------------
+
+- PHP 8.4.1 ou mais novo (o composer.lock usa Symfony 8.1, que exige 8.4.1+).
+  Atenção: o apt padrão do Ubuntu 24.04 só tem PHP 8.3, que NÃO serve.
+- Extensões PHP: ctype, curl, dom, fileinfo, mbstring, openssl, tokenizer, xml,
+  iconv, gd (Intervention Image), exif, intl, zip, bcmath, pdo_mysql.
+- Composer 2.x
+- Node 24 (definido no .nvmrc). Vite 8 exige no mínimo Node 20.19 / 22.12.
+- MySQL 8
+
+
+2. MONTAR O AMBIENTE (WSL / UBUNTU 24.04)
+-----------------------------------------
+
+PHP 8.5 + Composer (sem sudo, instala em ~/.config/herd-lite/bin):
+    /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.5)"
+    source ~/.zshrc
+
+Node 24 via nvm:
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    # reabrir o terminal
+    nvm install        # lê o .nvmrc
+    nvm alias default 24
+
+MySQL:
+    sudo apt update
+    sudo apt install -y mysql-server
+    sudo service mysql start
+
+Bancos e usuário (troque SENHA pela senha do .env):
+    sudo mysql -e "CREATE DATABASE IF NOT EXISTS hydrosphere CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+      CREATE DATABASE IF NOT EXISTS hydrosphere_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+      CREATE USER IF NOT EXISTS 'h2o'@'localhost' IDENTIFIED BY 'SENHA';
+      CREATE USER IF NOT EXISTS 'h2o'@'127.0.0.1' IDENTIFIED BY 'SENHA';
+      GRANT ALL ON hydrosphere.* TO 'h2o'@'localhost';
+      GRANT ALL ON hydrosphere.* TO 'h2o'@'127.0.0.1';
+      GRANT ALL ON hydrosphere_test.* TO 'h2o'@'localhost';
+      GRANT ALL ON hydrosphere_test.* TO 'h2o'@'127.0.0.1';
+      FLUSH PRIVILEGES;"
+
+Dicas:
+- No terminal zsh, NÃO use "!" antes do comando: no zsh ele inverte o resultado
+  e interrompe a cadeia de "&&". O "!" só vale dentro do prompt do Claude Code.
+- Se o apt der erro 404, rode "sudo apt update" antes.
+- Se o MySQL não subir sozinho após reiniciar a WSL: sudo service mysql start
+
+
+3. CONFIGURAR O PROJETO
+-----------------------
+
+    composer install
+    npm install
+    cp .env_dev .env        # ou .env.example, e ajuste os valores
+    php artisan migrate
+    php artisan db:seed
+    npm run build
+
+Nomes de variáveis do .env no Laravel 13 (os antigos NÃO são mais lidos):
+    BROADCAST_DRIVER   ->  BROADCAST_CONNECTION
+    CACHE_DRIVER       ->  CACHE_STORE
+    FILESYSTEM_DRIVER  ->  FILESYSTEM_DISK
+    MIX_PUSHER_*       ->  VITE_PUSHER_*
+
+Outras variáveis necessárias:
+- GOOGLE_MAP_KEY: chave da API do Google Maps (busca de endereço). Sem ela,
+  GetGeoLocation::byAddress() não retorna coordenadas.
+
+
+4. RODAR O PROJETO
+------------------
+
+Em dois terminais:
+    php artisan serve      # http://127.0.0.1:8000
+    npm run dev            # Vite, recompila CSS/JS ao editar
+
+Endereços:
+- Site:   http://127.0.0.1:8000
+- Admin:  http://127.0.0.1:8000/hydrosphere
+- Se o navegador do Windows não achar 127.0.0.1, use o IP da WSL
+  (hostname -I) e rode: php artisan serve --host=0.0.0.0
+
+Usuário admin criado pelo seeder:
+- E-mail: bonfa@inaum.net
+- Senha:  12345678  (o comentário no DatabaseSeeder diz "password", mas está errado)
+
+
+5. TESTES
+---------
+
+Usam o banco hydrosphere_test (ver phpunit.xml e .env.testing).
+
+    php artisan test                                # todos
+    composer test                                   # limpa o cache de config e roda
+    php artisan test tests/Feature/Hydrosphere      # uma pasta
+    php artisan test --filter=AuthenticationTest    # um teste ou classe
+    php artisan test --parallel                     # em paralelo
+
+Os testes de geolocalização (GetGeoLocationTest) simulam as APIs com
+Http::fake() e não precisam de internet.
+
+
+6. DEPLOY / PRODUÇÃO
+--------------------
+
+Depois de atualizar o código no servidor:
+    composer install --no-dev --optimize-autoloader
+    php artisan migrate --force
+    php artisan config:cache
+    php artisan view:clear
+
+Conferir:
+- O .env de produção precisa de GOOGLE_MAP_KEY e dos nomes novos de variáveis
+  (ver seção 3).
+- O pacote victorybiz/geoip-location foi removido; rodar composer install.
+- A pasta public/build é versionada no git: rode "npm run build" e commite
+  quando mudar CSS/JS.
+
+
+7. GEOLOCALIZAÇÃO
+-----------------
+
+- Por IP: GetGeoLocation::byIP() usa o ip-api.com (http://ip-api.com/json/{ip}).
+  Plano gratuito: só HTTP (sem HTTPS), 45 consultas/minuto, uso não comercial.
+  Retorna null para IP local/privado ou se o serviço falhar.
+  O geoPlugin (usado antes) deixou de ser gratuito.
+- Por endereço: GetGeoLocation::byAddress() usa a Geocoding API do Google,
+  com a chave em config('services.google_maps.key') (GOOGLE_MAP_KEY).
+- Se a produção estiver atrás de proxy/Cloudflare, configurar trustProxies no
+  bootstrap/app.php. Sem isso, request()->ip() retorna o IP do proxy e não o
+  do visitante.
+
+
+8. PENDÊNCIAS CONHECIDAS
+------------------------
+
+- Livewire 4 exige um único elemento raiz por componente. A landing page já foi
+  corrigida; outros componentes podem ter o mesmo problema (erro
+  "Multiple root elements detected" só aparece ao abrir a página).
+- GetGeoLocation::byFisher() usa $this dentro de método estático e quebraria se
+  fosse chamado. Hoje não é usado.
+- Laravel Boost (pedido no CLAUDE.md) ainda não foi instalado:
+      composer require laravel/boost --dev
+      php artisan boost:install

@@ -6,9 +6,20 @@ use App\Http\Controllers\FisherController;
 use App\Http\Controllers\Hydrosphere\WaveController;
 use App\Http\Controllers\Hydrosphere\CountryController;
 use App\Http\Controllers\Hydrosphere\LanguageController;
+use App\Models\Country;
+use App\Models\Fisher;
+use App\Models\Language;
+use App\Models\Wave;
 
 Route::get('/', function () {
-    return view('hydrosphere');
+    return view('hydrosphere', [
+        'counts' => [
+            'fishers' => Fisher::count(),
+            'waves' => Wave::count(),
+            'languages' => Language::count(),
+            'countries' => Country::count(),
+        ],
+    ]);
 })->name('index');
 
 Route::get('fishers', [FisherController::class, 'all'])

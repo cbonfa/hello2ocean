@@ -123,7 +123,5 @@
             @include('partials/language_switcher')
         </div>
         <!--Content ends-->
+        <link href="{{ asset('/css/landing-page.css') }}" rel="stylesheet">
     </div>
-    <!--Content starts-->
-    
-    <link href="{{ asset('/css/landing-page.css') }}" rel="stylesheet">

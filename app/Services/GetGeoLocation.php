@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Cep;
 use App\Models\Fisher;
 use Illuminate\Support\Facades\Http;
-use Victorybiz\GeoIPLocation\GeoIPLocation;
 
 class GetGeoLocation
 {
@@ -20,13 +19,13 @@ class GetGeoLocation
 
         try {
             $address = trim(preg_replace('/\s+/', ' ', $address));
-            $apiKey = env('GOOGLE_MAP_KEY');
-            $url = 'https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&key='.$apiKey;
-            $geocode=file_get_contents($url);
-            $output= json_decode($geocode);
+            $output = Http::get('https://maps.googleapis.com/maps/api/geocode/json', [
+                'address' => $address,
+                'key' => config('services.google_maps.key'),
+            ])->throw()->object();
             $lat = $output->results[0]->geometry->location->lat;
             $lng = $output->results[0]->geometry->location->lng;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $error = $e->getMessage();
         }
         return (object) ['lat' => $lat, 'lng' => $lng, 'error' => $error];
@@ -44,20 +43,29 @@ class GetGeoLocation
         return $return;        
     }
 
-    public static function byIP($ip = null){
-        $geoip = new GeoIPLocation(); 
-        if (!empty($ip)){
-            $geoip->setIP($ip);
+    public static function byIP($ip = null)
+    {
+        $ip = $ip ?: request()->ip();
+
+        try {
+            // O plano gratuito do ip-api.com só aceita HTTP.
+            $data = Http::get("http://ip-api.com/json/{$ip}", [
+                'fields' => 'status,country,countryCode,lat,lon',
+            ])->throw()->object();
+        } catch (\Throwable $e) {
+            return null;
         }
-        $return = null;
-        if(!empty($geoip->getCountry())){
-            $return = (object) [ 'countryName' => $geoip->getCountry(),
-                            'countryCode' => $geoip->getCountryCode(),
-                            'lat' => $geoip->getLatitude(),
-                            'lng' => $geoip->getLongitude()
-                        ];
+
+        if (($data->status ?? null) !== 'success') {
+            return null;
         }
-        return $return;
+
+        return (object) [
+            'countryName' => $data->country,
+            'countryCode' => $data->countryCode,
+            'lat' => $data->lat,
+            'lng' => $data->lon,
+        ];
     }
 
     public static function languageByCountry($country_code, $language_code = '')

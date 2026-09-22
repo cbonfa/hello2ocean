@@ -4,7 +4,6 @@ namespace Tests\Feature\AuthFisher;
 
 use Tests\TestCase;
 use App\Models\Fisher;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegistrationFisherTest extends TestCase
@@ -38,6 +37,6 @@ class RegistrationFisherTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::BOAT);
+        $response->assertRedirect(route('boat.index', absolute: false));
     }
 }

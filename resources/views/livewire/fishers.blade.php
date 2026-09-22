@@ -8,7 +8,7 @@
             type="text" 
             class="rounded-lg border float-right border-gray-300 mb-4 pl-8 w-1/3"
             placeholder="search"
-            wire:model="search"
+            wire:model.live="search"
         >
 
         </x-input>

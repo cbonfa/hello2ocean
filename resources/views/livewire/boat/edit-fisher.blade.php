@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8" x-data>
-    <form wire:submit.prevent="update()" enctype="multipart/form-data">
+    <form wire:submit="update()" enctype="multipart/form-data">
         @csrf
         <x-boat-info-alert/>
         <x-boat-title 
@@ -28,7 +28,7 @@
                 type="text"
                 name="nick"
                 :placeholder="__('boat.fisher.edit.placeholder.nick')" 
-                wire:model.defer="nick" />
+                wire:model="nick" />
         </div>
 
         <div>
@@ -38,7 +38,7 @@
                 type="text"
                 name="name"
                 :placeholder="__('boat.fisher.edit.placeholder.name')" 
-                wire:model.defer="name" />
+                wire:model="name" />
         </div>
 
         <div>
@@ -48,7 +48,7 @@
                 type="text"
                 name="birthdate"
                 placeholder="DD/MM/YYYY"
-                wire:model.defer="birthdate"
+                wire:model="birthdate"
                 />
         </div>
         <div>
@@ -57,7 +57,7 @@
             :label="__('all.gender')"
             class="w-full"
             includeBlank="{{__('boat.fisher.edit.choose_your_gender')}}"
-            wire:model.defer="gender"
+            wire:model="gender"
             :list="$genders"
             :selected="old('gender', auth()->user()->gender ?? '')" />                        
         </div>
@@ -68,7 +68,7 @@
                 type="text"
                 name="cep"
                 :placeholder="__('boat.fisher.edit.placeholder.cep')" 
-                wire:model.lazy="cep"
+                wire:model.blur="cep"
                 x-mask="99999-999" />
         </div>
         <div>
@@ -78,7 +78,7 @@
                 type="text"
                 name="address"
                 :placeholder="__('boat.fisher.edit.placeholder.address')" 
-                wire:model.defer="address" />
+                wire:model="address" />
         </div>
         <div>
             <x-input 
@@ -87,7 +87,7 @@
                 type="text"
                 name="number"
                 :placeholder="__('boat.fisher.edit.placeholder.number')" 
-                wire:model.defer="number" />
+                wire:model="number" />
         </div>
         <div>
             <x-input 
@@ -96,7 +96,7 @@
                 type="text"
                 name="complement"
                 :placeholder="__('boat.fisher.edit.placeholder.complement')" 
-                wire:model.defer="complement" />
+                wire:model="complement" />
         </div>
         <div>
             <x-input 
@@ -105,7 +105,7 @@
                 type="text"
                 name="neighborhood"
                 :placeholder="__('boat.fisher.edit.placeholder.neighborhood')" 
-                wire:model.defer="neighborhood" />
+                wire:model="neighborhood" />
         </div>
         <div>
             <x-input 
@@ -114,7 +114,7 @@
                 type="text"
                 name="city"
                 :placeholder="__('boat.fisher.edit.placeholder.city')" 
-                wire:model.defer="city" />
+                wire:model="city" />
         </div>
         <div>
             <x-input 
@@ -123,7 +123,7 @@
                 type="text"
                 name="uf"
                 :placeholder="__('boat.fisher.edit.placeholder.uf')" 
-                wire:model.defer="uf" />
+                wire:model="uf" />
         </div>
         <div>
             <x-input 
@@ -132,7 +132,7 @@
                 type="text"
                 name="zipcode"
                 :placeholder="__('boat.fisher.edit.placeholder.zipcode')" 
-                wire:model.defer="zipcode" />
+                wire:model="zipcode" />
         </div>
         <div>
             <x-textarea 
@@ -141,7 +141,7 @@
                 type="text"
                 name="international_address"
                 :placeholder="__('boat.fisher.edit.placeholder.international_address')" 
-                wire:model.defer="international_address" />
+                wire:model="international_address" />
         </div>
 
         

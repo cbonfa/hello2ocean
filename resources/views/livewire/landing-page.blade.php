@@ -69,7 +69,7 @@
             <p class="text-white text-1xl font-extrabold text-center">{{ __('welcome.modal.inscricao.subtitle') }}</p>
             <form 
                 class="flex flex-col items-center pt-8 pb-5"
-                wire:submit.prevent="subscribe"
+                wire:submit="subscribe"
             >
                 <x-input 
                     class="px-5 py-3 border md:w-80 border-blue-400" 
@@ -77,7 +77,7 @@
                     name="email" 
                     placeholder="{{ __('Email Address') }}"
                     x-ref="input"
-                    wire:model.defer="email"
+                    wire:model="email"
                 >
                 </x-input>
                 <span class="text-gray-100 text-xs">

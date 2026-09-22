@@ -1,9 +1,9 @@
     @isset($language->id)  
-        {{ Form::open(array('url' => route  ('hydrosphere.languages.update', $language->id))) }}
+        <form method="POST" action="{{ route('hydrosphere.languages.update', $language->id) }}" accept-charset="UTF-8">
         @csrf
         @method('PUT')
     @else
-        {{ Form::open(array('url' => route  ('hydrosphere.languages.store'))) }}
+        <form method="POST" action="{{ route('hydrosphere.languages.store') }}" accept-charset="UTF-8">
         @csrf
     @endisset
     <div>
@@ -45,9 +45,9 @@
     </div>
     <div class="mt-5">
         <x-button 
-        class="w-full bg-blue-500  hover:bg-blue-700"
+        class="w-full bg-blue-500 hover:bg-blue-700"
         >
             {{ __('languages.save') }}
         </x-button>
     </div>
-    {{ Form::close() }}
+    </form>

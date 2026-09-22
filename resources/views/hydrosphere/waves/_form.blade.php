@@ -1,9 +1,9 @@
     @isset($wave->id)  
-        {{ Form::open(array('url' => route  ('hydrosphere.waves.update', $wave->id))) }}
+        <form method="POST" action="{{ route('hydrosphere.waves.update', $wave->id) }}" accept-charset="UTF-8">
         @csrf
         @method('PUT')
     @else
-        {{ Form::open(array('url' => route  ('hydrosphere.waves.store'))) }}
+        <form method="POST" action="{{ route('hydrosphere.waves.store') }}" accept-charset="UTF-8">
         @csrf
     @endisset
     <div>
@@ -64,9 +64,9 @@
     </div>
     <div class="mt-5">
         <x-button 
-        class="w-full bg-blue-500  hover:bg-blue-700"
+        class="w-full bg-blue-500 hover:bg-blue-700"
         >
         {{ __('waves.save') }}
         </x-button>
     </div>
-    {{ Form::close() }}
+    </form>

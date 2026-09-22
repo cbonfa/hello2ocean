@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 trait GuardsLimewireAuth
 {
     
-    protected function initializeGuardsLimewireAuth()
+    public function initializeGuardsLimewireAuth()
     {
         
         if (app()->runningInConsole() && (!app()->runningUnitTests())) {

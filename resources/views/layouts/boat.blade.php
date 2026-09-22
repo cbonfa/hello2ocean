@@ -11,8 +11,8 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <!-- Styles / Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         
         @stack('styles')
 
@@ -26,7 +26,7 @@
             
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
+            <header class="bg-white shadow-sm">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -37,9 +37,7 @@
                 {{ $slot }}
             </main>
         </div>
-        @livewireScripts
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        @livewireScriptConfig
         @stack('scripts')
     </body>
 </html>

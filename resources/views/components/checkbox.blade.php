@@ -2,12 +2,12 @@
 
 @error($attributes['name'])
     @php
-        $class = 'w-4 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-red-500';
+        $class = 'w-4 rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:border-indigo-300 focus:ring-3 focus:ring-indigo-200/50 border-red-500';
         $class_label = 'inline-flex items-center text-red-600';
     @endphp
 @else
     @php
-        $class = 'w-4 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50';
+        $class = 'w-4 rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:border-indigo-300 focus:ring-3 focus:ring-indigo-200/50';
         $class_label = 'inline-flex items-center';
     @endphp
 @enderror
@@ -20,10 +20,10 @@
         value="{{ $value }}"
         {{ $disabled ? 'disabled' : '' }}  
         {!! $attributes->merge(['class' => $class ]) !!}
-        @if($checked)
-            checked="checked"
-        @endif
-        >
+ @if($checked)
+ checked="checked"
+ @endif
+ >
 @error($attributes['name'])
 <div class="text-sm text-red-600">{{ $message }}</div>
 @enderror

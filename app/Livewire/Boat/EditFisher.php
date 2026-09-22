@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Boat;
+namespace App\Livewire\Boat;
 
 use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Traits\GuardsLimewireAuth;
 use App\Traits\LoadVarsLimewire;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Carbon;
@@ -35,10 +36,15 @@ class EditFisher extends Component
     public $brasil_address = true;
     public $updateFisher = false;
 
-    # o correto acredito que seja mount()
-    public function __construct()
+    # Executa em toda requisição (inclusive nas atualizações do Livewire)
+    public function boot()
     {
-        $this->fisher = auth()->user();
+        $this->fisher = Auth::guard($this->guard)->user();
+    }
+
+    # Executa apenas na primeira renderização do componente
+    public function mount()
+    {
         $this->setGeoIP();
         $this->loadVars();
     }
@@ -88,7 +94,6 @@ class EditFisher extends Component
             }
 
             // Update category
-            $fisher = auth()->user();
             $fisher->update($data);
             session()->flash('success', __('fishers.user.update.success'));
     
@@ -111,7 +116,7 @@ class EditFisher extends Component
     }
 
     private function setGeoIP(){
-        if (!auth()->check()) { return; }
+        if (empty($this->fisher)) { return; }
         if((!empty($this->fisher)) || (empty($this->fisher->country_id))){
             $geoIp = GetGeoLocation::byIP();
             if(!empty($geoIp)){
@@ -137,18 +142,16 @@ class EditFisher extends Component
         $fileName   = time() . '.' . $image->getClientOriginalExtension();
         $path = "{$field}/{$this->fisher->id}/{$fileName}";
 
-        # Original Picture Size
-        $img = Image::make($image->getRealPath());
-        $img->stream();
-        Storage::disk('public')->put("original/{$path}", $img);
+        $extension = $image->getClientOriginalExtension();
 
-        # Resize Picture
-        $img->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();                 
-        });
-        $img->stream();
-        Storage::disk('public')->put($path, $img);
-        return Storage::disk('public', $img)->url($path);
+        # Original Picture Size
+        $img = Image::decodePath($image->getRealPath());
+        Storage::disk('public')->put("original/{$path}", (string) $img->encodeUsingFileExtension($extension));
+
+        # Resize Picture (mantém a proporção)
+        $img->scale($width, $height);
+        Storage::disk('public')->put($path, (string) $img->encodeUsingFileExtension($extension));
+        return Storage::disk('public')->url($path);
     }
 
 

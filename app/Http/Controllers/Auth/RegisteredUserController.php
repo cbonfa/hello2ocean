@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -50,7 +49,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(route('hydrosphere.index', absolute: false));
     }
 
     /**
@@ -88,6 +87,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($fisher);
 
-        return redirect()->intended('boat'); #redirect(RouteServiceProvider::HOME);
+        return redirect()->intended('boat');
     }
 }

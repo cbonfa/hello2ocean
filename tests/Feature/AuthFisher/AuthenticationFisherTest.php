@@ -3,7 +3,6 @@
 namespace Tests\Feature\AuthFisher;
 
 use App\Models\Fisher;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,7 +29,7 @@ class AuthenticationFisherTest extends TestCase
         ]);
 
         $this->assertAuthenticated('fisher');
-        $response->assertRedirect(RouteServiceProvider::BOAT);
+        $response->assertRedirect(route('boat.index', absolute: false));
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()

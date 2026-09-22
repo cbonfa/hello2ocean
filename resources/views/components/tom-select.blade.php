@@ -6,12 +6,12 @@
 
 @error($attributes['name'])
     @php
-        $class = 'rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-red-500';
+        $class = 'rounded-md shadow-xs border-gray-300 focus:border-indigo-300 focus:ring-3 focus:ring-indigo-200/50 border-red-500';
         $class_label = 'block font-medium text-sm text-gray-700 mt-3 text-red-600';
     @endphp
 @else
     @php
-        $class = 'rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50';
+        $class = 'rounded-md shadow-xs border-gray-300 focus:border-indigo-300 focus:ring-3 focus:ring-indigo-200/50';
         $class_label = 'block font-medium text-sm text-gray-700 mt-3';
     @endphp
 @enderror
@@ -68,13 +68,13 @@ x-ref="input"
 {!! $attributes->merge(['class' => $class]) !!}
 placeholder="Pick some links..."></select>
 
-{{--  
+{{-- 
 
-    options: options,
-    items: items,
+ options: options,
+ items: items,
 
-    Sample: https://gist.github.com/mithicher/9944232624cbad4b1cb5d3d2cac87a97 
-    
+ Sample: https://gist.github.com/mithicher/9944232624cbad4b1cb5d3d2cac87a97 
+ 
 --}}
 {{--
 @once

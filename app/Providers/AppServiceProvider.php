@@ -2,47 +2,47 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
-// INI createUpdateOrDelete
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Support\Macros\CreateUpdateOrDelete;
-// END createUpdateOrDelete
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
 
-    
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // INI createUpdateOrDelete
-        // Inside of the boot() method.
         HasMany::macro('createUpdateOrDelete', function (iterable $records) {
             /** @var HasMany */
             $hasMany = $this;
-        
+
             return (new CreateUpdateOrDelete($hasMany, $records))();
         });
         // END createUpdateOrDelete
-        
+
         // Variable em Partials
-        view()->composer('partials.language_switcher', function ($view) {
+        View::composer('partials.language_switcher', function ($view) {
             $view->with('current_locale', app()->getLocale());
             $view->with('available_locales', config('app.available_locales'));
+        });
+
+        // Antes em RouteServiceProvider::configureRateLimiting()
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }
 }

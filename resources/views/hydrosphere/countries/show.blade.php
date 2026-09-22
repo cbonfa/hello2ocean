@@ -8,14 +8,14 @@
     <!-- will be used to show any messages -->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
+            <div class="bg-white overflow-hidden shadow-xs sm:rounded-lg p-8">
                 <x-hydrosphere-title
                     title="{{ __('countries.show') }}"
                     subtitle="{{ __('countries.explanation') }}"
                     showDiv="false"
                 />
 
-                <div class="mt-6 overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                <div class="mt-6 overflow-hidden shadow-sm ring-1 ring-black/5 md:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-300">
                         <tbody class="divide-y divide-gray-200 bg-white">
 

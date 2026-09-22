@@ -1,10 +1,12 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
-import mask from '@alpinejs/mask'
+// Livewire 4 já inclui o Alpine; usamos a instância dele para registrar plugins.
+// Os layouts usam @livewireScriptConfig no lugar de @livewireScripts.
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+import mask from '@alpinejs/mask';
+import TomSelect from 'tom-select';
 
-window.Alpine = Alpine;
+window.TomSelect = TomSelect;
+
 Alpine.plugin(mask);
-Alpine.start();
-
-window.TomSelect = require('tom-select');
+Livewire.start();

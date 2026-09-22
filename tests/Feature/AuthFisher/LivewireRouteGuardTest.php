@@ -3,7 +3,7 @@
 namespace Tests\Feature\AuthFisher;
 
 use Tests\TestCase;
-use App\Http\Livewire\Boat\EditFisher;
+use App\Livewire\Boat\EditFisher;
 use App\Models\Fisher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;

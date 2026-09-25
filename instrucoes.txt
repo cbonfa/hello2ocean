@@ -146,6 +146,6 @@ Conferir:
   "Multiple root elements detected" só aparece ao abrir a página).
 - GetGeoLocation::byFisher() usa $this dentro de método estático e quebraria se
   fosse chamado. Hoje não é usado.
-- Laravel Boost (pedido no CLAUDE.md) ainda não foi instalado:
-      composer require laravel/boost --dev
-      php artisan boost:install
+- Laravel Boost instalado (2026-09-25). O boost:install só atualiza o AGENTS.md;
+  o bloco <laravel-boost-guidelines> do CLAUDE.md foi copiado dele à mão. Ao rodar
+  o boost:install de novo, copie o bloco outra vez.
